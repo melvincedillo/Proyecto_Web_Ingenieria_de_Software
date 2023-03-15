@@ -10,15 +10,37 @@
     <script src="https://kit.fontawesome.com/ca80878e94.js" crossorigin="anonymous"></script><!--FontAwesome-->
 </head>
 <body>
-    <div class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand">Navbar</a>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-        </div>
+    <div class="container">
+        <nav class="navbar navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/Home/Index">
+                    <img src="~/Imagenes/logo.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
+                    365 Beauty Salon
+                </a>
+                <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
+                    <li class="nav-item col-6 col-lg-auto">
+                        <a class="nav-link py-2 px-0 px-lg-2" href="https://www.facebook.com/365beauty.hn" target="_blank" rel="noopener">
+                            <i class="fa-brands fa-facebook"></i>
+                            <small class="d-lg-none ms-2">Facebook</small>
+                        </a>
+                    </li>
+                    <li class="nav-item col-6 col-lg-auto">
+                        <a class="nav-link py-2 px-0 px-lg-2" href="https://www.instagram.com/365beauty.hn" target="_blank" rel="noopener">
+                            <i class="fa-brands fa-instagram"></i>
+                            <small class="d-lg-none ms-2">Instagram</small>
+                        </a>
+                    </li>
+                    <li class="nav-item col-6 col-lg-auto">
+                        <a class="nav-link py-2 px-0 px-lg-2" href="https://wa.me/50498083843" target="_blank" rel="noopener">
+                            <i class="fa-brands fa-whatsapp"></i>
+                            <small class="d-lg-none ms-2">WhatsApp</small>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     </div>
+   
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -31,13 +53,10 @@
                     <a href="https://www.facebook.com/365beauty.hn" class="me-4 text-reset">
                         <i class="fa-brands fa-facebook"></i>
                     </a>
-                    <a href="" class="me-4 text-reset">
-                        <i class="fa-brands fa-twitter"></i>
-                    </a>
-                    <a href="" class="me-4 text-reset">
+                    <a href="https://www.instagram.com/365beauty.hn" class="me-4 text-reset">
                         <i class="fa-brands fa-instagram"></i>
                     </a>
-                    <a href="https://api.whatsapp.com/send?phone=%2B50498083843&data=AWCg4r_N0IIkjACs4vM_wN7haB1ap3I7ezh7fyQA47Rl_QjxTaty42tfVdwe6ZHn4tuY9XGtrFkbbjRVg3JkaZWsccDibsSnGrU7OFErYVocIu2NMp3xEvomy8SqvBE5P0mmRuRCn91wn21Lzz_BRXXxYjOi6yctoJ5B5vgxAXrV7CWlrYwRoM2JOAH9PUJZ6SmYw0guRSfM-c_qrMvOHczwVUv6HAONGhak74WhyjsXa1j6VytVHfGnwKgc8vaeo31Hmi3u795JabDVM5fO-Q&source=FB_Page&app=facebook&entry_point=page_cta&fbclid=IwAR3IYoR8Y26OP2-A7e-5BBQXJP_UkgoPfUT-QFnO8-MHY1LmTb-ONFOJr4E" class="me-4 text-reset">
+                    <a href="https://wa.me/50498083843" class="me-4 text-reset">
                         <i class="fa-brands fa-whatsapp"></i>
                     </a>
                 </div>
