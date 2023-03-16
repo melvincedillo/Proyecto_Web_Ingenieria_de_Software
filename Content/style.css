@@ -1,0 +1,17 @@
+﻿
+.iconRedes {
+    font-size: 30px;
+}
+
+.iconFormAgendar{
+    align-items: center;
+    font-size: 20px;
+    color: #d221d9
+}
+
+.formAgendarCita{
+    border: solid;
+    padding: 20px;
+    border-radius: 25px;
+}
+
