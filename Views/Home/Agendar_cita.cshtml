@@ -1,11 +1,12 @@
 ﻿
 @{
     ViewBag.Title = "Agendar Cita";
-}
+} 
 
 
-<div class="mt-3 d-flex justify-content-center">
-    <div class="formAgendarCita">
+
+<div class="d-flex justify-content-center backAgendarCita">
+    <div class="mt-5 mb-5 formAgendarCita">
         <form class="mt-3">
             <div class="row mb-3 text-center">
                 <h2>AGENDA TU CITA</h2>
@@ -17,7 +18,9 @@
                 </div>
                 <label for="inputServicio" class="col-3 col-form-label">Servicio</label>
                 <div class="col-8">
-                    <input type="text" class="form-control" id="inputServicio" placeholder="Elija el servicio deseado" />
+                    <select class="form-select" id="inputServicio">
+                        <option selected>Seleccione un servicio</option>
+                    </select>
                 </div>
             </div>
 
@@ -57,7 +60,9 @@
                 </div>
                 <label for="inputHora" class="col-3 col-form-label">Hora</label>
                 <div class="col-8">
-                    <input type="time" class="form-control" id="inputHora" placeholder="Indique la hora de cita" />
+                    <select class="form-select" id="inputHora">
+                        <option selected>Seleccione una hora</option>
+                    </select>
                 </div>
             </div>
 

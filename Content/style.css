@@ -9,9 +9,32 @@
     color: #d221d9
 }
 
-.formAgendarCita{
-    border: solid;
+
+.formAgendarCita {
+    border: 1px solid #ccc;
     padding: 20px;
     border-radius: 25px;
+    background: rgb(195 173 198 / 0.60);
+    box-shadow: 7px 7px 15px #301431;
 }
 
+.backAgendarCita{
+    background-image: url(../Imagenes/backAgendarCita.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.separador{
+    height: 100px;
+    background:red;
+}
+
+.salonName{
+    font-size: 30px;
+    
+}
+
+.logo{
+    height: 60px;
+    width: 60px;
+}
