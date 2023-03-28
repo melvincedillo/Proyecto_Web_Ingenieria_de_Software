@@ -12,37 +12,51 @@
 </head>
 <body>
     <div class="container">
-        <nav class="navbar navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-md bg-black navbar-dark fixed-top">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/Home">
-                    <img src="~/Imagenes/logo.png" alt="Logo"class="d-inline-block align-text-bottom logo">
-                    <span class="salonName">365 Beauty Salon</span>
+                <a class="navbar-brand" href="/">
+                    <img src="~/Imagenes/LogoLandingPage.jpg" alt="Logo" class="d-inline-block align-text-bottom logo" />
                 </a>
-                <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
-                    <li class="nav-item col-6 col-lg-auto">
-                        <a class="nav-link py-2 px-0 px-lg-2" href="https://www.facebook.com/365beauty.hn" target="_blank" rel="noopener">
-                            <i class="fa-brands fa-facebook iconRedes"></i>
-                            <small class="d-lg-none ms-2">Facebook</small>
-                        </a>
-                    </li>
-                    <li class="nav-item col-6 col-lg-auto">
-                        <a class="nav-link py-2 px-0 px-lg-2" href="https://www.instagram.com/365beauty.hn" target="_blank" rel="noopener">
-                            <i class="fa-brands fa-instagram iconRedes"></i>
-                            <small class="d-lg-none ms-2">Instagram</small>
-                        </a>
-                    </li>
-                    <li class="nav-item col-6 col-lg-auto">
-                        <a class="nav-link py-2 px-0 px-lg-2" href="https://wa.me/50498083843" target="_blank" rel="noopener">
-                            <i class="fa-brands fa-whatsapp iconRedes"></i>
-                            <small class="d-lg-none ms-2">WhatsApp</small>
-                        </a>
-                    </li>
-                </ul>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="menu">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Home/Agendar_cita">Agendar Cita</a>
+                        </li>
+                    </ul>
+
+                    <hr class="text-white-50" />
+
+                    <ul class="navbar-nav flex-row flex-wrap text-light">
+                        <li class="nav-item col-6 col-md-auto p-3">
+                            <a class="nav-link" href="">
+                                <i class="fa-brands fa-facebook iconRedes"></i>
+                                <small class="d-md-none ms-2">Facebook</small>
+                            </a>
+                        </li>
+                        <li class="nav-item col-6 col-md-auto p-3">
+                            <a class="nav-link" href="">
+                                <i class="fa-brands fa-instagram iconRedes"></i>
+                                <small class="d-md-none ms-2">Instagram</small>
+                            </a>
+                        </li>
+                        <li class="nav-item col-6 col-md-auto p-3">
+                            <a class="nav-link" href="">
+                                <i class="fa-brands fa-whatsapp iconRedes"></i>
+                                <small class="d-md-none ms-2">WhatsApp</small>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
     </div>
    
-    <div class="container body-content">
+    <div class="container body-content mt-5">
         @RenderBody()
         <hr />
         <footer class="text-center text-lg-start bg-light text-muted">
