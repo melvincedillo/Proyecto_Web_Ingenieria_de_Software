@@ -7,18 +7,26 @@
 <link rel="stylesheet" href="~/Content/styleModuloCitas.css"/>
 
 <div class="container p-3">
-
-    <div class="row mb-4">
-        <div class="col-6 d-flex">
-            <h2 >CITAS</h2>
-            <div >
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalNewCita">
-                    <i class="fa-solid fa-plus" style="color: #ffffff;"></i>
-                </button>
-            </div>
+    <div class="row mb-2">
+        <div class="col-4">
+            <h1 class="t-stroke">CITAS</h1>
         </div>
 
-        <div class="col-6">
+        <div class="col-8 d-block d-sm-none justify-content-center d-flex">
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalNewCita">
+                <spn>Nueva cita</spn>
+            </button>
+        </div>
+    </div>
+
+    <div class="row mb-4 flex-wrap">
+        <div class="col-4 d-flex d-none d-sm-block">
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalNewCita">
+                Nueva Cita
+            </button>
+        </div>
+
+        <div class="col-auto">
             <form class="d-flex">
                 <input type="text" class="form-control" id="inputBuscar" placeholder="Buscar" />
                 <button type="submit" class="btn btn-success"><i class="fa-solid fa-magnifying-glass fa-lg iconbuscar"></i></button>
@@ -51,78 +59,85 @@
 <!-- Modal para agregar una nueva cita -->
 <div class="modal fade" id="modalNewCita" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content formAgendarCita">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Agendar nueva cita</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="formAgendarCita">
-                    <form>
-                        <div class="row mb-3">
-                            <div class="col-1 col-form-label">
-                                <i class="fa-solid fa-gem iconFormAgendar"></i>
-                            </div>
-                            <label for="inputServicio" class="col-3 col-form-label">Servicio</label>
-                            <div class="col-8">
-                                <select class="form-select" id="inputServicio">
-                                    <option selected>Seleccione un servicio</option>
-                                </select>
-                            </div>
+                <form>
+                    <div class="row mb-3">
+                        <div class="col-1 col-form-label">
+                            <i class="fa-solid fa-gem iconFormAgendar"></i>
                         </div>
-
-                        <div class="row mb-3">
-                            <div class="col-1 col-form-label">
-                                <i class="fa-solid fa-user iconFormAgendar"></i>
-                            </div>
-                            <label for="inputName" class="col-3 col-form-label">Nombre</label>
-                            <div class="col-8">
-                                <input type="text" class="form-control" id="inputName" placeholder="Nombre" />
-                            </div>
+                        <label for="inputServicio" class="col-3 col-form-label">Servicio</label>
+                        <div class="col-8">
+                            <select class="form-select" id="inputServicio">
+                                <option selected>Seleccione un servicio</option>
+                            </select>
                         </div>
+                    </div>
 
-                        <div class="row mb-3">
-                            <div class="col-1 col-form-label">
-                                <i class="fa-solid fa-phone iconFormAgendar"></i>
-                            </div>
-                            <label for="inputPhone" class="col-3 col-form-label">Telefono</label>
-                            <div class="col-8">
-                                <input type="tel" class="form-control" id="inputPhone" placeholder="Telefono" />
-                            </div>
+                    <div class="row mb-3">
+                        <div class="col-1 col-form-label">
+                            <i class="fa-solid fa-user iconFormAgendar"></i>
                         </div>
-
-                        <div class="row mb-3">
-                            <div class="col-1 col-form-label">
-                                <i class="fa-solid fa-calendar-days iconFormAgendar"></i>
-                            </div>
-                            <label for="inputFecha" class="col-3 col-form-label">Nombre</label>
-                            <div class="col-8">
-                                <input type="date" class="form-control" id="inputFecha" placeholder="Fecha de cita" />
-                            </div>
+                        <label for="inputName" class="col-3 col-form-label">Nombre</label>
+                        <div class="col-8">
+                            <input type="text" class="form-control" id="inputName" placeholder="Nombre" />
                         </div>
+                    </div>
 
-                        <div class="row mb-3">
-                            <div class="col-1 col-form-label">
-                                <i class="fa-solid fa-clock iconFormAgendar"></i>
-                            </div>
-                            <label for="inputHora" class="col-3 col-form-label">Hora</label>
-                            <div class="col-8">
-                                <select class="form-select" id="inputHora">
-                                    <option selected>Seleccione una hora</option>
-                                </select>
-                            </div>
+                    <div class="row mb-3">
+                        <div class="col-1 col-form-label">
+                            <i class="fa-solid fa-phone iconFormAgendar"></i>
                         </div>
+                        <label for="inputPhone" class="col-3 col-form-label">Telefono</label>
+                        <div class="col-8">
+                            <input type="tel" class="form-control" id="inputPhone" placeholder="Telefono" />
+                        </div>
+                    </div>
 
+                    <div class="row mb-3">
+                        <div class="col-1 col-form-label">
+                            <i class="fa-solid fa-calendar-days iconFormAgendar"></i>
+                        </div>
+                        <label for="inputFecha" class="col-3 col-form-label">Nombre</label>
+                        <div class="col-8">
+                            <input type="date" class="form-control" id="inputFecha" placeholder="Fecha de cita" />
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-1 col-form-label">
+                            <i class="fa-solid fa-clock iconFormAgendar"></i>
+                        </div>
+                        <label for="inputHora" class="col-3 col-form-label">Hora</label>
+                        <div class="col-8">
+                            <select class="form-select" id="inputHora">
+                                <option selected>Seleccione una hora</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-1 col-form-label">
+                            <i class="fa-solid fa-sack-dollar iconFormAgendar"></i>
+                        </div>
+                        <label for="inputP" class="col-3 col-form-label">Precio</label>
+                        <div class="col-8">
+                            <label for="inputPrecio" class="col-form-label-lg">0.00 Lps</label>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
                         <div class="row mb-3">
                             <div class="col-12 d-flex justify-content-center">
                                 <button type="submit" class="btn btn-primary">Agendar Cita</button>
                             </div>
                         </div>
-                    </form>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

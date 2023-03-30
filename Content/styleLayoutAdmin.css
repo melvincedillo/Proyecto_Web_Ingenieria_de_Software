@@ -9,3 +9,11 @@
 .iconRedes{
     font-size: 25px;
 }
+
+.t-stroke {
+    color: transparent;
+    -moz-text-stroke-width: 2px;
+    -webkit-text-stroke-width: 2px;
+    -moz-text-stroke-color: #ffffff;
+    -webkit-text-stroke-color: #000000;
+}
