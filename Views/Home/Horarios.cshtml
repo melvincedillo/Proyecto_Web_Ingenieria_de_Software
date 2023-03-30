@@ -1,0 +1,285 @@
+﻿
+@{
+    ViewBag.Title = "Horarios";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link rel="stylesheet" href="~/Content/styleModuloUsuarios.css" />
+
+<!--Seccion para pantallas grandes-->
+<section class="d-none d-md-block">
+    <div class="container row flex-row flex-wrap">
+        <!--Horarios-->
+        <div class="col-4 horarioDiv">
+            <div class="row">
+                <div class="col-8">
+                    <h1 class="t-stroke">Horario</h1>
+                </div>
+                <div class="col-4 d-flex justify-content-end">
+                    <a href="" data-bs-toggle="modal" data-bs-target="#modalHorario">
+                        <i class="fa-solid fa-gear setting"></i>
+                    </a>
+                </div>
+            </div>
+            <hr class="text-black-50" />
+            <table class="table table-hover table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Día</th>
+                        <th scope="col">Abre</th>
+                        <th scope="col">Cierre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Lunes</td>
+                        <td>08:00</td>
+                        <td>18:00</td>
+                    </tr>
+                    <tr>
+                        <td>Martes</td>
+                        <td>08:00</td>
+                        <td>18:00</td>
+                    </tr>
+                    <tr>
+                        <td>Miercoles</td>
+                        <td>08:00</td>
+                        <td>18:00</td>
+                    </tr>
+                    <tr>
+                        <td>Jueves</td>
+                        <td>08:00</td>
+                        <td>18:00</td>
+                    </tr>
+                    <tr>
+                        <td>Viernes</td>
+                        <td>08:00</td>
+                        <td>18:00</td>
+                    </tr>
+                    <tr>
+                        <td>Sabado</td>
+                        <td>08:00</td>
+                        <td>18:00</td>
+                    </tr>
+                    <tr>
+                        <td>Domingo</td>
+                        <td>08:00</td>
+                        <td>18:00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-1"></div>
+        <!--Feriados-->
+        <div class="col-7 feriadosDiv">
+            <div class="row">
+                <div class="col-8">
+                    <h1 class="t-stroke">Feriados</h1>
+                </div>
+                <div class="col-4 d-flex justify-content-end">
+                    <a href="" data-bs-toggle="modal" data-bs-target="#modalFeriado">
+                        <i class="fa-regular fa-calendar-plus feriadosADD"></i>
+                    </a>
+                </div>
+            </div>
+            <hr class="text-black-50" />
+            <div class="tablaDiv">
+                <table class="table table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Motivo</th>
+                            <th scope="col">Cancelar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>27/03/2023</td>
+                            <td>Reparacion de local</td>
+                            <td>
+                                <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>03/09/2023</td>
+                            <td>Dia de la madre</td>
+                            <td>
+                                <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>05/04/2023</td>
+                            <td>Dia libre</td>
+                            <td>
+                                <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>22/05/2023</td>
+                            <td>Aniversario de la tienda papemonkd</td>
+                            <td>
+                                <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--Seccion para pantallas pequeñas-->
+<section class="d-md-none">
+    <!--Horarios-->
+    <div class="horarioDiv mb-5">
+        <div class="row">
+            <div class="col-8">
+                <h1 class="t-stroke">Horario</h1>
+            </div>
+            <div class="col-4 d-flex justify-content-end">
+                <a href="" data-bs-toggle="modal" data-bs-target="#modalHorario">
+                    <i class="fa-solid fa-gear setting"></i>
+                </a>
+            </div>
+        </div>
+        <hr class="text-black-50" />
+        <table class="table table-hover table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Día</th>
+                    <th scope="col">Abre</th>
+                    <th scope="col">Cierre</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Lunes</td>
+                    <td>08:00</td>
+                    <td>18:00</td>
+                </tr>
+                <tr>
+                    <td>Martes</td>
+                    <td>08:00</td>
+                    <td>18:00</td>
+                </tr>
+                <tr>
+                    <td>Miercoles</td>
+                    <td>08:00</td>
+                    <td>18:00</td>
+                </tr>
+                <tr>
+                    <td>Jueves</td>
+                    <td>08:00</td>
+                    <td>18:00</td>
+                </tr>
+                <tr>
+                    <td>Viernes</td>
+                    <td>08:00</td>
+                    <td>18:00</td>
+                </tr>
+                <tr>
+                    <td>Sabado</td>
+                    <td>08:00</td>
+                    <td>18:00</td>
+                </tr>
+                <tr>
+                    <td>Domingo</td>
+                    <td>08:00</td>
+                    <td>18:00</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!--Feriados-->
+    <div class="feriadosDiv mb-5">
+        <div class="row">
+            <div class="col-8">
+                <h1 class="t-stroke">Feriados</h1>
+            </div>
+            <div class="col-4 d-flex justify-content-end">
+                <a href="" data-bs-toggle="modal" data-bs-target="#modalFeriado">
+                    <i class="fa-regular fa-calendar-plus feriadosADD"></i>
+                </a>
+            </div>
+        </div>
+        <hr class="text-black-50" />
+        <table class="table table-hover table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Motivo</th>
+                    <th scope="col">Cancelar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>27/03/2023</td>
+                    <td>Reparacion de local</td>
+                    <td>
+                        <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>03/09/2023</td>
+                    <td>Dia de la madre</td>
+                    <td>
+                        <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>05/04/2023</td>
+                    <td>Dia libre</td>
+                    <td>
+                        <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>22/05/2023</td>
+                    <td>Aniversario</td>
+                    <td>
+                        <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+
+<!--Modal configurar horario-->
+<div class="modal fade" id="modalHorario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Configuración de Horarios</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal agregar feriado-->
+<div class="modal fade" id="modalFeriado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar un Feriado</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

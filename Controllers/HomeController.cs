@@ -13,21 +13,28 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
             return View();
         }
 
-        public ActionResult Agendar_cita()
+        public ActionResult AgendarCita()
         {
             ViewBag.Message = "Your application description page.";
 
             return View();
         }
 
-        public ActionResult ModuloCitas()
+        public ActionResult Citas()
         {
             ViewBag.Message = "Your contact page.";
 
             return View();
         }
 
-        public ActionResult ModuloHorarios()
+        public ActionResult Horarios()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        public ActionResult Usuarios()
         {
             ViewBag.Message = "Your contact page.";
 

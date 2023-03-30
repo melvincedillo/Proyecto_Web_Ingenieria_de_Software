@@ -194,10 +194,11 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Agendar_cita.cshtml" />
+    <Content Include="Views\Home\AgendarCita.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
-    <Content Include="Views\Home\ModuloCitas.cshtml" />
-    <Content Include="Views\Home\ModuloHorarios.cshtml" />
+    <Content Include="Views\Home\Citas.cshtml" />
+    <Content Include="Views\Home\Horarios.cshtml" />
+    <Content Include="Views\Home\Usuarios.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

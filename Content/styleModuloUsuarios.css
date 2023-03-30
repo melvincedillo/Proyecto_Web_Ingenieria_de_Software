@@ -3,10 +3,40 @@
 
 .horarioDiv {
     padding: 15px;
-    border: solid;
+    border: 1px solid #7a1465;
     border-radius: 20px;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(145,18,145,1);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(145,18,145,1);
+    box-shadow: 0px 0px 10px 0px rgba(145,18,145,1);
 }
 
-.b{
-    background: blue;
+.feriadosDiv {
+    padding: 15px;
+    border: 1px solid #7a1465;
+    border-radius: 20px;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(40,186,191,1);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(40,186,191,1);
+    box-shadow: 0px 0px 10px 0px rgba(40,186,191,1);
+}
+
+.tablaDiv{
+    height: 200px;
+}
+
+.setting{
+    font-size: 35px;
+    color: #991aa8;
+}
+
+.feriadosADD {
+    font-size: 35px;
+    color: #2e14b4;
+}
+
+.t-stroke {
+    color: transparent;
+    -moz-text-stroke-width: 2px;
+    -webkit-text-stroke-width: 2px;
+    -moz-text-stroke-color: #ffffff;
+    -webkit-text-stroke-color: #000000;
 }
