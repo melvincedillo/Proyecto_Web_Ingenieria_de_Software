@@ -1,0 +1,27 @@
+﻿body {
+}
+
+.usuariosDiv {
+    padding: 15px;
+    border: 1px solid #7a1465;
+    border-radius: 20px;
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(29,156,22,1);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(29,156,22,1);
+    box-shadow: 0px 0px 20px 0px rgba(29,156,22,1);
+}
+
+.addUser {
+    font-size: 35px;
+    color: #108d17;
+}
+
+.infoUser {
+    font-size: 25px;
+    color: #101db0;
+}
+
+.divModals {
+    border: 2px solid #0e0e12;
+    padding: 10px;
+    border-radius: 20px;
+}
