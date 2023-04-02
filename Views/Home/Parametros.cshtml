@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "Parametros";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<link rel="stylesheet" href="~/Content/styleParametros.css" />
+
+<div class="parametrosDiv mb-5">
+    <div class="row">
+        <div class="col-8">
+            <h1 class="t-stroke">Parametros Generales</h1>
+        </div>
+    </div>
+    <div class="Datos">
+        <p> <i class="fas fa-home me-3"></i> Direccion</p>
+        <p> <i class="fa-brands fa-facebook iconRedes"></i> Facebook</p>
+        <p> <i class="fa-brands fa-instagram iconRedes"></i> Instagram</p>
+        <p> <i class="fa-brands fa-facebook iconRedes"></i> Whatsapp</p>
+        <p> <i class="fa-solid fa-envelope"></i> Correo Electronico</p>
+    </div>
+</div>
+
+<div class="col-8 d-block d-sm-none justify-content-center d-flex">
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalParametros">
+        <spn>Editar Parametros</spn>
+    </button>
+</div>
+
+
+<div class="row mb-4 flex-wrap">
+    <div class="col-4 d-flex d-none d-sm-block">
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalParametros">
+            Editar Parametros
+        </button>
+    </div>
+
+    <!-- Modal para editar Parametros-->
+    <div class="modal fade" id="modalParametros" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content formAgendarCita">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Parametros</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row mb-3">
+                            <div class="col-1 col-form-label">
+                                <i class="fas fa-home me-3"></i>
+                            </div>
+                            <label for="inputServicio" class="col-3 col-form-label">Direccion</label>
+                            <div class="col-8">
+                                <div class="col-8">
+                                    <input type="text" class="form-control" id="inputName" placeholder="Nueva dirrecion" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-1 col-form-label">
+                                <i class="fa-brands fa-facebook iconRedes"></i>
+                            </div>
+                            <label for="inputName" class="col-3 col-form-label">Facebook</label>
+                            <div class="col-8">
+                                <input type="text" class="form-control" id="inputName" placeholder="Direccion de Facebook" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-1 col-form-label">
+                                <i class="fa-brands fa-instagram iconRedes"></i>
+                            </div>
+                            <label for="inputPhone" class="col-3 col-form-label">Instagram</label>
+                            <div class="col-8">
+                                <input type="tel" class="form-control" id="inputPhone" placeholder="Direccion Instagram" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-1 col-form-label">
+                                <i class="fa-brands fa-facebook iconRedes"></i>
+                            </div>
+                            <label for="inputFecha" class="col-3 col-form-label">Whatsapp</label>
+                            <div class="col-8">
+                                <input type="text" class="form-control" id="inputName" placeholder="Numero de Telefono" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-1 col-form-label">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <label for="inputHora" class="col-3 col-form-label">Correo Electronico</label>
+                            <div class="col-8">
+                                <input type="text" class="form-control" id="inputName" placeholder="Correo electronico" />
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary">Guardar Cambios</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

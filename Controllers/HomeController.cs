@@ -27,6 +27,13 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
             return View();
         }
 
+        public ActionResult Parametros()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
         public ActionResult Horarios()
         {
             ViewBag.Message = "Your contact page.";
@@ -35,6 +42,13 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         }
 
         public ActionResult Usuarios()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        public ActionResult HomePage()
         {
             ViewBag.Message = "Your contact page.";
 

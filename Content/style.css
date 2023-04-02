@@ -29,8 +29,25 @@
     background:red;
 }
 
-
+;
 .logo{
     height: 60px;
     width: 250px;
+}
+
+.sec{
+    background: #000000
+}
+
+.contenidoHome {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.body-content{
+    background: #000000
 }
