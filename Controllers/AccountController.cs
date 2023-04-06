@@ -1,34 +1,34 @@
 ﻿using System;
 using System.Globalization;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using Proyecto_Web_Ingenieria_de_Software.Models;
 using LoginEntity.Models;
 
-
-namespace Proyecto_Web_Ingenieria_de_Software.Controllers
-{ 
+namespace LoginEntity.Controllers
+{
     [Authorize]
     public class AccountController : Controller
     {
-         private ApplicationSignInManager _signInManager;
+        private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-         public AccountController() {}
 
-         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController()
+        {
+        }
+
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
             UserManager = userManager;
             SignInManager = signInManager;
         }
 
-         public ApplicationSignInManager SignInManager
+        public ApplicationSignInManager SignInManager
         {
             get
             {
@@ -51,64 +51,31 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 _userManager = value;
             }
         }
-   
-    
-        [HttpGet]
+
+        //
+        // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-             ViewBag.ReturnUrl = returnUrl;
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
-        public ActionResult admin()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult ventas()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult operaciones()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-
-        public void test()
-        {
-
-        }
-
-
+        //
+        // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl )
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
-
-               /* var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Correo electrónico o contraseña incorrectos.");
-                } */
             }
 
-             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, change to shouldLockout: true
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -123,6 +90,9 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                     return View(model);
             }
         }
+
+        //
+        // GET: /Account/VerifyCode
         [AllowAnonymous]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         {
@@ -513,5 +483,3 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         #endregion
     }
 }
-    
-
