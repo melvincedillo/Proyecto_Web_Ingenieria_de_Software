@@ -1,0 +1,1261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BeautySalonModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="AppointmentDate" Type="datetime" Nullable="false" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="ServiceID" Type="int" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DNI" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Gender" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Factura">
+          <Key>
+            <PropertyRef Name="FacturaNumero" />
+          </Key>
+          <Property Name="FacturaNumero" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Time" Type="datetime" Nullable="false" />
+          <Property Name="Total" Type="money" Nullable="false" />
+          <Property Name="Tax" Type="money" Nullable="false" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SalonID" Type="int" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FacturaDetalle">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FacturaNumero" Type="int" Nullable="false" />
+          <Property Name="SalonID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="ServiceID" Type="int" Nullable="false" />
+          <Property Name="TaxID" Type="int" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Discount" Type="money" Nullable="false" />
+          <Property Name="SalesTax" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FacturaImagen">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SalonID" Type="int" Nullable="false" />
+          <Property Name="Time" Type="datetime" Nullable="false" />
+          <Property Name="FacturaNumero" Type="int" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FacturaImage" Type="image" />
+        </EntityType>
+        <EntityType Name="MedioPago">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MedioPagoDetalle">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SalonID" Type="int" Nullable="false" />
+          <Property Name="FacturaNumero" Type="int" Nullable="false" />
+          <Property Name="MedioPagoID" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CreditCardNumber" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="Amount" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Modules">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ModuleName" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Permissions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ModuleID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Sku" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="TaxID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Salon">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SalonCode" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Services">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServiceCode" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="ServiceName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="TaxID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tax">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TaxDescription" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Percentage" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="UserPassword" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="UserEmail" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="UserActive" Type="bit" Nullable="false" />
+          <Property Name="UserCreateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_EmployeeID">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeID_Factura">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeID_FacturaImagen">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="FacturaImagen" Type="Self.FacturaImagen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FacturaImagen">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FacturaNumero_FacturaImagen">
+          <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
+          <End Role="FacturaImagen" Type="Self.FacturaImagen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="FacturaNumero" />
+            </Principal>
+            <Dependent Role="FacturaImagen">
+              <PropertyRef Name="FacturaNumero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FacturaNumero_MedioPagoDetalle">
+          <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
+          <End Role="MedioPagoDetalle" Type="Self.MedioPagoDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="FacturaNumero" />
+            </Principal>
+            <Dependent Role="MedioPagoDetalle">
+              <PropertyRef Name="FacturaNumero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FacturaNumeroDetalle">
+          <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
+          <End Role="FacturaDetalle" Type="Self.FacturaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="FacturaNumero" />
+            </Principal>
+            <Dependent Role="FacturaDetalle">
+              <PropertyRef Name="FacturaNumero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedioPago_MedioPagoDetalle">
+          <End Role="MedioPago" Type="Self.MedioPago" Multiplicity="1" />
+          <End Role="MedioPagoDetalle" Type="Self.MedioPagoDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedioPago">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MedioPagoDetalle">
+              <PropertyRef Name="MedioPagoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModuleID">
+          <End Role="Modules" Type="Self.Modules" Multiplicity="1" />
+          <End Role="Permissions" Type="Self.Permissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modules">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Permissions">
+              <PropertyRef Name="ModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductID">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Services" Type="Self.Services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Services">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductID_FacturaDetalle">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="FacturaDetalle" Type="Self.FacturaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FacturaDetalle">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalonID_Factura">
+          <End Role="Salon" Type="Self.Salon" Multiplicity="1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salon">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="SalonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalonID_FacturaDetalle">
+          <End Role="Salon" Type="Self.Salon" Multiplicity="1" />
+          <End Role="FacturaDetalle" Type="Self.FacturaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salon">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FacturaDetalle">
+              <PropertyRef Name="SalonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalonID_FacturaImagen">
+          <End Role="Salon" Type="Self.Salon" Multiplicity="1" />
+          <End Role="FacturaImagen" Type="Self.FacturaImagen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salon">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FacturaImagen">
+              <PropertyRef Name="SalonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalonID_MedioPagoDetalle">
+          <End Role="Salon" Type="Self.Salon" Multiplicity="1" />
+          <End Role="MedioPagoDetalle" Type="Self.MedioPagoDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salon">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MedioPagoDetalle">
+              <PropertyRef Name="SalonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceID">
+          <End Role="Services" Type="Self.Services" Multiplicity="1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceID_FacturaDetalle">
+          <End Role="Services" Type="Self.Services" Multiplicity="1" />
+          <End Role="FacturaDetalle" Type="Self.FacturaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FacturaDetalle">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaxID_FacturaDetalle">
+          <End Role="Tax" Type="Self.Tax" Multiplicity="1" />
+          <End Role="FacturaDetalle" Type="Self.FacturaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tax">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FacturaDetalle">
+              <PropertyRef Name="TaxID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaxID_Products">
+          <End Role="Tax" Type="Self.Tax" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tax">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="TaxID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaxID_Services">
+          <End Role="Tax" Type="Self.Tax" Multiplicity="1" />
+          <End Role="Services" Type="Self.Services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tax">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Services">
+              <PropertyRef Name="TaxID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserID">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Permissions" Type="Self.Permissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Permissions">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserID_Employee">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BeautySalonModelStoreContainer">
+          <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Factura" EntityType="Self.Factura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FacturaDetalle" EntityType="Self.FacturaDetalle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FacturaImagen" EntityType="Self.FacturaImagen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MedioPago" EntityType="Self.MedioPago" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MedioPagoDetalle" EntityType="Self.MedioPagoDetalle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Modules" EntityType="Self.Modules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permissions" EntityType="Self.Permissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Salon" EntityType="Self.Salon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Services" EntityType="Self.Services" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tax" EntityType="Self.Tax" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_EmployeeID" Association="Self.FK_EmployeeID">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeID_Factura" Association="Self.FK_EmployeeID_Factura">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeID_FacturaImagen" Association="Self.FK_EmployeeID_FacturaImagen">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="FacturaImagen" EntitySet="FacturaImagen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FacturaNumero_FacturaImagen" Association="Self.FK_FacturaNumero_FacturaImagen">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="FacturaImagen" EntitySet="FacturaImagen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FacturaNumero_MedioPagoDetalle" Association="Self.FK_FacturaNumero_MedioPagoDetalle">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="MedioPagoDetalle" EntitySet="MedioPagoDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FacturaNumeroDetalle" Association="Self.FK_FacturaNumeroDetalle">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="FacturaDetalle" EntitySet="FacturaDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedioPago_MedioPagoDetalle" Association="Self.FK_MedioPago_MedioPagoDetalle">
+            <End Role="MedioPago" EntitySet="MedioPago" />
+            <End Role="MedioPagoDetalle" EntitySet="MedioPagoDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModuleID" Association="Self.FK_ModuleID">
+            <End Role="Modules" EntitySet="Modules" />
+            <End Role="Permissions" EntitySet="Permissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductID" Association="Self.FK_ProductID">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Services" EntitySet="Services" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductID_FacturaDetalle" Association="Self.FK_ProductID_FacturaDetalle">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="FacturaDetalle" EntitySet="FacturaDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalonID_Factura" Association="Self.FK_SalonID_Factura">
+            <End Role="Salon" EntitySet="Salon" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalonID_FacturaDetalle" Association="Self.FK_SalonID_FacturaDetalle">
+            <End Role="Salon" EntitySet="Salon" />
+            <End Role="FacturaDetalle" EntitySet="FacturaDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalonID_FacturaImagen" Association="Self.FK_SalonID_FacturaImagen">
+            <End Role="Salon" EntitySet="Salon" />
+            <End Role="FacturaImagen" EntitySet="FacturaImagen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalonID_MedioPagoDetalle" Association="Self.FK_SalonID_MedioPagoDetalle">
+            <End Role="Salon" EntitySet="Salon" />
+            <End Role="MedioPagoDetalle" EntitySet="MedioPagoDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceID" Association="Self.FK_ServiceID">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceID_FacturaDetalle" Association="Self.FK_ServiceID_FacturaDetalle">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="FacturaDetalle" EntitySet="FacturaDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaxID_FacturaDetalle" Association="Self.FK_TaxID_FacturaDetalle">
+            <End Role="Tax" EntitySet="Tax" />
+            <End Role="FacturaDetalle" EntitySet="FacturaDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaxID_Products" Association="Self.FK_TaxID_Products">
+            <End Role="Tax" EntitySet="Tax" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaxID_Services" Association="Self.FK_TaxID_Services">
+            <End Role="Tax" EntitySet="Tax" />
+            <End Role="Services" EntitySet="Services" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserID" Association="Self.FK_UserID">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Permissions" EntitySet="Permissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserID_Employee" Association="Self.FK_UserID_Employee">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BeautySalonModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AppointmentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ServiceID" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_EmployeeID" FromRole="Appointment" ToRole="Employee" />
+          <NavigationProperty Name="Services" Relationship="Self.FK_ServiceID" FromRole="Appointment" ToRole="Services" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DNI" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Role" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Appointment" Relationship="Self.FK_EmployeeID" FromRole="Employee" ToRole="Appointment" />
+          <NavigationProperty Name="Factura" Relationship="Self.FK_EmployeeID_Factura" FromRole="Employee" ToRole="Factura" />
+          <NavigationProperty Name="FacturaImagen" Relationship="Self.FK_EmployeeID_FacturaImagen" FromRole="Employee" ToRole="FacturaImagen" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_UserID_Employee" FromRole="Employee" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Factura">
+          <Key>
+            <PropertyRef Name="FacturaNumero" />
+          </Key>
+          <Property Name="FacturaNumero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Total" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Tax" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="ClientName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SalonID" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_EmployeeID_Factura" FromRole="Factura" ToRole="Employee" />
+          <NavigationProperty Name="FacturaImagen" Relationship="Self.FK_FacturaNumero_FacturaImagen" FromRole="Factura" ToRole="FacturaImagen" />
+          <NavigationProperty Name="MedioPagoDetalle" Relationship="Self.FK_FacturaNumero_MedioPagoDetalle" FromRole="Factura" ToRole="MedioPagoDetalle" />
+          <NavigationProperty Name="FacturaDetalle" Relationship="Self.FK_FacturaNumeroDetalle" FromRole="Factura" ToRole="FacturaDetalle" />
+          <NavigationProperty Name="Salon" Relationship="Self.FK_SalonID_Factura" FromRole="Factura" ToRole="Salon" />
+        </EntityType>
+        <EntityType Name="FacturaDetalle">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FacturaNumero" Type="Int32" Nullable="false" />
+          <Property Name="SalonID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="ServiceID" Type="Int32" Nullable="false" />
+          <Property Name="TaxID" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Discount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="SalesTax" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Factura" Relationship="Self.FK_FacturaNumeroDetalle" FromRole="FacturaDetalle" ToRole="Factura" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_ProductID_FacturaDetalle" FromRole="FacturaDetalle" ToRole="Products" />
+          <NavigationProperty Name="Salon" Relationship="Self.FK_SalonID_FacturaDetalle" FromRole="FacturaDetalle" ToRole="Salon" />
+          <NavigationProperty Name="Services" Relationship="Self.FK_ServiceID_FacturaDetalle" FromRole="FacturaDetalle" ToRole="Services" />
+          <NavigationProperty Name="Tax" Relationship="Self.FK_TaxID_FacturaDetalle" FromRole="FacturaDetalle" ToRole="Tax" />
+        </EntityType>
+        <EntityType Name="FacturaImagen">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SalonID" Type="Int32" Nullable="false" />
+          <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FacturaNumero" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="ClientName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FacturaImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_EmployeeID_FacturaImagen" FromRole="FacturaImagen" ToRole="Employee" />
+          <NavigationProperty Name="Factura" Relationship="Self.FK_FacturaNumero_FacturaImagen" FromRole="FacturaImagen" ToRole="Factura" />
+          <NavigationProperty Name="Salon" Relationship="Self.FK_SalonID_FacturaImagen" FromRole="FacturaImagen" ToRole="Salon" />
+        </EntityType>
+        <EntityType Name="MedioPago">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="MedioPagoDetalle" Relationship="Self.FK_MedioPago_MedioPagoDetalle" FromRole="MedioPago" ToRole="MedioPagoDetalle" />
+        </EntityType>
+        <EntityType Name="MedioPagoDetalle">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SalonID" Type="Int32" Nullable="false" />
+          <Property Name="FacturaNumero" Type="Int32" Nullable="false" />
+          <Property Name="MedioPagoID" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreditCardNumber" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Factura" Relationship="Self.FK_FacturaNumero_MedioPagoDetalle" FromRole="MedioPagoDetalle" ToRole="Factura" />
+          <NavigationProperty Name="MedioPago" Relationship="Self.FK_MedioPago_MedioPagoDetalle" FromRole="MedioPagoDetalle" ToRole="MedioPago" />
+          <NavigationProperty Name="Salon" Relationship="Self.FK_SalonID_MedioPagoDetalle" FromRole="MedioPagoDetalle" ToRole="Salon" />
+        </EntityType>
+        <EntityType Name="Modules">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ModuleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Permissions" Relationship="Self.FK_ModuleID" FromRole="Modules" ToRole="Permissions" />
+        </EntityType>
+        <EntityType Name="Permissions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ModuleID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Modules" Relationship="Self.FK_ModuleID" FromRole="Permissions" ToRole="Modules" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_UserID" FromRole="Permissions" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Sku" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TaxID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FacturaDetalle" Relationship="Self.FK_ProductID_FacturaDetalle" FromRole="Products" ToRole="FacturaDetalle" />
+          <NavigationProperty Name="Services" Relationship="Self.FK_ProductID" FromRole="Products" ToRole="Services" />
+          <NavigationProperty Name="Tax" Relationship="Self.FK_TaxID_Products" FromRole="Products" ToRole="Tax" />
+        </EntityType>
+        <EntityType Name="Salon">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SalonCode" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Factura" Relationship="Self.FK_SalonID_Factura" FromRole="Salon" ToRole="Factura" />
+          <NavigationProperty Name="FacturaDetalle" Relationship="Self.FK_SalonID_FacturaDetalle" FromRole="Salon" ToRole="FacturaDetalle" />
+          <NavigationProperty Name="FacturaImagen" Relationship="Self.FK_SalonID_FacturaImagen" FromRole="Salon" ToRole="FacturaImagen" />
+          <NavigationProperty Name="MedioPagoDetalle" Relationship="Self.FK_SalonID_MedioPagoDetalle" FromRole="Salon" ToRole="MedioPagoDetalle" />
+        </EntityType>
+        <EntityType Name="Services">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServiceCode" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ServiceName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="TaxID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Appointment" Relationship="Self.FK_ServiceID" FromRole="Services" ToRole="Appointment" />
+          <NavigationProperty Name="FacturaDetalle" Relationship="Self.FK_ServiceID_FacturaDetalle" FromRole="Services" ToRole="FacturaDetalle" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_ProductID" FromRole="Services" ToRole="Products" />
+          <NavigationProperty Name="Tax" Relationship="Self.FK_TaxID_Services" FromRole="Services" ToRole="Tax" />
+        </EntityType>
+        <EntityType Name="Tax">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TaxDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Percentage" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FacturaDetalle" Relationship="Self.FK_TaxID_FacturaDetalle" FromRole="Tax" ToRole="FacturaDetalle" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_TaxID_Products" FromRole="Tax" ToRole="Products" />
+          <NavigationProperty Name="Services" Relationship="Self.FK_TaxID_Services" FromRole="Tax" ToRole="Services" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserEmail" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserActive" Type="Boolean" Nullable="false" />
+          <Property Name="UserCreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_UserID_Employee" FromRole="Users" ToRole="Employee" />
+          <NavigationProperty Name="Permissions" Relationship="Self.FK_UserID" FromRole="Users" ToRole="Permissions" />
+        </EntityType>
+        <Association Name="FK_EmployeeID">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceID">
+          <End Role="Services" Type="Self.Services" Multiplicity="1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeID_Factura">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeID_FacturaImagen">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="FacturaImagen" Type="Self.FacturaImagen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FacturaImagen">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserID_Employee">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FacturaNumero_FacturaImagen">
+          <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
+          <End Role="FacturaImagen" Type="Self.FacturaImagen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="FacturaNumero" />
+            </Principal>
+            <Dependent Role="FacturaImagen">
+              <PropertyRef Name="FacturaNumero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FacturaNumero_MedioPagoDetalle">
+          <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
+          <End Role="MedioPagoDetalle" Type="Self.MedioPagoDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="FacturaNumero" />
+            </Principal>
+            <Dependent Role="MedioPagoDetalle">
+              <PropertyRef Name="FacturaNumero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FacturaNumeroDetalle">
+          <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
+          <End Role="FacturaDetalle" Type="Self.FacturaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="FacturaNumero" />
+            </Principal>
+            <Dependent Role="FacturaDetalle">
+              <PropertyRef Name="FacturaNumero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalonID_Factura">
+          <End Role="Salon" Type="Self.Salon" Multiplicity="1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salon">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="SalonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductID_FacturaDetalle">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="FacturaDetalle" Type="Self.FacturaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FacturaDetalle">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalonID_FacturaDetalle">
+          <End Role="Salon" Type="Self.Salon" Multiplicity="1" />
+          <End Role="FacturaDetalle" Type="Self.FacturaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salon">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FacturaDetalle">
+              <PropertyRef Name="SalonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceID_FacturaDetalle">
+          <End Role="Services" Type="Self.Services" Multiplicity="1" />
+          <End Role="FacturaDetalle" Type="Self.FacturaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FacturaDetalle">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaxID_FacturaDetalle">
+          <End Role="Tax" Type="Self.Tax" Multiplicity="1" />
+          <End Role="FacturaDetalle" Type="Self.FacturaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tax">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FacturaDetalle">
+              <PropertyRef Name="TaxID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalonID_FacturaImagen">
+          <End Role="Salon" Type="Self.Salon" Multiplicity="1" />
+          <End Role="FacturaImagen" Type="Self.FacturaImagen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salon">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FacturaImagen">
+              <PropertyRef Name="SalonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedioPago_MedioPagoDetalle">
+          <End Role="MedioPago" Type="Self.MedioPago" Multiplicity="1" />
+          <End Role="MedioPagoDetalle" Type="Self.MedioPagoDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedioPago">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MedioPagoDetalle">
+              <PropertyRef Name="MedioPagoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalonID_MedioPagoDetalle">
+          <End Role="Salon" Type="Self.Salon" Multiplicity="1" />
+          <End Role="MedioPagoDetalle" Type="Self.MedioPagoDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salon">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MedioPagoDetalle">
+              <PropertyRef Name="SalonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModuleID">
+          <End Role="Modules" Type="Self.Modules" Multiplicity="1" />
+          <End Role="Permissions" Type="Self.Permissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modules">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Permissions">
+              <PropertyRef Name="ModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserID">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Permissions" Type="Self.Permissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Permissions">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductID">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Services" Type="Self.Services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Services">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaxID_Products">
+          <End Role="Tax" Type="Self.Tax" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tax">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="TaxID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaxID_Services">
+          <End Role="Tax" Type="Self.Tax" Multiplicity="1" />
+          <End Role="Services" Type="Self.Services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tax">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Services">
+              <PropertyRef Name="TaxID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BeautySalonEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Appointment" EntityType="Self.Appointment" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" />
+          <EntitySet Name="Factura" EntityType="Self.Factura" />
+          <EntitySet Name="FacturaDetalle" EntityType="Self.FacturaDetalle" />
+          <EntitySet Name="FacturaImagen" EntityType="Self.FacturaImagen" />
+          <EntitySet Name="MedioPago" EntityType="Self.MedioPago" />
+          <EntitySet Name="MedioPagoDetalle" EntityType="Self.MedioPagoDetalle" />
+          <EntitySet Name="Modules" EntityType="Self.Modules" />
+          <EntitySet Name="Permissions" EntityType="Self.Permissions" />
+          <EntitySet Name="Products" EntityType="Self.Products" />
+          <EntitySet Name="Salon" EntityType="Self.Salon" />
+          <EntitySet Name="Services" EntityType="Self.Services" />
+          <EntitySet Name="Tax" EntityType="Self.Tax" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_EmployeeID" Association="Self.FK_EmployeeID">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceID" Association="Self.FK_ServiceID">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeID_Factura" Association="Self.FK_EmployeeID_Factura">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeID_FacturaImagen" Association="Self.FK_EmployeeID_FacturaImagen">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="FacturaImagen" EntitySet="FacturaImagen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserID_Employee" Association="Self.FK_UserID_Employee">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FacturaNumero_FacturaImagen" Association="Self.FK_FacturaNumero_FacturaImagen">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="FacturaImagen" EntitySet="FacturaImagen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FacturaNumero_MedioPagoDetalle" Association="Self.FK_FacturaNumero_MedioPagoDetalle">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="MedioPagoDetalle" EntitySet="MedioPagoDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FacturaNumeroDetalle" Association="Self.FK_FacturaNumeroDetalle">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="FacturaDetalle" EntitySet="FacturaDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalonID_Factura" Association="Self.FK_SalonID_Factura">
+            <End Role="Salon" EntitySet="Salon" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductID_FacturaDetalle" Association="Self.FK_ProductID_FacturaDetalle">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="FacturaDetalle" EntitySet="FacturaDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalonID_FacturaDetalle" Association="Self.FK_SalonID_FacturaDetalle">
+            <End Role="Salon" EntitySet="Salon" />
+            <End Role="FacturaDetalle" EntitySet="FacturaDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceID_FacturaDetalle" Association="Self.FK_ServiceID_FacturaDetalle">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="FacturaDetalle" EntitySet="FacturaDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaxID_FacturaDetalle" Association="Self.FK_TaxID_FacturaDetalle">
+            <End Role="Tax" EntitySet="Tax" />
+            <End Role="FacturaDetalle" EntitySet="FacturaDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalonID_FacturaImagen" Association="Self.FK_SalonID_FacturaImagen">
+            <End Role="Salon" EntitySet="Salon" />
+            <End Role="FacturaImagen" EntitySet="FacturaImagen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedioPago_MedioPagoDetalle" Association="Self.FK_MedioPago_MedioPagoDetalle">
+            <End Role="MedioPago" EntitySet="MedioPago" />
+            <End Role="MedioPagoDetalle" EntitySet="MedioPagoDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalonID_MedioPagoDetalle" Association="Self.FK_SalonID_MedioPagoDetalle">
+            <End Role="Salon" EntitySet="Salon" />
+            <End Role="MedioPagoDetalle" EntitySet="MedioPagoDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModuleID" Association="Self.FK_ModuleID">
+            <End Role="Modules" EntitySet="Modules" />
+            <End Role="Permissions" EntitySet="Permissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserID" Association="Self.FK_UserID">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Permissions" EntitySet="Permissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductID" Association="Self.FK_ProductID">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Services" EntitySet="Services" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaxID_Products" Association="Self.FK_TaxID_Products">
+            <End Role="Tax" EntitySet="Tax" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaxID_Services" Association="Self.FK_TaxID_Services">
+            <End Role="Tax" EntitySet="Tax" />
+            <End Role="Services" EntitySet="Services" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BeautySalonModelStoreContainer" CdmEntityContainer="BeautySalonEntities">
+          <EntitySetMapping Name="Appointment">
+            <EntityTypeMapping TypeName="BeautySalonModel.Appointment">
+              <MappingFragment StoreEntitySet="Appointment">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="AppointmentDate" ColumnName="AppointmentDate" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employee">
+            <EntityTypeMapping TypeName="BeautySalonModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="DNI" ColumnName="DNI" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Factura">
+            <EntityTypeMapping TypeName="BeautySalonModel.Factura">
+              <MappingFragment StoreEntitySet="Factura">
+                <ScalarProperty Name="FacturaNumero" ColumnName="FacturaNumero" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Tax" ColumnName="Tax" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="SalonID" ColumnName="SalonID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FacturaDetalle">
+            <EntityTypeMapping TypeName="BeautySalonModel.FacturaDetalle">
+              <MappingFragment StoreEntitySet="FacturaDetalle">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FacturaNumero" ColumnName="FacturaNumero" />
+                <ScalarProperty Name="SalonID" ColumnName="SalonID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+                <ScalarProperty Name="TaxID" ColumnName="TaxID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="SalesTax" ColumnName="SalesTax" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FacturaImagen">
+            <EntityTypeMapping TypeName="BeautySalonModel.FacturaImagen">
+              <MappingFragment StoreEntitySet="FacturaImagen">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SalonID" ColumnName="SalonID" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="FacturaNumero" ColumnName="FacturaNumero" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="FacturaImage" ColumnName="FacturaImage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MedioPago">
+            <EntityTypeMapping TypeName="BeautySalonModel.MedioPago">
+              <MappingFragment StoreEntitySet="MedioPago">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MedioPagoDetalle">
+            <EntityTypeMapping TypeName="BeautySalonModel.MedioPagoDetalle">
+              <MappingFragment StoreEntitySet="MedioPagoDetalle">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SalonID" ColumnName="SalonID" />
+                <ScalarProperty Name="FacturaNumero" ColumnName="FacturaNumero" />
+                <ScalarProperty Name="MedioPagoID" ColumnName="MedioPagoID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreditCardNumber" ColumnName="CreditCardNumber" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Modules">
+            <EntityTypeMapping TypeName="BeautySalonModel.Modules">
+              <MappingFragment StoreEntitySet="Modules">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permissions">
+            <EntityTypeMapping TypeName="BeautySalonModel.Permissions">
+              <MappingFragment StoreEntitySet="Permissions">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="BeautySalonModel.Products">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Sku" ColumnName="Sku" />
+                <ScalarProperty Name="TaxID" ColumnName="TaxID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Salon">
+            <EntityTypeMapping TypeName="BeautySalonModel.Salon">
+              <MappingFragment StoreEntitySet="Salon">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SalonCode" ColumnName="SalonCode" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Services">
+            <EntityTypeMapping TypeName="BeautySalonModel.Services">
+              <MappingFragment StoreEntitySet="Services">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ServiceCode" ColumnName="ServiceCode" />
+                <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="TaxID" ColumnName="TaxID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tax">
+            <EntityTypeMapping TypeName="BeautySalonModel.Tax">
+              <MappingFragment StoreEntitySet="Tax">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TaxDescription" ColumnName="TaxDescription" />
+                <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="BeautySalonModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="UserActive" ColumnName="UserActive" />
+                <ScalarProperty Name="UserCreateDate" ColumnName="UserCreateDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
