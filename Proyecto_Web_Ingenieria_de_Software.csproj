@@ -119,8 +119,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdministracionController.cs" />
     <Compile Include="Controllers\BeautySalonController.cs" />
+    <Compile Include="Controllers\ConfiguracionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReportesController.cs" />
+    <Compile Include="Filters\PermisosModulos.cs" />
+    <Compile Include="Filters\ValideSession.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -281,12 +286,17 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
-    <Content Include="Views\Home\Citas.cshtml" />
-    <Content Include="Views\Home\Horarios.cshtml" />
-    <Content Include="Views\Home\Usuarios.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\BeautySalon\Index.cshtml" />
     <Content Include="Views\BeautySalon\Cita.cshtml" />
+    <Content Include="Views\Administracion\Citas.cshtml" />
+    <Content Include="Views\Administracion\Ventas.cshtml" />
+    <Content Include="Views\Administracion\Productos.cshtml" />
+    <Content Include="Views\Administracion\Servicios.cshtml" />
+    <Content Include="Views\Configuracion\Usuarios.cshtml" />
+    <Content Include="Views\Configuracion\Horarios.cshtml" />
+    <Content Include="Views\Configuracion\General.cshtml" />
+    <Content Include="Views\Reportes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

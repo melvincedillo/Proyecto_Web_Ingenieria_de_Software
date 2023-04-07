@@ -8,31 +8,26 @@ using System.Web.Mvc;
 namespace Proyecto_Web_Ingenieria_de_Software.Controllers
 {
     [ValideSession]
-    public class HomeController : Controller
+    public class ConfiguracionController : Controller
     {
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        public ActionResult Citas()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
-        public ActionResult Horarios()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
+        // GET: Usuarios
+        [PermisosModulos(moduloId:8)]
         public ActionResult Usuarios()
         {
-            ViewBag.Message = "Your contact page.";
+            return View();
+        }
 
+        // GET: Horarios
+        [PermisosModulos(moduloId: 6)]
+        public ActionResult Horarios()
+        {
+            return View();
+        }
+
+        // GET: General
+        [PermisosModulos(moduloId: 7)]
+        public ActionResult General()
+        {
             return View();
         }
     }

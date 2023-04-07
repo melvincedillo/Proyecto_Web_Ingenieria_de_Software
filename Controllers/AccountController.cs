@@ -19,6 +19,19 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         {
             try
             {
+                using (Models.BeautySalonEntities db = new Models.BeautySalonEntities())
+                {
+                    var oUser = (from d in db.Users
+                                 where d.UserName == User.Trim() && d.UserPassword == Pass.Trim()
+                                 select d).FirstOrDefault();
+                    if(oUser == null)
+                    {
+                        ViewBag.Error = "Usuario o contraseña invalidos";
+                        return View();
+                    }
+
+                    Session["User"] = oUser;
+                }
                 return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)

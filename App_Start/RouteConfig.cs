@@ -16,7 +16,7 @@ namespace Proyecto_Web_Ingenieria_de_Software
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "BeautySalon", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

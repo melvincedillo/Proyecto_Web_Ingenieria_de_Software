@@ -1,8 +1,11 @@
 ﻿body {
 }
 
-.prueba{
-    height: 100px;
-    width: 100px;
-    background: red;
+.logo{
+    height: 7rem;
+    border-radius: 100px;
+}
+
+.iconLogin {
+    font-size: 1.5rem;
 }
