@@ -110,6 +110,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BeautySalonController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -119,6 +121,7 @@
   <ItemGroup>
     <Content Include="Content\style.css" />
     <Content Include="Content\styleLayoutAdmin.css" />
+    <Content Include="Content\styleLogin.css" />
     <Content Include="Content\styleModuloCitas.css" />
     <Content Include="Content\styleModuloHorario.css" />
     <Content Include="Content\styleUsuarios.css" />
@@ -195,11 +198,13 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\AgendarCita.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Home\Citas.cshtml" />
     <Content Include="Views\Home\Horarios.cshtml" />
     <Content Include="Views\Home\Usuarios.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\BeautySalon\Index.cshtml" />
+    <Content Include="Views\BeautySalon\Cita.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

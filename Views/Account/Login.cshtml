@@ -1,0 +1,29 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login - 365 Beauty Salon</title>
+    <link rel="stylesheet" href="~/Content/styleLogin.css" />
+</head>
+<body>
+    <div class="row">
+        <form asp-action="Login" method="post">
+            <div class="mt-3">
+                <label>Usuario</label>
+                <input type="text" name="User"/>
+            </div>
+            <div class="mt-3">
+                <label>Contraseña</label>
+                <input type="password" name="Pass" />
+            </div>
+            <button type="submit" class="btn btn-success">Entrar</button>
+        </form>
+    </div>
+</body>
+</html>
