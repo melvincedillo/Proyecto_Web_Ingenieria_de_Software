@@ -40,5 +40,11 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 return View();
             }
         }
+
+        public ActionResult Logout()
+        {
+            Session["User"] = null;
+            return RedirectToAction("Login", "Account");
+        }
     }
 }

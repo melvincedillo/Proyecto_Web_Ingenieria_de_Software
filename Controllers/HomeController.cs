@@ -10,30 +10,11 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
     [ValideSession]
     public class HomeController : Controller
     {
+        // GET: Home
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult Citas()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
-        public ActionResult Horarios()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
-        public ActionResult Usuarios()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }

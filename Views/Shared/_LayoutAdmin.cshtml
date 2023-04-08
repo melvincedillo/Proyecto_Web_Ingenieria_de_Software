@@ -54,9 +54,7 @@
                             <a class="nav-link" href="/Configuracion/General">Configuración</a>
                         </li>
                     </ul>
-
-                    <hr class="text-white-50"/>
-
+                    <hr class="text-white-50" />
                     <ul class="navbar-nav flex-row flex-wrap text-light">
                         <li class="nav-item col-4 col-md-auto p-1">
                             <a class="nav-link" href="">
@@ -77,6 +75,20 @@
                             </a>
                         </li>
                     </ul>
+                    <hr class="text-white-50" />
+                    <form action="@Url.Content("~/Account/Logout")">
+                        <div class="d-block d-md-none d-lg-none">
+                            <button class="btn btn-danger w-100" type="submit">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                Cerrar Sesion
+                            </button>
+                        </div>
+                        <div class="d-none d-md-block d-lg-block">
+                            <button class="btn btn-danger w-100" type="submit">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </nav>
