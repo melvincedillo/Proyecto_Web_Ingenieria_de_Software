@@ -17,6 +17,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         [HttpPost]
         public ActionResult Login(string User, string Pass)
         {
+            
             try
             {
                 using (Models.BeautySalonEntities db = new Models.BeautySalonEntities())
@@ -39,7 +40,8 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 ViewBag.Error = ex.Message;
                 return View();
             }
-        }
+            
+        } 
 
         public ActionResult Logout()
         {
