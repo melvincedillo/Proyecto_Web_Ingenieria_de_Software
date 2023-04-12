@@ -16,11 +16,11 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         [PermisosModulos(moduloId:8)]
         public ActionResult Usuarios()
         {
-            List<UserViewModel> UserList = null;
+            List<UserViewModel> list = null;
 
             using (BeautySalonEntities db = new BeautySalonEntities())
             {
-                UserList = (from d in db.Users
+                list = (from d in db.Users
                        select new UserViewModel
                        {
                            ID = d.ID,
@@ -30,7 +30,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                        }).ToList();
             }
 
-            return View(UserList);
+            return View(list);
         }
 
         // GET: Horarios
