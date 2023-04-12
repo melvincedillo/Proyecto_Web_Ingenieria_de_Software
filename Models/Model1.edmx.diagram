@@ -6,7 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="967bf9857d0b4a15bac7e6eb303590d9" Name="Diagram1">
         <EntityTypeShape EntityType="BeautySalonModel.Appointment" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BeautySalonModel.Employee" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BeautySalonModel.Employee" Width="1.5" PointX="0.5" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="BeautySalonModel.Factura" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
         <EntityTypeShape EntityType="BeautySalonModel.FacturaDetalle" Width="1.5" PointX="5.25" PointY="8.25" IsExpanded="true" />
         <EntityTypeShape EntityType="BeautySalonModel.FacturaImagen" Width="1.5" PointX="8.25" PointY="8.75" IsExpanded="true" />
