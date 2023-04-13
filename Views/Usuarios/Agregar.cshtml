@@ -1,0 +1,139 @@
+﻿
+@{
+    ViewBag.Title = "Agregar";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model Proyecto_Web_Ingenieria_de_Software.Models.AddModels.UserModel
+
+<link rel="stylesheet" href="~/Content/styleUsuarios.css" />
+
+<div class="usuariosDiv mb-5">
+    <div class="row">
+        <div class="col">
+            <h1 class="t-stroke">Agregar Usuario</h1>
+        </div>
+    </div>
+
+    @using (Html.BeginForm("AddUsuario", "Configuracion", FormMethod.Post, new { role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationMessage("error", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col">
+                @Html.LabelFor(d => d.nombre, new { @class = "form-label" })
+                @Html.TextBoxFor(d => d.nombre, new { @class = "form-control" })
+            </div>
+            <div class="col">
+                @Html.LabelFor(d => d.apellido, new { @class = "form-label" })
+                @Html.TextBoxFor(d => d.apellido, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col">
+                @Html.LabelFor(d => d.DNI, new { @class = "form-label" })
+                @Html.TextBoxFor(d => d.DNI, new { @class = "form-control" })
+            </div>
+            <div class="col">
+                @Html.LabelFor(d => d.telefono, new { @class = "form-label" })
+                @Html.TextBoxFor(d => d.telefono, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col">
+                @Html.LabelFor(d => d.correo, new { @class = "form-label" })
+                @Html.TextBoxFor(d => d.correo, new { @class = "form-control" })
+            </div>
+            <div class="col">
+                <div>
+                    @Html.LabelFor(d => d.sexo, new { @class = "form-label" })
+                </div>
+                <div class="form-check-inline">
+                    <div class="form-check form-check-inline">
+                        @Html.RadioButtonFor(d => d.sexo, new { value = "M", @class = "form-check-input", id = "inlineRadio1" })
+                        <label class="form-check-label" for="inlineRadio1">Hombre</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        @Html.RadioButtonFor(d => d.sexo, new { value = "F", @class = "form-check-input", id = "inlineRadio2" })
+                        <label class="form-check-label" for="inlineRadio2">Mujer</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col">
+                @Html.LabelFor(d => d.usuario, new { @class = "form-label" })
+                @Html.TextBoxFor(d => d.usuario, new { @class = "form-control" })
+            </div>
+            <div class="col">
+                @Html.LabelFor(d => d.skill, new { @class = "form-label" })
+                <select class="form-select" name="skill">
+                    <option selected>Seleccione una habilidad</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col">
+                @Html.LabelFor(d => d.contraseña, new { @class = "form-label" })
+                @Html.PasswordFor(d => d.contraseña, new { @class = "form-control" })
+            </div>
+            <div class="col">
+                @Html.LabelFor(d => d.confContraseña, new { @class = "form-label" })
+                @Html.PasswordFor(d => d.confContraseña, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="mt-2">
+            <label class="form-label">Permisos</label>
+            <div>
+                <div class="form-check form-check-inline">
+                    @Html.LabelFor(d => d.citas, new { @class = "form-label" })
+                    @Html.CheckBoxFor(d => d.citas, new { @class = "form-check-input" })
+                </div>
+                <div class="form-check form-check-inline">
+                    @Html.LabelFor(d => d.servicios, new { @class = "form-label" })
+                    @Html.CheckBoxFor(d => d.servicios, new { @class = "form-check-input" })
+                </div>
+                <div class="form-check form-check-inline">
+                    @Html.LabelFor(d => d.productos, new { @class = "form-label" })
+                    @Html.CheckBoxFor(d => d.productos, new { @class = "form-check-input" })
+                </div>
+                <div class="form-check form-check-inline">
+                    @Html.LabelFor(d => d.ventas, new { @class = "form-label" })
+                    @Html.CheckBoxFor(d => d.ventas, new { @class = "form-check-input" })
+                </div>
+                <div class="form-check form-check-inline">
+                    @Html.LabelFor(d => d.reportes, new { @class = "form-label" })
+                    @Html.CheckBoxFor(d => d.reportes, new { @class = "form-check-input" })
+                </div>
+                <div class="form-check form-check-inline">
+                    @Html.LabelFor(d => d.horarios, new { @class = "form-label" })
+                    @Html.CheckBoxFor(d => d.horarios, new { @class = "form-check-input" })
+                </div>
+                <div class="form-check form-check-inline">
+                    @Html.LabelFor(d => d.usuarios, new { @class = "form-label" })
+                    @Html.CheckBoxFor(d => d.usuarios, new { @class = "form-check-input" })
+                </div>
+                <div class="form-check form-check-inline">
+                    @Html.LabelFor(d => d.general, new { @class = "form-label" })
+                    @Html.CheckBoxFor(d => d.general, new { @class = "form-check-input" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-6 d-flex justify-content-center">
+                <a href="/Configuracion/Usuarios">
+                    <button type="button" class="btn btn-danger" onclick="html">Cancelar</button>
+                </a>
+            </div>
+            <div class="col-6 d-flex justify-content-center">
+                <button type="submit" class="btn btn-success">Guardar</button>
+            </div>
+        </div>
+    }
+</div>

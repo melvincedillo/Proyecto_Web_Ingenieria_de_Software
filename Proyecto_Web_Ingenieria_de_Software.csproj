@@ -173,16 +173,22 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AdministracionController.cs" />
     <Compile Include="Controllers\BeautySalonController.cs" />
-    <Compile Include="Controllers\ConfiguracionController.cs" />
+    <Compile Include="Controllers\CitasController.cs" />
+    <Compile Include="Controllers\GeneralController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HorarioController.cs" />
+    <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="Controllers\ReportesController.cs" />
+    <Compile Include="Controllers\ServiciosController.cs" />
+    <Compile Include="Controllers\UsuariosController.cs" />
+    <Compile Include="Controllers\VentasController.cs" />
     <Compile Include="Filters\PermisosModulos.cs" />
     <Compile Include="Filters\ValideSession.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AddModels\UserModel.cs" />
     <Compile Include="Models\Appointment.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -258,6 +264,7 @@
     <Compile Include="Models\Users.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\SkillViewModel.cs" />
     <Compile Include="Models\ViewModels\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -362,15 +369,15 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\BeautySalon\Index.cshtml" />
     <Content Include="Views\BeautySalon\Cita.cshtml" />
-    <Content Include="Views\Administracion\Citas.cshtml" />
-    <Content Include="Views\Administracion\Ventas.cshtml" />
-    <Content Include="Views\Administracion\Productos.cshtml" />
-    <Content Include="Views\Administracion\Servicios.cshtml" />
-    <Content Include="Views\Configuracion\Usuarios.cshtml" />
-    <Content Include="Views\Configuracion\Horarios.cshtml" />
-    <Content Include="Views\Configuracion\General.cshtml" />
     <Content Include="Views\Reportes\Index.cshtml" />
-    <Content Include="Views\Configuracion\EditarUsuario.cshtml" />
+    <Content Include="Views\Usuarios\Index.cshtml" />
+    <Content Include="Views\Usuarios\Agregar.cshtml" />
+    <Content Include="Views\Citas\Index.cshtml" />
+    <Content Include="Views\Horario\Index.cshtml" />
+    <Content Include="Views\General\Index.cshtml" />
+    <Content Include="Views\Productos\Index.cshtml" />
+    <Content Include="Views\Servicios\Index.cshtml" />
+    <Content Include="Views\Ventas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
