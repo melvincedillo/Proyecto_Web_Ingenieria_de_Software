@@ -33,6 +33,13 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
             return View(list);
         }
 
+        // GET: EditarUsuarios
+        [PermisosModulos(moduloId: 8)]
+        public ActionResult EditarUsuario()
+        {
+            return View();
+        }
+
         // GET: Horarios
         [PermisosModulos(moduloId: 6)]
         public ActionResult Horarios()

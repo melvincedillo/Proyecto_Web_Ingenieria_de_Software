@@ -352,6 +352,7 @@
     <Content Include="Views\Configuracion\Horarios.cshtml" />
     <Content Include="Views\Configuracion\General.cshtml" />
     <Content Include="Views\Reportes\Index.cshtml" />
+    <Content Include="Views\Configuracion\EditarUsuario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

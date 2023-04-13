@@ -23,7 +23,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 using (Models.BeautySalonEntities db = new Models.BeautySalonEntities())
                 {
                     var oUser = (from d in db.Users
-                                 where d.UserName == User.Trim() && d.UserPassword == Pass.Trim()
+                                 where d.UserName == User.Trim() && d.UserPassword == Pass.Trim() && d.UserActive == true
                                  select d).FirstOrDefault();
                     if(oUser == null)
                     {
