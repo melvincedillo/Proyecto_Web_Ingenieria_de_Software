@@ -12,15 +12,14 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Appointment
+    public partial class ServiceDetail
     {
         public int ID { get; set; }
-        public string ClientName { get; set; }
-        public string PhoneNumber { get; set; }
-        public System.DateTime AppointmentDate { get; set; }
-        public string Status { get; set; }
         public int ServiceID { get; set; }
+        public int ProductID { get; set; }
+        public int Quantity { get; set; }
     
+        public virtual Products Products { get; set; }
         public virtual Services Services { get; set; }
     }
 }

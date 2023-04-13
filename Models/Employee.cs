@@ -17,7 +17,6 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Employee()
         {
-            this.Appointment = new HashSet<Appointment>();
             this.Factura = new HashSet<Factura>();
             this.FacturaImagen = new HashSet<FacturaImagen>();
         }
@@ -28,15 +27,14 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models
         public string DNI { get; set; }
         public string PhoneNumber { get; set; }
         public string Gender { get; set; }
-        public string Role { get; set; }
         public int UserID { get; set; }
+        public int SkillID { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Appointment> Appointment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Factura> Factura { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FacturaImagen> FacturaImagen { get; set; }
         public virtual Users Users { get; set; }
+        public virtual Skill Skill { get; set; }
     }
 }

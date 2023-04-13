@@ -8,7 +8,7 @@
 <div class="usuariosDiv mb-5">
     <div class="row">
         <div class="col-8">
-            <h1 class="t-stroke">Agregar usuario</h1>
+            <h1 class="t-stroke">Editar Usuario</h1>
         </div>
         <div class="col-4 d-flex justify-content-end">
             <a href="/Configuracion/Usuarios">
@@ -41,8 +41,17 @@
 
         <div class="row mt-2">
             <div class="col">
-                <label class="form-label">Rol</label>
-                <input class="form-control" type="text" name="rol" />
+                <label class="form-label">Correo</label>
+                <input class="form-control" type="email" name="correo" />
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col">
+                <label class="form-label">Habilidad</label>
+                <select class="form-select" name="skill">
+                    <option selected>Seleccione una habilidad</option>
+                </select>
             </div>
 
             <div class="col">
@@ -110,7 +119,7 @@
         </div>
 
         <div class="mt-3 d-flex justify-content-center">
-            <button type="submit" class="btn btn-success">Agregar</button>
+            <button type="submit" class="btn btn-success">Guardar</button>
         </div>
     </form>
 </div>

@@ -19,20 +19,23 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models
         {
             this.Appointment = new HashSet<Appointment>();
             this.FacturaDetalle = new HashSet<FacturaDetalle>();
+            this.ServiceDetail = new HashSet<ServiceDetail>();
         }
     
         public int ID { get; set; }
         public string ServiceCode { get; set; }
         public string ServiceName { get; set; }
         public decimal Price { get; set; }
-        public int ProductID { get; set; }
         public int TaxID { get; set; }
+        public int SkillID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Appointment> Appointment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FacturaDetalle> FacturaDetalle { get; set; }
-        public virtual Products Products { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ServiceDetail> ServiceDetail { get; set; }
         public virtual Tax Tax { get; set; }
+        public virtual Skill Skill { get; set; }
     }
 }

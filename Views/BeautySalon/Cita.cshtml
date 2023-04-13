@@ -16,7 +16,7 @@
                 </div>
                 <label for="inputServicio" class="col-3 col-form-label">Servicio</label>
                 <div class="col-8">
-                    <select class="form-select" id="inputServicio">
+                    <select class="form-select" name="inputServicio">
                         <option selected>Seleccione un servicio</option>
                     </select>
                 </div>
@@ -28,7 +28,7 @@
                 </div>
                 <label for="inputName" class="col-3 col-form-label">Nombre</label>
                 <div class="col-8">
-                    <input type="text" class="form-control" id="inputName" placeholder="Nombre" />
+                    <input type="text" class="form-control" name="inputName" placeholder="Nombre" />
                 </div>
             </div>
 
@@ -38,7 +38,7 @@
                 </div>
                 <label for="inputPhone" class="col-3 col-form-label">Telefono</label>
                 <div class="col-8">
-                    <input type="tel" class="form-control" id="inputPhone" placeholder="Telefono" />
+                    <input type="tel" class="form-control" name="inputPhone" placeholder="Telefono" />
                 </div>
             </div>
 
@@ -48,7 +48,7 @@
                 </div>
                 <label for="inputFecha" class="col-3 col-form-label">Fecha</label>
                 <div class="col-8">
-                    <input type="date" class="form-control" id="inputFecha" placeholder="Fecha de cita" />
+                    <input type="date" class="form-control" name="inputFecha" min="@DateTime.Today.ToString("yyyy-MM-dd")" max="2035-12-31"/>
                 </div>
             </div>
 
@@ -58,7 +58,7 @@
                 </div>
                 <label for="inputHora" class="col-3 col-form-label">Hora</label>
                 <div class="col-8">
-                    <select class="form-select" id="inputHora">
+                    <select class="form-select" name="inputHora">
                         <option selected>Seleccione una hora</option>
                     </select>
                 </div>
