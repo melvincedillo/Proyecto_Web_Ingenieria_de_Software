@@ -1,6 +1,25 @@
 ﻿body {
+    background-color:black;
 }
 
 .backHome {
     background-color: black;
+}
+
+.homeCaption{
+    text-align:center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color:goldenrod;
+}
+
+.homeBottons {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: mistyrose;
+}
+
+.homeOptions{
+    background-color: black;
+    color:goldenrod;
 }
