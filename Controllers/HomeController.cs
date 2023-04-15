@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace Proyecto_Web_Ingenieria_de_Software.Controllers
 {
-   [ValideSession]
+  // [ValideSession]
     public class HomeController : Controller
     {
         // GET: Home
