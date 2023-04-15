@@ -39,6 +39,28 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         [HttpGet]
         public ActionResult Agregar()
         {
+            List<SkillViewModel> skills = null;
+            using (BeautySalonEntities db = new BeautySalonEntities())
+            {
+                skills = (from d in db.Skill
+                          select new SkillViewModel
+                          {
+                              ID = d.ID,
+                              SkillName = d.SkillName
+                          }).ToList();
+            }
+
+            List<SelectListItem> items = skills.ConvertAll(d =>
+            {
+                return new SelectListItem()
+                {
+                    Text = d.SkillName.ToString(),
+                    Value = d.ID.ToString(),
+                    Selected = false
+                };
+            });
+
+            ViewData["Skills"] = items;
             return View();
         }
 
@@ -52,7 +74,88 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 return View(model);
             }
 
-            return View();
+            using (var db = new BeautySalonEntities())
+            {
+                //Se crear el usuarios
+                Users oUser = new Users();
+                oUser.UserActive = true;
+                oUser.UserCreateDate = DateTime.Today;
+                oUser.UserName = model.usuario;
+                oUser.UserEmail = model.correo;
+                oUser.UserPassword = model.contraseña;
+
+                var user = db.Users.Add(oUser);
+                db.SaveChanges();
+
+                //Se le asignan los permisos
+                /*
+                Permissions oPermiso = new Permissions();
+                oPermiso.UserID = user.ID;
+                if(model.ventas == true)
+                {
+                    oPermiso.ModuleID = 1;
+                    db.Permissions.Add(oPermiso);
+                    db.SaveChanges();
+                }
+                if (model.servicios == true)
+                {
+                    oPermiso.ModuleID = 2;
+                    db.Permissions.Add(oPermiso);
+                    db.SaveChanges();
+                }
+                if (model.productos == true)
+                {
+                    oPermiso.ModuleID = 3;
+                    db.Permissions.Add(oPermiso);
+                    db.SaveChanges();
+                }
+                if (model.citas == true)
+                {
+                    oPermiso.ModuleID = 4;
+                    db.Permissions.Add(oPermiso);
+                    db.SaveChanges();
+                }
+                if (model.reportes == true)
+                {
+                    oPermiso.ModuleID = 5;
+                    db.Permissions.Add(oPermiso);
+                    db.SaveChanges();
+                }
+                if (model.horarios == true)
+                {
+                    oPermiso.ModuleID = 6;
+                    db.Permissions.Add(oPermiso);
+                    db.SaveChanges();
+                }
+                if (model.general == true)
+                {
+                    oPermiso.ModuleID = 7;
+                    db.Permissions.Add(oPermiso);
+                    db.SaveChanges();
+                }
+                if (model.usuarios == true)
+                {
+                    oPermiso.ModuleID = 8;
+                    db.Permissions.Add(oPermiso);
+                    db.SaveChanges();
+                }
+                */
+
+                //Se crea el empleado
+                Employee oEmployee = new Employee();
+                oEmployee.FirstName = model.nombre;
+                oEmployee.LastName = model.apellido;
+                oEmployee.DNI = model.DNI;
+                oEmployee.Gender = model.sexo;
+                oEmployee.PhoneNumber = model.telefono;
+                oEmployee.UserID = user.ID;
+                oEmployee.SkillID = 2;
+
+                db.Employee.Add(oEmployee);
+                db.SaveChanges();
+            }
+            
+            return RedirectToAction("Index", "Usuarios");
         }
     }
 }

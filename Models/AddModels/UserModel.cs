@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace Proyecto_Web_Ingenieria_de_Software.Models.AddModels
 {
@@ -25,8 +23,9 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models.AddModels
         public string telefono { get; set; }
         [Required]
         [Display(Name = "Habilidad/Rol")]
-        public int skill { get; set; }
-        //[Required]
+        public IEnumerable<SelectListItem> skill { get; set; }
+        public int idSkill { get; set; }
+        [Required]
         [Display(Name = "Nombre de Usuario")]
         public string usuario { get; set; }
         [Required]
@@ -36,7 +35,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models.AddModels
         [Required]
         [Display(Name = "Confirmar Contraseña")]
         [DataType(DataType.Password)]
-        [Compare("contraseña", ErrorMessage = "Las contraseñas no son iguales")]
+        [System.ComponentModel.DataAnnotations.Compare("contraseña", ErrorMessage = "Las contraseñas no son iguales")]
         public string confContraseña { get; set; }
         [Required]
         [EmailAddress]

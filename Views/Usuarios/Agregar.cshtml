@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Agregar Usuario";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    List<SelectListItem> items = (List<SelectListItem>)ViewData["Skills"];
 }
 
 @model Proyecto_Web_Ingenieria_de_Software.Models.AddModels.UserModel
@@ -15,7 +16,7 @@
         </div>
     </div>
 
-    @using (Html.BeginForm("AddUsuario", "Configuracion", FormMethod.Post, new { role = "form" }))
+    @using (Html.BeginForm("Agregar", "Usuarios", FormMethod.Post, new { role = "form" }))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationMessage("error", new { @class = "text-danger" })
@@ -70,9 +71,7 @@
             </div>
             <div class="col">
                 @Html.LabelFor(d => d.skill, new { @class = "form-label" })
-                <select class="form-select" name="skill">
-                    <option selected>Seleccione una habilidad</option>
-                </select>
+                @Html.DropDownListFor(d => d.skill, items, "Selecciona la habilidad", new { @class= "form-select" })
             </div>
         </div>
 
