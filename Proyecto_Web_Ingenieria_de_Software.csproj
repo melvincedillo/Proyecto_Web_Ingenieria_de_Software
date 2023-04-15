@@ -352,7 +352,6 @@
     <Content Include="Views\Configuracion\Horarios.cshtml" />
     <Content Include="Views\Configuracion\General.cshtml" />
     <Content Include="Views\Reportes\Index.cshtml" />
-    <Content Include="Views\Shared\_LayoutHome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
