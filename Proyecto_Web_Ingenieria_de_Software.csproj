@@ -270,6 +270,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\style.css" />
+    <Content Include="Content\StyleHomeAdmin.css" />
     <Content Include="Content\styleLayoutAdmin.css" />
     <Content Include="Content\styleLogin.css" />
     <Content Include="Content\styleModuloCitas.css" />
