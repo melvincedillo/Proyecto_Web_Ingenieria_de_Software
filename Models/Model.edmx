@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BeautySalonModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BeautySalonModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Appointment">
           <Key>
             <PropertyRef Name="ID" />
@@ -94,6 +94,13 @@
           <Property Name="OpenTime" Type="varchar" MaxLength="10" />
           <Property Name="CloseTime" Type="varchar" MaxLength="10" />
           <Property Name="Weekday" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Horas">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Hora" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="MedioPago">
           <Key>
@@ -495,6 +502,7 @@
           <EntitySet Name="FacturaImagen" EntityType="Self.FacturaImagen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Holiday" EntityType="Self.Holiday" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Horario" EntityType="Self.Horario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Horas" EntityType="Self.Horas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MedioPago" EntityType="Self.MedioPago" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MedioPagoDetalle" EntityType="Self.MedioPagoDetalle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Modules" EntityType="Self.Modules" Schema="dbo" store:Type="Tables" />
@@ -599,8 +607,7 @@
             <End Role="Services" EntitySet="Services" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BeautySalonModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -709,11 +716,11 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Day" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="OpenTime" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="CloseTime" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Weekday" Type="Boolean" Nullable="false" />
+          <Property Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="Day" MaxLength="10" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="OpenTime" MaxLength="10" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="CloseTime" MaxLength="10" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="Weekday" Nullable="false" Type="Boolean" />
         </EntityType>
         <EntityType Name="MedioPago">
           <Key>
@@ -1236,10 +1243,18 @@
             <End Role="Services" EntitySet="Services" />
           </AssociationSet>
           <FunctionImport Name="FechaTerminoSinDiasInhabiles" IsComposable="true" ReturnType="Collection(BeautySalonModel.FechaTerminoSinDiasInhabiles_Result)">
-            <Parameter Name="FechaInicio" Mode="In" Type="DateTime" />
+          <Parameter Name="FechaInicio" Mode="In" Type="DateTime" />
             <Parameter Name="Dias" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Horas" EntityType="BeautySalonModel.Horas" />
         </EntityContainer>
+        <EntityType Name="Horas">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Hora" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1466,6 +1481,14 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Horas">
+            <EntityTypeMapping TypeName="BeautySalonModel.Horas">
+              <MappingFragment StoreEntitySet="Horas">
+                <ScalarProperty Name="Hora" ColumnName="Hora" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

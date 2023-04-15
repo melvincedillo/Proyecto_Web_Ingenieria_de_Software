@@ -12,7 +12,7 @@
         <EntityTypeShape EntityType="BeautySalonModel.FacturaDetalle" Width="1.5" PointX="5.25" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="BeautySalonModel.FacturaImagen" Width="1.5" PointX="5.25" PointY="19" IsExpanded="true" />
         <EntityTypeShape EntityType="BeautySalonModel.Holiday" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BeautySalonModel.Horario" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BeautySalonModel.Horario" PointX="6.625" PointY="0.625" Width="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="BeautySalonModel.MedioPago" Width="1.5" PointX="3" PointY="24.625" IsExpanded="true" />
         <EntityTypeShape EntityType="BeautySalonModel.MedioPagoDetalle" Width="1.5" PointX="5.25" PointY="23" IsExpanded="true" />
         <EntityTypeShape EntityType="BeautySalonModel.Modules" Width="1.5" PointX="5.5" PointY="15.75" IsExpanded="true" />
@@ -47,6 +47,7 @@
         <AssociationConnector Association="BeautySalonModel.Service_FK" ManuallyRouted="false" />
         <AssociationConnector Association="BeautySalonModel.FK_TaxID_Services" ManuallyRouted="false" />
         <AssociationConnector Association="BeautySalonModel.Skill_FK" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="BeautySalonModel.Horas" Width="1.5" PointX="8.625" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

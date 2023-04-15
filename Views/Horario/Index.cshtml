@@ -20,7 +20,7 @@
                     <h1 class="t-stroke">Horario</h1>
                 </div>
                 <div class="col-4 d-flex justify-content-end">
-                    <a href="" data-bs-toggle="modal" data-bs-target="#modalHorario">
+                    <a href="/Horario/Configuracion">
                         <i class="fa-solid fa-gear setting"></i>
                     </a>
                 </div>
@@ -96,7 +96,7 @@
                 <h1 class="t-stroke">Horario</h1>
             </div>
             <div class="col-4 d-flex justify-content-end">
-                <a href="" data-bs-toggle="modal" data-bs-target="#modalHorario">
+                <a href="/Horario/Configuracion">
                     <i class="fa-solid fa-gear setting"></i>
                 </a>
             </div>
@@ -152,7 +152,7 @@
                             <td>@oHoliday.Date</td>
                             <td>@oHoliday.Description</td>
                             <td>
-                                <button type="button" onclick="document.location.href = '@Url.Content("~/Horario/DeleteHoliday/"+oHoliday.ID)'" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                <button type="button" onclick="delHoliday(@oHoliday.ID);" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                             </td>
                         </tr>
                     }
@@ -162,160 +162,6 @@
     </div>
 </section>
 
-
-<!--Modal configurar horario-->
-<div class="modal fade" id="modalHorario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content divModals">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Configuración de Horarios</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <!--Lunes-->
-                    <div class="row mb-2">
-                        <div class="form-check col-3">
-                            <input class="form-check-input" type="checkbox" value="" id="checkLunes">
-                            <label class="form-check-label" for="checkLunes">
-                                Lunes
-                            </label>
-                        </div>
-
-                        <div class="col-8">
-                            <div class="input-group input-group-sm mb-3">
-                                <span class="input-group-text">Abre</span>
-                                <input id="hALunes" type="time" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-
-                                <span class="input-group-text">Cierra</span>
-                                <input id="hCLunes" type="time" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                            </div>
-                        </div>
-                    </div>
-                    <!--Martes-->
-                    <div class="row mb-2">
-                        <div class="form-check col-3">
-                            <input class="form-check-input" type="checkbox" value="" id="checkMartes">
-                            <label class="form-check-label" for="checkLunes">
-                                Martes
-                            </label>
-                        </div>
-
-                        <div class="col-8">
-                            <div class="input-group input-group-sm mb-3">
-                                <span class="input-group-text">Abre</span>
-                                <input id="hAMartes" type="time" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-
-                                <span class="input-group-text">Cierra</span>
-                                <input id="hCMartes" type="time" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                            </div>
-                        </div>
-                    </div>
-                    <!--Miercoles-->
-                    <div class="row mb-2">
-                        <div class="form-check col-3">
-                            <input class="form-check-input" type="checkbox" value="" id="checkMiercoles">
-                            <label class="form-check-label" for="checkLunes">
-                                Miercoles
-                            </label>
-                        </div>
-
-                        <div class="col-8">
-                            <div class="input-group input-group-sm mb-3">
-                                <span class="input-group-text">Abre</span>
-                                <input id="hAMiercoles" type="time" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-
-                                <span class="input-group-text">Cierra</span>
-                                <input id="hCMiercoles" type="time" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                            </div>
-                        </div>
-                    </div>
-                    <!--Jueves-->
-                    <div class="row mb-2">
-                        <div class="form-check col-3">
-                            <input class="form-check-input" type="checkbox" value="" id="checkJueves">
-                            <label class="form-check-label" for="checkLunes">
-                                Jueves
-                            </label>
-                        </div>
-
-                        <div class="col-8">
-                            <div class="input-group input-group-sm mb-3">
-                                <span class="input-group-text">Abre</span>
-                                <input id="hAJueves" type="time" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-
-                                <span class="input-group-text">Cierra</span>
-                                <input id="hCJueves" type="time" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                            </div>
-                        </div>
-                    </div>
-                    <!--Viernes-->
-                    <div class="row mb-2">
-                        <div class="form-check col-3">
-                            <input class="form-check-input" type="checkbox" value="" id="checkViernes">
-                            <label class="form-check-label" for="checkLunes">
-                                Viernes
-                            </label>
-                        </div>
-
-                        <div class="col-8">
-                            <div class="input-group input-group-sm mb-3">
-                                <span class="input-group-text">Abre</span>
-                                <input id="hAViernes" type="time" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-
-                                <span class="input-group-text">Cierra</span>
-                                <input id="hCViernes" type="time" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                            </div>
-                        </div>
-                    </div>
-                    <!--Sabado-->
-                    <div class="row mb-2">
-                        <div class="form-check col-3">
-                            <input class="form-check-input" type="checkbox" value="" id="checkSabado">
-                            <label class="form-check-label" for="checkLunes">
-                                Sabado
-                            </label>
-                        </div>
-
-                        <div class="col-8">
-                            <div class="input-group input-group-sm mb-3">
-                                <span class="input-group-text">Abre</span>
-                                <input id="hASabado" type="time" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-
-                                <span class="input-group-text">Cierra</span>
-                                <input id="hCSabado" type="time" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                            </div>
-                        </div>
-                    </div>
-                    <!--Domingo-->
-                    <div class="row mb-2">
-                        <div class="form-check col-3">
-                            <input class="form-check-input" type="checkbox" value="" id="checkDomingo">
-                            <label class="form-check-label" for="checkLunes">
-                                Domingo
-                            </label>
-                        </div>
-
-                        <div class="col-8">
-                            <div class="input-group input-group-sm mb-3">
-                                <span class="input-group-text">Abre</span>
-                                <input id="hADomingo" type="time" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-
-                                <span class="input-group-text">Cierra</span>
-                                <input id="hCDomingo" type="time" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                            </div>
-                        </div>
-                    </div>
-                    <!--Submit-->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-success">Guardar Cambios</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!--Modal agregar feriado-->
 <div class="modal fade" id="modalFeriado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
