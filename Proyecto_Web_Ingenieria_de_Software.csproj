@@ -279,6 +279,7 @@
     <Content Include="Content\styleModuloCitas.css" />
     <Content Include="Content\styleModuloHorario.css" />
     <Content Include="Content\styleUsuarios.css" />
+    <Content Include="Content\StyleVentas.css" />
     <Content Include="Imagenes\backAgendarCita.jpg" />
     <Content Include="Imagenes\logo.png" />
     <Content Include="Content\bootstrap-grid.css" />
