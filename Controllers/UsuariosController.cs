@@ -4,6 +4,7 @@ using Proyecto_Web_Ingenieria_de_Software.Models.AddModels;
 using Proyecto_Web_Ingenieria_de_Software.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -67,10 +68,32 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         // POST: Agregar
         [PermisosModulos(moduloId: 8)]
         [HttpPost]
-        public ActionResult Agregar(UserModel model)
+        public ActionResult Agregar(UserModel model, int skill)
         {
             if (!ModelState.IsValid)
             {
+                List<SkillViewModel> skills = null;
+                using (BeautySalonEntities db = new BeautySalonEntities())
+                {
+                    skills = (from d in db.Skill
+                              select new SkillViewModel
+                              {
+                                  ID = d.ID,
+                                  SkillName = d.SkillName
+                              }).ToList();
+                }
+
+                List<SelectListItem> items = skills.ConvertAll(d =>
+                {
+                    return new SelectListItem()
+                    {
+                        Text = d.SkillName.ToString(),
+                        Value = d.ID.ToString(),
+                        Selected = false
+                    };
+                });
+
+                ViewData["Skills"] = items;
                 return View(model);
             }
 
@@ -88,10 +111,9 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 db.SaveChanges();
 
                 //Se le asignan los permisos
-                /*
                 Permissions oPermiso = new Permissions();
                 oPermiso.UserID = user.ID;
-                if(model.ventas == true)
+                if (model.ventas == true)
                 {
                     oPermiso.ModuleID = 1;
                     db.Permissions.Add(oPermiso);
@@ -139,7 +161,6 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                     db.Permissions.Add(oPermiso);
                     db.SaveChanges();
                 }
-                */
 
                 //Se crea el empleado
                 Employee oEmployee = new Employee();
@@ -149,13 +170,22 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 oEmployee.Gender = model.sexo;
                 oEmployee.PhoneNumber = model.telefono;
                 oEmployee.UserID = user.ID;
-                oEmployee.SkillID = 2;
+                oEmployee.SkillID = skill;
 
                 db.Employee.Add(oEmployee);
+
                 db.SaveChanges();
             }
-            
+
             return RedirectToAction("Index", "Usuarios");
+        }
+
+        // GET: Editar
+        [PermisosModulos(moduloId: 8)]
+        [HttpGet]
+        public ActionResult Edit()
+        {
+            return View();
         }
     }
 }

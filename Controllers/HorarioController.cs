@@ -110,6 +110,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
             return View();
         }
 
+        // POST: Congiguracion Horario
         [PermisosModulos(moduloId: 6)]
         [HttpPost]
         public ActionResult Configuracion(
