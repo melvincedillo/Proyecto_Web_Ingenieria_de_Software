@@ -7,14 +7,14 @@ using System.Web.Mvc;
 
 namespace Proyecto_Web_Ingenieria_de_Software.Controllers
 {
-   [ValideSession]
-    public class HomeController : Controller
+    [ValideSession]
+    public class ServiciosController : Controller
     {
-        // GET: Home
+        // GET: Servicios
+        [PermisosModulos(moduloId: 2)]
         public ActionResult Index()
         {
             return View();
         }
-
     }
 }

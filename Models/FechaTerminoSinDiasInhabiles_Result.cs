@@ -10,17 +10,9 @@
 namespace Proyecto_Web_Ingenieria_de_Software.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Appointment
+    public partial class FechaTerminoSinDiasInhabiles_Result
     {
-        public int ID { get; set; }
-        public string ClientName { get; set; }
-        public string PhoneNumber { get; set; }
-        public System.DateTime AppointmentDate { get; set; }
-        public string Status { get; set; }
-        public int ServiceID { get; set; }
-    
-        public virtual Services Services { get; set; }
+        public Nullable<System.DateTime> FechaTermino { get; set; }
     }
 }

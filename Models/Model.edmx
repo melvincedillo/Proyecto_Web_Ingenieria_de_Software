@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BeautySalonModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BeautySalonModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Appointment">
           <Key>
             <PropertyRef Name="ID" />
@@ -13,10 +13,17 @@
           <Property Name="ClientName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="AppointmentDate" Type="datetime" Nullable="false" />
-          <Property Name="EmailAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Status" Type="nvarchar" MaxLength="25" Nullable="false" />
           <Property Name="ServiceID" Type="int" Nullable="false" />
-          <Property Name="EmployeeID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Calendar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="date" />
+          <Property Name="Day" Type="varchar" MaxLength="20" />
+          <Property Name="Weekday" Type="bit" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -28,8 +35,8 @@
           <Property Name="DNI" Type="nvarchar" MaxLength="25" Nullable="false" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="Gender" Type="char" MaxLength="1" Nullable="false" />
-          <Property Name="Role" Type="nvarchar" MaxLength="25" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="SkillID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Factura">
           <Key>
@@ -69,6 +76,31 @@
           <Property Name="EmployeeID" Type="int" Nullable="false" />
           <Property Name="ClientName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="FacturaImage" Type="image" />
+        </EntityType>
+        <EntityType Name="Holiday">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="date" />
+          <Property Name="Description" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Horario">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Day" Type="varchar" MaxLength="10" />
+          <Property Name="OpenTime" Type="varchar" MaxLength="10" />
+          <Property Name="CloseTime" Type="varchar" MaxLength="10" />
+          <Property Name="Weekday" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Horas">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Hora" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="MedioPago">
           <Key>
@@ -128,6 +160,15 @@
           <Property Name="Country" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
         </EntityType>
+        <EntityType Name="ServiceDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServiceID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Services">
           <Key>
             <PropertyRef Name="ID" />
@@ -136,8 +177,15 @@
           <Property Name="ServiceCode" Type="char" MaxLength="2" Nullable="false" />
           <Property Name="ServiceName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Price" Type="money" Nullable="false" />
-          <Property Name="ProductID" Type="int" Nullable="false" />
           <Property Name="TaxID" Type="int" Nullable="false" />
+          <Property Name="SkillID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Skill">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SkillName" Type="varchar" MaxLength="25" Nullable="false" />
         </EntityType>
         <EntityType Name="Tax">
           <Key>
@@ -158,18 +206,6 @@
           <Property Name="UserActive" Type="bit" Nullable="false" />
           <Property Name="UserCreateDate" Type="datetime" Nullable="false" />
         </EntityType>
-        <Association Name="FK_EmployeeID">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Appointment">
-              <PropertyRef Name="EmployeeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_EmployeeID_Factura">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
@@ -251,18 +287,6 @@
             </Principal>
             <Dependent Role="Permissions">
               <PropertyRef Name="ModuleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProductID">
-          <End Role="Products" Type="Self.Products" Multiplicity="1" />
-          <End Role="Services" Type="Self.Services" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Services">
-              <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -410,25 +434,86 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="Product_FK">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="ServiceDetail" Type="Self.ServiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServiceDetail">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Service_FK">
+          <End Role="Services" Type="Self.Services" Multiplicity="1" />
+          <End Role="ServiceDetail" Type="Self.ServiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServiceDetail">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Skill_Employee_FK">
+          <End Role="Skill" Type="Self.Skill" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skill">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="SkillID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Skill_FK">
+          <End Role="Skill" Type="Self.Skill" Multiplicity="1" />
+          <End Role="Services" Type="Self.Services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skill">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Services">
+              <PropertyRef Name="SkillID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="FechaTerminoSinDiasInhabiles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FechaInicio" Type="datetime" Mode="In" />
+          <Parameter Name="Dias" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="FechaTermino" Type="date" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
         <EntityContainer Name="BeautySalonModelStoreContainer">
           <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Calendar" EntityType="Self.Calendar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Factura" EntityType="Self.Factura" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FacturaDetalle" EntityType="Self.FacturaDetalle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FacturaImagen" EntityType="Self.FacturaImagen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Holiday" EntityType="Self.Holiday" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Horario" EntityType="Self.Horario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Horas" EntityType="Self.Horas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MedioPago" EntityType="Self.MedioPago" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MedioPagoDetalle" EntityType="Self.MedioPagoDetalle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Modules" EntityType="Self.Modules" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Permissions" EntityType="Self.Permissions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Salon" EntityType="Self.Salon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ServiceDetail" EntityType="Self.ServiceDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Services" EntityType="Self.Services" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Skill" EntityType="Self.Skill" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tax" EntityType="Self.Tax" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_EmployeeID" Association="Self.FK_EmployeeID">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="Appointment" EntitySet="Appointment" />
-          </AssociationSet>
           <AssociationSet Name="FK_EmployeeID_Factura" Association="Self.FK_EmployeeID_Factura">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Factura" EntitySet="Factura" />
@@ -456,10 +541,6 @@
           <AssociationSet Name="FK_ModuleID" Association="Self.FK_ModuleID">
             <End Role="Modules" EntitySet="Modules" />
             <End Role="Permissions" EntitySet="Permissions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductID" Association="Self.FK_ProductID">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="Services" EntitySet="Services" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductID_FacturaDetalle" Association="Self.FK_ProductID_FacturaDetalle">
             <End Role="Products" EntitySet="Products" />
@@ -509,12 +590,30 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
+          <AssociationSet Name="Product_FK" Association="Self.Product_FK">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ServiceDetail" EntitySet="ServiceDetail" />
+          </AssociationSet>
+          <AssociationSet Name="Service_FK" Association="Self.Service_FK">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="ServiceDetail" EntitySet="ServiceDetail" />
+          </AssociationSet>
+          <AssociationSet Name="Skill_Employee_FK" Association="Self.Skill_Employee_FK">
+            <End Role="Skill" EntitySet="Skill" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="Skill_FK" Association="Self.Skill_FK">
+            <End Role="Skill" EntitySet="Skill" />
+            <End Role="Services" EntitySet="Services" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BeautySalonModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="FechaTerminoSinDiasInhabiles_Result">
+          <Property Name="FechaTermino" Type="DateTime" />
+        </ComplexType>
         <EntityType Name="Appointment">
           <Key>
             <PropertyRef Name="ID" />
@@ -523,12 +622,18 @@
           <Property Name="ClientName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AppointmentDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Status" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ServiceID" Type="Int32" Nullable="false" />
-          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_EmployeeID" FromRole="Appointment" ToRole="Employee" />
           <NavigationProperty Name="Services" Relationship="Self.FK_ServiceID" FromRole="Appointment" ToRole="Services" />
+        </EntityType>
+        <EntityType Name="Calendar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Day" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Weekday" Type="Boolean" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -540,12 +645,12 @@
           <Property Name="DNI" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="Role" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Appointment" Relationship="Self.FK_EmployeeID" FromRole="Employee" ToRole="Appointment" />
+          <Property Name="SkillID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Factura" Relationship="Self.FK_EmployeeID_Factura" FromRole="Employee" ToRole="Factura" />
           <NavigationProperty Name="FacturaImagen" Relationship="Self.FK_EmployeeID_FacturaImagen" FromRole="Employee" ToRole="FacturaImagen" />
           <NavigationProperty Name="Users" Relationship="Self.FK_UserID_Employee" FromRole="Employee" ToRole="Users" />
+          <NavigationProperty Name="Skill" Relationship="Self.Skill_Employee_FK" FromRole="Employee" ToRole="Skill" />
         </EntityType>
         <EntityType Name="Factura">
           <Key>
@@ -598,6 +703,24 @@
           <NavigationProperty Name="Employee" Relationship="Self.FK_EmployeeID_FacturaImagen" FromRole="FacturaImagen" ToRole="Employee" />
           <NavigationProperty Name="Factura" Relationship="Self.FK_FacturaNumero_FacturaImagen" FromRole="FacturaImagen" ToRole="Factura" />
           <NavigationProperty Name="Salon" Relationship="Self.FK_SalonID_FacturaImagen" FromRole="FacturaImagen" ToRole="Salon" />
+        </EntityType>
+        <EntityType Name="Holiday">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Horario">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="Day" MaxLength="10" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="OpenTime" MaxLength="10" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="CloseTime" MaxLength="10" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="Weekday" Nullable="false" Type="Boolean" />
         </EntityType>
         <EntityType Name="MedioPago">
           <Key>
@@ -652,8 +775,8 @@
           <Property Name="Sku" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="TaxID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="FacturaDetalle" Relationship="Self.FK_ProductID_FacturaDetalle" FromRole="Products" ToRole="FacturaDetalle" />
-          <NavigationProperty Name="Services" Relationship="Self.FK_ProductID" FromRole="Products" ToRole="Services" />
           <NavigationProperty Name="Tax" Relationship="Self.FK_TaxID_Products" FromRole="Products" ToRole="Tax" />
+          <NavigationProperty Name="ServiceDetail" Relationship="Self.Product_FK" FromRole="Products" ToRole="ServiceDetail" />
         </EntityType>
         <EntityType Name="Salon">
           <Key>
@@ -671,6 +794,17 @@
           <NavigationProperty Name="FacturaImagen" Relationship="Self.FK_SalonID_FacturaImagen" FromRole="Salon" ToRole="FacturaImagen" />
           <NavigationProperty Name="MedioPagoDetalle" Relationship="Self.FK_SalonID_MedioPagoDetalle" FromRole="Salon" ToRole="MedioPagoDetalle" />
         </EntityType>
+        <EntityType Name="ServiceDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServiceID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="Self.Product_FK" FromRole="ServiceDetail" ToRole="Products" />
+          <NavigationProperty Name="Services" Relationship="Self.Service_FK" FromRole="ServiceDetail" ToRole="Services" />
+        </EntityType>
         <EntityType Name="Services">
           <Key>
             <PropertyRef Name="ID" />
@@ -679,12 +813,22 @@
           <Property Name="ServiceCode" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="ServiceName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="ProductID" Type="Int32" Nullable="false" />
           <Property Name="TaxID" Type="Int32" Nullable="false" />
+          <Property Name="SkillID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Appointment" Relationship="Self.FK_ServiceID" FromRole="Services" ToRole="Appointment" />
           <NavigationProperty Name="FacturaDetalle" Relationship="Self.FK_ServiceID_FacturaDetalle" FromRole="Services" ToRole="FacturaDetalle" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_ProductID" FromRole="Services" ToRole="Products" />
+          <NavigationProperty Name="ServiceDetail" Relationship="Self.Service_FK" FromRole="Services" ToRole="ServiceDetail" />
           <NavigationProperty Name="Tax" Relationship="Self.FK_TaxID_Services" FromRole="Services" ToRole="Tax" />
+          <NavigationProperty Name="Skill" Relationship="Self.Skill_FK" FromRole="Services" ToRole="Skill" />
+        </EntityType>
+        <EntityType Name="Skill">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SkillName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.Skill_Employee_FK" FromRole="Skill" ToRole="Employee" />
+          <NavigationProperty Name="Services" Relationship="Self.Skill_FK" FromRole="Skill" ToRole="Services" />
         </EntityType>
         <EntityType Name="Tax">
           <Key>
@@ -710,18 +854,6 @@
           <NavigationProperty Name="Employee" Relationship="Self.FK_UserID_Employee" FromRole="Users" ToRole="Employee" />
           <NavigationProperty Name="Permissions" Relationship="Self.FK_UserID" FromRole="Users" ToRole="Permissions" />
         </EntityType>
-        <Association Name="FK_EmployeeID">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Appointment">
-              <PropertyRef Name="EmployeeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ServiceID">
           <End Role="Services" Type="Self.Services" Multiplicity="1" />
           <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
@@ -767,6 +899,18 @@
             </Principal>
             <Dependent Role="Employee">
               <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Skill_Employee_FK">
+          <End Role="Skill" Type="Self.Skill" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skill">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="SkillID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -926,18 +1070,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProductID">
-          <End Role="Products" Type="Self.Products" Multiplicity="1" />
-          <End Role="Services" Type="Self.Services" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Services">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TaxID_Products">
           <End Role="Tax" Type="Self.Tax" Multiplicity="1" />
           <End Role="Products" Type="Self.Products" Multiplicity="*" />
@@ -947,6 +1079,30 @@
             </Principal>
             <Dependent Role="Products">
               <PropertyRef Name="TaxID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Product_FK">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="ServiceDetail" Type="Self.ServiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServiceDetail">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Service_FK">
+          <End Role="Services" Type="Self.Services" Multiplicity="1" />
+          <End Role="ServiceDetail" Type="Self.ServiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServiceDetail">
+              <PropertyRef Name="ServiceID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -962,25 +1118,38 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="Skill_FK">
+          <End Role="Skill" Type="Self.Skill" Multiplicity="1" />
+          <End Role="Services" Type="Self.Services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skill">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Services">
+              <PropertyRef Name="SkillID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="BeautySalonEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Appointment" EntityType="Self.Appointment" />
+          <EntitySet Name="Calendar" EntityType="Self.Calendar" />
           <EntitySet Name="Employee" EntityType="Self.Employee" />
           <EntitySet Name="Factura" EntityType="Self.Factura" />
           <EntitySet Name="FacturaDetalle" EntityType="Self.FacturaDetalle" />
           <EntitySet Name="FacturaImagen" EntityType="Self.FacturaImagen" />
+          <EntitySet Name="Holiday" EntityType="Self.Holiday" />
+          <EntitySet Name="Horario" EntityType="Self.Horario" />
           <EntitySet Name="MedioPago" EntityType="Self.MedioPago" />
           <EntitySet Name="MedioPagoDetalle" EntityType="Self.MedioPagoDetalle" />
           <EntitySet Name="Modules" EntityType="Self.Modules" />
           <EntitySet Name="Permissions" EntityType="Self.Permissions" />
           <EntitySet Name="Products" EntityType="Self.Products" />
           <EntitySet Name="Salon" EntityType="Self.Salon" />
+          <EntitySet Name="ServiceDetail" EntityType="Self.ServiceDetail" />
           <EntitySet Name="Services" EntityType="Self.Services" />
+          <EntitySet Name="Skill" EntityType="Self.Skill" />
           <EntitySet Name="Tax" EntityType="Self.Tax" />
           <EntitySet Name="Users" EntityType="Self.Users" />
-          <AssociationSet Name="FK_EmployeeID" Association="Self.FK_EmployeeID">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="Appointment" EntitySet="Appointment" />
-          </AssociationSet>
           <AssociationSet Name="FK_ServiceID" Association="Self.FK_ServiceID">
             <End Role="Services" EntitySet="Services" />
             <End Role="Appointment" EntitySet="Appointment" />
@@ -995,6 +1164,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_UserID_Employee" Association="Self.FK_UserID_Employee">
             <End Role="Users" EntitySet="Users" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="Skill_Employee_FK" Association="Self.Skill_Employee_FK">
+            <End Role="Skill" EntitySet="Skill" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
           <AssociationSet Name="FK_FacturaNumero_FacturaImagen" Association="Self.FK_FacturaNumero_FacturaImagen">
@@ -1049,19 +1222,39 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Permissions" EntitySet="Permissions" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProductID" Association="Self.FK_ProductID">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="Services" EntitySet="Services" />
-          </AssociationSet>
           <AssociationSet Name="FK_TaxID_Products" Association="Self.FK_TaxID_Products">
             <End Role="Tax" EntitySet="Tax" />
             <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="Product_FK" Association="Self.Product_FK">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ServiceDetail" EntitySet="ServiceDetail" />
+          </AssociationSet>
+          <AssociationSet Name="Service_FK" Association="Self.Service_FK">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="ServiceDetail" EntitySet="ServiceDetail" />
           </AssociationSet>
           <AssociationSet Name="FK_TaxID_Services" Association="Self.FK_TaxID_Services">
             <End Role="Tax" EntitySet="Tax" />
             <End Role="Services" EntitySet="Services" />
           </AssociationSet>
+          <AssociationSet Name="Skill_FK" Association="Self.Skill_FK">
+            <End Role="Skill" EntitySet="Skill" />
+            <End Role="Services" EntitySet="Services" />
+          </AssociationSet>
+          <FunctionImport Name="FechaTerminoSinDiasInhabiles" IsComposable="true" ReturnType="Collection(BeautySalonModel.FechaTerminoSinDiasInhabiles_Result)">
+          <Parameter Name="FechaInicio" Mode="In" Type="DateTime" />
+            <Parameter Name="Dias" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Horas" EntityType="BeautySalonModel.Horas" />
         </EntityContainer>
+        <EntityType Name="Horas">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Hora" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1075,10 +1268,18 @@
                 <ScalarProperty Name="ClientName" ColumnName="ClientName" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="AppointmentDate" ColumnName="AppointmentDate" />
-                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Calendar">
+            <EntityTypeMapping TypeName="BeautySalonModel.Calendar">
+              <MappingFragment StoreEntitySet="Calendar">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="Weekday" ColumnName="Weekday" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1091,8 +1292,8 @@
                 <ScalarProperty Name="DNI" ColumnName="DNI" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Role" ColumnName="Role" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="SkillID" ColumnName="SkillID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1135,6 +1336,26 @@
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="ClientName" ColumnName="ClientName" />
                 <ScalarProperty Name="FacturaImage" ColumnName="FacturaImage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Holiday">
+            <EntityTypeMapping TypeName="BeautySalonModel.Holiday">
+              <MappingFragment StoreEntitySet="Holiday">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Horario">
+            <EntityTypeMapping TypeName="BeautySalonModel.Horario">
+              <MappingFragment StoreEntitySet="Horario">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="OpenTime" ColumnName="OpenTime" />
+                <ScalarProperty Name="CloseTime" ColumnName="CloseTime" />
+                <ScalarProperty Name="Weekday" ColumnName="Weekday" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1202,6 +1423,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ServiceDetail">
+            <EntityTypeMapping TypeName="BeautySalonModel.ServiceDetail">
+              <MappingFragment StoreEntitySet="ServiceDetail">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Services">
             <EntityTypeMapping TypeName="BeautySalonModel.Services">
               <MappingFragment StoreEntitySet="Services">
@@ -1209,8 +1440,16 @@
                 <ScalarProperty Name="ServiceCode" ColumnName="ServiceCode" />
                 <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="TaxID" ColumnName="TaxID" />
+                <ScalarProperty Name="SkillID" ColumnName="SkillID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Skill">
+            <EntityTypeMapping TypeName="BeautySalonModel.Skill">
+              <MappingFragment StoreEntitySet="Skill">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SkillName" ColumnName="SkillName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1232,6 +1471,21 @@
                 <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
                 <ScalarProperty Name="UserActive" ColumnName="UserActive" />
                 <ScalarProperty Name="UserCreateDate" ColumnName="UserCreateDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionName="BeautySalonModel.Store.FechaTerminoSinDiasInhabiles" FunctionImportName="FechaTerminoSinDiasInhabiles">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BeautySalonModel.FechaTerminoSinDiasInhabiles_Result">
+                <ScalarProperty Name="FechaTermino" ColumnName="FechaTermino" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Horas">
+            <EntityTypeMapping TypeName="BeautySalonModel.Horas">
+              <MappingFragment StoreEntitySet="Horas">
+                <ScalarProperty Name="Hora" ColumnName="Hora" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

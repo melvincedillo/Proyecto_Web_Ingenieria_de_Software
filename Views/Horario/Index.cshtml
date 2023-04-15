@@ -1,0 +1,217 @@
+﻿
+@{
+    ViewBag.Title = "Horario";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    List<Proyecto_Web_Ingenieria_de_Software.Models.Horario> Horarios = ViewBag.Horarios;
+    List<Proyecto_Web_Ingenieria_de_Software.Models.Holiday> Holidays = ViewBag.Holidays;
+}
+
+
+<link rel="stylesheet" href="~/Content/styleModuloHorario.css" />
+
+<!--Seccion para pantallas grandes-->
+<section class="d-none d-md-block">
+    <div class="container row flex-row flex-wrap">
+        <!--Horarios-->
+        <div class="col-4 horarioDiv">
+            <div class="row">
+                <div class="col-8">
+                    <h1 class="t-stroke">Horario</h1>
+                </div>
+                <div class="col-4 d-flex justify-content-end">
+                    <a href="/Horario/Configuracion">
+                        <i class="fa-solid fa-gear setting"></i>
+                    </a>
+                </div>
+            </div>
+            <hr class="text-black-50" />
+            <table class="table table-hover table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Día</th>
+                        <th scope="col">Abre</th>
+                        <th scope="col">Cierre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var oHorario in Horarios)
+                     {
+                    <tr>
+                        <td>@oHorario.Day</td>
+                        <td>@oHorario.OpenTime</td>
+                        <td>@oHorario.CloseTime</td>
+                    </tr>
+                     }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-1"></div>
+        <!--Feriados-->
+        <div class="col-7 feriadosDiv">
+            <div class="row">
+                <div class="col-8">
+                    <h1 class="t-stroke">Feriados</h1>
+                </div>
+                <div class="col-4 d-flex justify-content-end">
+                    <a href="" data-bs-toggle="modal" data-bs-target="#modalFeriado">
+                        <i class="fa-regular fa-calendar-plus feriadosADD"></i>
+                    </a>
+                </div>
+            </div>
+            <hr class="text-black-50" />
+            <div class="tablaDiv">
+                <table class="table table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Motivo</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var oHoliday in Holidays)
+                        {
+                        <tr>
+                            <td>@oHoliday.Date</td>
+                            <td>@oHoliday.Description</td>
+                            <td>
+                                <button type="button" onclick="delHoliday(@oHoliday.ID);" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--Seccion para pantallas pequeñas-->
+<section class="d-md-none">
+    <!--Horarios-->
+    <div class="horarioDiv mb-5">
+        <div class="row">
+            <div class="col-8">
+                <h1 class="t-stroke">Horario</h1>
+            </div>
+            <div class="col-4 d-flex justify-content-end">
+                <a href="/Horario/Configuracion">
+                    <i class="fa-solid fa-gear setting"></i>
+                </a>
+            </div>
+        </div>
+        <hr class="text-black-50" />
+        <table class="table table-hover table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Día</th>
+                    <th scope="col">Abre</th>
+                    <th scope="col">Cierre</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var oHorario in Horarios)
+                {
+                    <tr>
+                        <td>@oHorario.Day</td>
+                        <td>@oHorario.OpenTime</td>
+                        <td>@oHorario.CloseTime</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!--Feriados-->
+    <div class="feriadosDiv mb-5">
+        <div class="row">
+            <div class="col-8">
+                <h1 class="t-stroke">Feriados</h1>
+            </div>
+            <div class="col-4 d-flex justify-content-end">
+                <a href="" data-bs-toggle="modal" data-bs-target="#modalFeriado">
+                    <i class="fa-regular fa-calendar-plus feriadosADD"></i>
+                </a>
+            </div>
+        </div>
+        <hr class="text-black-50" />
+        <div class="tablaDiv">
+            <table class="table table-hover table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Motivo</th>
+                        <th scope="col">Cancelar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var oHoliday in Holidays)
+                    {
+                        <tr>
+                            <td>@oHoliday.Date</td>
+                            <td>@oHoliday.Description</td>
+                            <td>
+                                <button type="button" onclick="delHoliday(@oHoliday.ID);" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+
+<!--Modal agregar feriado-->
+<div class="modal fade" id="modalFeriado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content divModals">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar un Feriado</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("AddHoliday", "Horario", FormMethod.Post, new { role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationMessage("error", new { @class = "text-danger" })
+
+                    <div class="row mt-3 align-items-center">
+                        <div class="col-auto">
+                            <label for="inputFecha" class="col-form-label">Fecha</label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="date" name="Date" class="form-control" min="@DateTime.Today.ToString("yyyy-MM-dd")">
+                        </div>
+                    </div>
+                    <div class="row mt-3 align-items-center">
+                        <div class="col-auto">
+                            <label for="inputMotivo" class="col-form-label">Motivo</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" name="motivo" class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="mt-3 modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Agregar</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function delHoliday(id) {
+        if (confirm("Esta seguro de eliminar el ferido")) {
+            url = "@Url.Content("~/Horario/DeleteHoliday")" + "/" + id;
+
+            $.post(url, function () {
+                document.location.href = "@Url.Content("~/Horario/")";
+            });
+        }
+    }
+</script>

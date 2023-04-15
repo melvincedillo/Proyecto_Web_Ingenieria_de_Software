@@ -12,26 +12,21 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Products
+    public partial class Skill
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Products()
+        public Skill()
         {
-            this.FacturaDetalle = new HashSet<FacturaDetalle>();
-            this.ServiceDetail = new HashSet<ServiceDetail>();
+            this.Employee = new HashSet<Employee>();
+            this.Services = new HashSet<Services>();
         }
     
         public int ID { get; set; }
-        public string ProductName { get; set; }
-        public decimal Price { get; set; }
-        public int Quantity { get; set; }
-        public string Sku { get; set; }
-        public int TaxID { get; set; }
+        public string SkillName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FacturaDetalle> FacturaDetalle { get; set; }
-        public virtual Tax Tax { get; set; }
+        public virtual ICollection<Employee> Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ServiceDetail> ServiceDetail { get; set; }
+        public virtual ICollection<Services> Services { get; set; }
     }
 }
