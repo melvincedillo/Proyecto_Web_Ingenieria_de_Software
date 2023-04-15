@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "CrearVenta";
+}
+
+<h2>CrearVenta</h2>
+<div class=" container">
+    <form>
+        <table>
+            <tr>
+                <td>
+                    <label>
+                        Fecha
+                    </label>
+                </td>
+                <td>
+                    <input type="date" name="fechaVenta" readonly />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label>
+                        Cliente
+                    </label>
+                </td>
+                <td>
+                    <input type="text" name="nombreCliente" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>
+                        Tel&eacute;fono
+                    </label>
+                </td>
+                <td>
+                    <input type="text" name="telefonoCliente" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <label>
+                        Productos
+                    </label>
+                    
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>
+                        Descripci&oacute;n
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        Precio
+                    </label>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                    <asp:DropDownList runat="server"></asp:DropDownList>
+                </td>
+                <td>
+                    <label>
+                        <input type="text" readonly />
+                    </label>
+                </td>
+            </tr>
+
+        </table>
+    </form>
+
+</div>
+

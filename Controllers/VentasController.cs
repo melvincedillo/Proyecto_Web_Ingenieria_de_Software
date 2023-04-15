@@ -16,5 +16,13 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         {
             return View();
         }
+
+        // GET: CrearVenta
+        //[PermisosModulos(moduloId: 1)]
+        public ActionResult CrearVenta()
+        {
+
+            return View();
+        }
     }
 }
