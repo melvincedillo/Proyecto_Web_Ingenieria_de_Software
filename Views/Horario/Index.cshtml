@@ -2,6 +2,9 @@
 @{
     ViewBag.Title = "Horario";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    List<Proyecto_Web_Ingenieria_de_Software.Models.Horario> Horarios = ViewBag.Horarios;
+    List<Proyecto_Web_Ingenieria_de_Software.Models.Holiday> Holidays = ViewBag.Holidays;
 }
 
 
@@ -32,41 +35,14 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach(var oHorario in Horarios)
+                     {
                     <tr>
-                        <td>Lunes</td>
-                        <td>08:00</td>
-                        <td>18:00</td>
+                        <td>@oHorario.Day</td>
+                        <td>@oHorario.OpenTime</td>
+                        <td>@oHorario.CloseTime</td>
                     </tr>
-                    <tr>
-                        <td>Martes</td>
-                        <td>08:00</td>
-                        <td>18:00</td>
-                    </tr>
-                    <tr>
-                        <td>Miercoles</td>
-                        <td>08:00</td>
-                        <td>18:00</td>
-                    </tr>
-                    <tr>
-                        <td>Jueves</td>
-                        <td>08:00</td>
-                        <td>18:00</td>
-                    </tr>
-                    <tr>
-                        <td>Viernes</td>
-                        <td>08:00</td>
-                        <td>18:00</td>
-                    </tr>
-                    <tr>
-                        <td>Sabado</td>
-                        <td>08:00</td>
-                        <td>18:00</td>
-                    </tr>
-                    <tr>
-                        <td>Domingo</td>
-                        <td>08:00</td>
-                        <td>18:00</td>
-                    </tr>
+                     }
                 </tbody>
             </table>
         </div>
@@ -90,122 +66,20 @@
                         <tr>
                             <th scope="col">Fecha</th>
                             <th scope="col">Motivo</th>
-                            <th scope="col">Cancelar</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach(var oHoliday in Holidays)
+                        {
                         <tr>
-                            <td>27/03/2023</td>
-                            <td>Reparacion de local</td>
+                            <td>@oHoliday.Date</td>
+                            <td>@oHoliday.Description</td>
                             <td>
-                                <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                <button type="button" onclick="delHoliday(@oHoliday.ID);" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                             </td>
                         </tr>
-                        <tr>
-                            <td>03/09/2023</td>
-                            <td>Dia de la madre</td>
-                            <td>
-                                <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>05/04/2023</td>
-                            <td>Dia libre</td>
-                            <td>
-                                <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>22/05/2023</td>
-                            <td>Aniversario de la tienda papemonkd</td>
-                            <td>
-                                <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>27/03/2023</td>
-                            <td>Reparacion de local</td>
-                            <td>
-                                <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>03/09/2023</td>
-                            <td>Dia de la madre</td>
-                            <td>
-                                <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>05/04/2023</td>
-                            <td>Dia libre</td>
-                            <td>
-                                <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>22/05/2023</td>
-                            <td>Aniversario de la tienda papemonkd</td>
-                            <td>
-                                <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>27/03/2023</td>
-                            <td>Reparacion de local</td>
-                            <td>
-                                <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>03/09/2023</td>
-                            <td>Dia de la madre</td>
-                            <td>
-                                <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>05/04/2023</td>
-                            <td>Dia libre</td>
-                            <td>
-                                <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>22/05/2023</td>
-                            <td>Aniversario de la tienda papemonkd</td>
-                            <td>
-                                <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>27/03/2023</td>
-                            <td>Reparacion de local</td>
-                            <td>
-                                <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>03/09/2023</td>
-                            <td>Dia de la madre</td>
-                            <td>
-                                <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>05/04/2023</td>
-                            <td>Dia libre</td>
-                            <td>
-                                <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>22/05/2023</td>
-                            <td>Aniversario de la tienda papemonkd</td>
-                            <td>
-                                <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
+                        }
                     </tbody>
                 </table>
             </div>
@@ -237,41 +111,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Lunes</td>
-                    <td>08:00</td>
-                    <td>18:00</td>
-                </tr>
-                <tr>
-                    <td>Martes</td>
-                    <td>08:00</td>
-                    <td>18:00</td>
-                </tr>
-                <tr>
-                    <td>Miercoles</td>
-                    <td>08:00</td>
-                    <td>18:00</td>
-                </tr>
-                <tr>
-                    <td>Jueves</td>
-                    <td>08:00</td>
-                    <td>18:00</td>
-                </tr>
-                <tr>
-                    <td>Viernes</td>
-                    <td>08:00</td>
-                    <td>18:00</td>
-                </tr>
-                <tr>
-                    <td>Sabado</td>
-                    <td>08:00</td>
-                    <td>18:00</td>
-                </tr>
-                <tr>
-                    <td>Domingo</td>
-                    <td>08:00</td>
-                    <td>18:00</td>
-                </tr>
+                @foreach (var oHorario in Horarios)
+                {
+                    <tr>
+                        <td>@oHorario.Day</td>
+                        <td>@oHorario.OpenTime</td>
+                        <td>@oHorario.CloseTime</td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>
@@ -299,34 +146,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>27/03/2023</td>
-                        <td>Reparacion de local</td>
-                        <td>
-                            <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>03/09/2023</td>
-                        <td>Dia de la madre</td>
-                        <td>
-                            <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>05/04/2023</td>
-                        <td>Dia libre</td>
-                        <td>
-                            <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>22/05/2023</td>
-                        <td>Aniversario</td>
-                        <td>
-                            <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
+                    @foreach (var oHoliday in Holidays)
+                    {
+                        <tr>
+                            <td>@oHoliday.Date</td>
+                            <td>@oHoliday.Description</td>
+                            <td>
+                                <button type="button" onclick="document.location.href = '@Url.Content("~/Horario/DeleteHoliday/"+oHoliday.ID)'" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
@@ -497,13 +326,17 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                @using (Html.BeginForm("AddHoliday", "Horario", FormMethod.Post, new { role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationMessage("error", new { @class = "text-danger" })
+
                     <div class="row mt-3 align-items-center">
                         <div class="col-auto">
                             <label for="inputFecha" class="col-form-label">Fecha</label>
                         </div>
                         <div class="col-auto">
-                            <input type="date" id="inputFecha" class="form-control">
+                            <input type="date" name="Date" class="form-control" min="@DateTime.Today.ToString("yyyy-MM-dd")">
                         </div>
                     </div>
                     <div class="row mt-3 align-items-center">
@@ -511,7 +344,7 @@
                             <label for="inputMotivo" class="col-form-label">Motivo</label>
                         </div>
                         <div class="col-9">
-                            <input type="text" id="inputMotivo" class="form-control">
+                            <input type="text" name="motivo" class="form-control"/>
                         </div>
                     </div>
 
@@ -519,9 +352,20 @@
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-success">Agregar</button>
                     </div>
-                </form>
+                }
             </div>
         </div>
     </div>
 </div>
 
+<script>
+    function delHoliday(id) {
+        if (confirm("Esta seguro de eliminar el ferido")) {
+            url = "@Url.Content("~/Horario/DeleteHoliday")" + "/" + id;
+
+            $.post(url, function () {
+                document.location.href = "@Url.Content("~/Horario/")";
+            });
+        }
+    }
+</script>
