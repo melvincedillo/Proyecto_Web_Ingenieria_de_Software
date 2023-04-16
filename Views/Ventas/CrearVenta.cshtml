@@ -1,78 +1,164 @@
-﻿
+﻿@using Proyecto_Web_Ingenieria_de_Software.Models.VentasModel;
+
 @{
     ViewBag.Title = "CrearVenta";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>CrearVenta</h2>
-<div class=" container">
-    <form>
-        <table>
-            <tr>
-                <td>
-                    <label>
-                        Fecha
-                    </label>
-                </td>
-                <td>
-                    <input type="date" name="fechaVenta" readonly />
-                </td>
-            </tr>
 
-            <tr>
-                <td>
-                    <label>
-                        Cliente
-                    </label>
-                </td>
-                <td>
-                    <input type="text" name="nombreCliente" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>
-                        Tel&eacute;fono
-                    </label>
-                </td>
-                <td>
-                    <input type="text" name="telefonoCliente" />
-                </td>
-            </tr>
+<script>
 
-            <tr>
-                <td colspan="2">
-                    <label>
-                        Productos
-                    </label>
-                    
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>
-                        Descripci&oacute;n
-                    </label>
-                </td>
-                <td>
-                    <label>
-                        Precio
-                    </label>
-                </td>
-            </tr>
+    function llenarPrecio() {
+        var precio = $('#ddlProductos option:selected').data('precio');
+        var labelPrecio = document.getElementById("priceProduct");
+
+        labelPrecio.innerHTML = precio;
+    }
+
+    function agregarProducto() {
+        var descripcion = $('#ddlProductos option:selected').text();
+        var precio = $('#ddlProductos option:selected').data('precio');
+
+        var fila = '<tr> <td>' + descripcion + '</td> <td>' + precio + '</td>' +
+                    '<td><button type="button">-</button></td></tr>';        
+
+        $('#tblProductos tbody').append(fila);
+    }
+
+    $(function () {
+        $('#btnAgregarProducto').on('click', function () {
+            /*            
+            alert('prueba');            
+            var id = $('#ddlProductos').val();
+            var descripcion = $('#ddlProductos option:selected').text();
+            var precio = $('#ddlProductos option:selected').data('precio');
+
             
-            <tr>
-                <td>
-                    <asp:DropDownList runat="server"></asp:DropDownList>
-                </td>
-                <td>
-                    <label>
-                        <input type="text" readonly />
-                    </label>
-                </td>
-            </tr>
+            
+            if (id !== '') {
+                var fila = '<tr><td>' + id + '</td><td>' + descripcion + '</td><td>' + precio + '</td></tr>';
+                $('#tblProductos tbody').append(fila);
+            }
 
-        </table>
-    </form>
+            */
+
+        });
+    });
+
+
+
+</script>
+
+<h2>Crear Venta</h2>
+
+<div class="container">
+
+    <div style="display:inline-block; width:50%;">
+        <form>
+            <table>
+                <tr>
+                    <td>
+                        <label>
+                            Fecha:
+                        </label>
+                    </td>
+                    <td>
+                        <input type="date" name="fechaVenta" readonly />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label>
+                            Cliente
+                        </label>
+                    </td>
+                    <td>
+                        <input type="text" name="nombreCliente" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>
+                            Tel&eacute;fono
+                        </label>
+                    </td>
+                    <td>
+                        <input type="text" name="telefonoCliente" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                        <label>
+                            Productos
+                        </label>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>
+                            Descripci&oacute;n
+                        </label>
+                    </td>
+                    <td>
+                        <label>
+                            Precio
+                        </label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <select id="ddlProductos" onchange="llenarPrecio()">
+                            <option value="">Seleccione Producto</option>
+                            @foreach (ProductsViewModel item in ViewBag.listaProductos)
+                            {
+                                <option value="@item.ID" data-precio="@item.Price">@item.ProductName</option>
+                            }
+                        </select>
+                    </td>
+
+                    <td>
+                        <label id="priceProduct">
+                            0.00
+                        </label>
+                    </td>
+                    <td>
+                        <button type="button" onclick="agregarProducto();">+</button>
+                    </td>
+                </tr>
+
+            </table>
+        </form>
+    </div>
+
+
+    <div style="display: inline-block; width: 50%;">
+        <div class="container text-center" id="productsAdded">
+           <table id="tblProductos">
+               <thead>
+                   <tr>
+                       <th>
+                           Descripci&oacute;n
+                       </th>
+                       <th>
+                           Precio
+                       </th>
+                   </tr>
+               </thead>
+               <tbody>
+
+               </tbody>
+           </table>
+
+            
+        </div>
+    </div>
+
 
 </div>
+
+
 

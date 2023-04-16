@@ -20,3 +20,8 @@
     background-color: black;
     color:goldenrod;
 }
+
+.venta, .productos{
+    display:inline-block;
+    width:50%;
+}

@@ -8,10 +8,10 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models.VentasModel
     public class ProductsViewModel
     {
         public int ID { get; set; }
-        public String ProductName { get; set; }
-        public String Price { get; set; }
+        public string ProductName { get; set; }
+        public double Price { get; set; }
         public int Quantity { get; set; }
-        public String Sku { get; set; }
+        public string Sku { get; set; }
         public int TaxID { get; set; }
 
     }
