@@ -185,14 +185,65 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            EditUserModel editarModel = new EditUserModel();
-
-            using(var db = new BeautySalonEntities())
+            EditUserModel eModel = new EditUserModel();
+            using (var db = new BeautySalonEntities())
             {
+                var empleado = db.Employee.Join(db.Users, em => em.UserID, us => us.ID, (em, us) => new { em, us }).FirstOrDefault(x => x.em.UserID == id);
+                eModel.nombre = empleado.em.FirstName;
+                eModel.apellido = empleado.em.LastName;
+                eModel.DNI = empleado.em.DNI;
+                eModel.sexo = empleado.em.Gender;
+                eModel.telefono = empleado.em.PhoneNumber;
+                eModel.usuario = empleado.us.UserName;
+                eModel.correo = empleado.us.UserEmail;
+                eModel.skillId = empleado.em.SkillID;
+                eModel.id = empleado.us.ID;
 
+                eModel.ventas = false;
+                eModel.servicios = false;
+                eModel.productos = false;
+                eModel.citas = false;
+                eModel.reportes = false;
+                eModel.horarios = false;
+                eModel.general = false;
+                eModel.usuarios = false;
+
+                List<Permissions> modulos = (from d in db.Permissions where d.UserID == id select d).ToList();
+                foreach (var element in modulos)
+                {
+                    if (element.ModuleID == 1) { eModel.ventas = true; }
+                    if (element.ModuleID == 2) { eModel.servicios = true; }
+                    if (element.ModuleID == 3) { eModel.productos = true; }
+                    if (element.ModuleID == 4) { eModel.citas = true; }
+                    if (element.ModuleID == 5) { eModel.reportes = true; }
+                    if (element.ModuleID == 6) { eModel.horarios = true; }
+                    if (element.ModuleID == 7) { eModel.general = true; }
+                    if (element.ModuleID == 8) { eModel.usuarios = true; }
+                }
             }
 
-            return View();
+            List<SkillViewModel> skills = null;
+            using (BeautySalonEntities db = new BeautySalonEntities())
+            {
+                skills = (from d in db.Skill
+                          select new SkillViewModel
+                          {
+                              ID = d.ID,
+                              SkillName = d.SkillName
+                          }).ToList();
+            }
+            List<SelectListItem> items = skills.ConvertAll(d =>
+            {
+                return new SelectListItem()
+                {
+                    Text = d.SkillName.ToString(),
+                    Value = d.ID.ToString(),
+                    Selected = false
+                };
+            });
+            ViewData["Skills"] = items;
+
+            return View(eModel);
         }
     }
 }

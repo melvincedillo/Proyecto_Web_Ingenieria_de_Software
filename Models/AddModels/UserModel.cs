@@ -27,9 +27,6 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models.AddModels
         public string telefono { get; set; }
 
         [Required]
-        public int idSkill { get; set; }
-
-        [Required]
         [Display(Name = "Nombre de Usuario")]
         public string usuario { get; set; }
 
@@ -76,6 +73,8 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models.AddModels
 
     public class EditUserModel
     {
+        public int id { get; set; }
+
         [Required]
         [Display(Name = "Nombre")]
         public string nombre { get; set; }
@@ -95,9 +94,6 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models.AddModels
         [Required]
         [Display(Name = "Telefono")]
         public string telefono { get; set; }
-
-        [Required]
-        public int idSkill { get; set; }
 
         [Required]
         [Display(Name = "Nombre de Usuario")]
@@ -140,5 +136,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models.AddModels
 
         [Display(Name = "Productos")]
         public bool productos { get; set; }
+
+        public int skillId { get; set; }
     }
 }
