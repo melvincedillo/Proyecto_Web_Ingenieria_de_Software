@@ -8,18 +8,18 @@ using System.Web.Mvc;
 
 namespace Proyecto_Web_Ingenieria_de_Software.Controllers
 {
-  // [ValideSession]
+    [ValideSession]
     public class VentasController : Controller
     {
         // GET: Ventas
-        //[PermisosModulos(moduloId: 1)]
+        [PermisosModulos(moduloId: 1)]
         public ActionResult Index()
         {
             return View();
         }
 
         // GET: CrearVenta
-        //[PermisosModulos(moduloId: 1)]
+        [PermisosModulos(moduloId: 1)]
         public ActionResult CrearVenta()
         {
             
