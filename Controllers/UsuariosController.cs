@@ -22,14 +22,22 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
 
             using (BeautySalonEntities db = new BeautySalonEntities())
             {
-                list = (from d in db.Users
-                        select new UserViewModel
-                        {
-                            ID = d.ID,
-                            dateCreate = d.UserCreateDate,
-                            userName = d.UserName,
-                            userActive = d.UserActive
-                        }).ToList();
+                var e = db.Employee.Join(db.Users,
+                    em => em.UserID,
+                    us => us.ID, (em, us) => new { em, us }).ToList();
+
+
+                list = e.ConvertAll(d =>
+                {
+                    return new UserViewModel()
+                    {
+                        ID = d.em.UserID,
+                        nombre = d.em.FirstName + " " + d.em.LastName,
+                        userActive = d.us.UserActive,
+                        userName = d.us.UserName,
+                        dateCreate = d.us.UserCreateDate.ToString("dd-mm-yyyy")
+                    };
+                });    
             }
 
             return View(list);
@@ -333,6 +341,25 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
 
             }
             return RedirectToAction("Index", "Usuarios");
+        }
+
+        [PermisosModulos(moduloId: 8)]
+        public ActionResult CambiarEstado(int id)
+        {
+            using(var db = new BeautySalonEntities())
+            {
+                Users u = db.Users.Find(id);
+                if(u.UserActive == true)
+                {
+                    u.UserActive = false;
+                } else
+                {
+                    u.UserActive = true;
+                }
+                db.Entry(u).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");
         }
     }
 }
