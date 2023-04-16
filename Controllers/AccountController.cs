@@ -23,7 +23,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 using (Models.BeautySalonEntities db = new Models.BeautySalonEntities())
                 {
                     var oUser = (from d in db.Users
-                                 where d.UserName == User.Trim() && d.UserPassword == Pass.Trim() && d.UserActive == true
+                                 where d.UserName == User.Trim() && d.UserPassword == Pass.Trim()
                                  select d).FirstOrDefault();
                     if(oUser == null)
                     {
@@ -31,7 +31,15 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                         return View();
                     }
 
-                    Session["User"] = oUser;
+                    if(oUser.UserActive == true)
+                    {
+                        Session["User"] = oUser;
+                    }
+                    else
+                    {
+                        ViewBag.Error = "Tu usuario esta bloqueado";
+                        return View();
+                    }
                 }
                 return RedirectToAction("Index", "Home");
             }
