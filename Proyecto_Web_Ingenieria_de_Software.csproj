@@ -266,6 +266,8 @@
     <Compile Include="Models\Users.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\VentasModel\FacturaDetalleViewModel.cs" />
+    <Compile Include="Models\VentasModel\FacturaViewModel.cs" />
     <Compile Include="Models\VentasModel\ProductsViewModel.cs" />
     <Compile Include="Models\ViewModels\HorarioViewModel.cs" />
     <Compile Include="Models\ViewModels\SkillViewModel.cs" />

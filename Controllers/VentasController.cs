@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Proyecto_Web_Ingenieria_de_Software.Models.ViewModels;
+
 
 namespace Proyecto_Web_Ingenieria_de_Software.Controllers
 {
@@ -24,14 +26,14 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         {
 
             List<ProductsViewModel> lst = null;
-            using ( Models.BeautySalonEntities db = new Models.BeautySalonEntities())
+            using (Models.BeautySalonEntities db = new Models.BeautySalonEntities())
             {
                 lst = (from d in db.Products
                        select new ProductsViewModel
                        {
-                         ID = d.ID,
-                         ProductName = d.ProductName,
-                         Price = (double)d.Price
+                           ID = d.ID,
+                           ProductName = d.ProductName,
+                           Price = (double)d.Price
                        }).ToList();
 
             }
@@ -43,5 +45,12 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
 
             return View();
         }
+
+        public ActionResult Agregar()
+        {
+
+        }
+
+
     }
 }
