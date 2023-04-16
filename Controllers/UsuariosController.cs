@@ -183,8 +183,15 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         // GET: Editar
         [PermisosModulos(moduloId: 8)]
         [HttpGet]
-        public ActionResult Edit()
+        public ActionResult Edit(int id)
         {
+            EditUserModel editarModel = new EditUserModel();
+
+            using(var db = new BeautySalonEntities())
+            {
+
+            }
+
             return View();
         }
     }
