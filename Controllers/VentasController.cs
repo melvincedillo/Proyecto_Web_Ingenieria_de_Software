@@ -46,7 +46,9 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
             return View();
         }
 
-        public ActionResult Agregar(FacturaViewModel factura, List <FacturaDetalleViewModel> detalle)
+
+        [HttpPost]
+        public void Agregar(FacturaViewModel factura, List <FacturaDetalleViewModel> detalle)
         {
             double subTotal=0;
             foreach(var i in detalle)
