@@ -385,6 +385,7 @@
     <Content Include="Views\Servicios\Index.cshtml" />
     <Content Include="Views\Ventas\Index.cshtml" />
     <Content Include="Views\Horario\Configuracion.cshtml" />
+    <Content Include="Views\Usuarios\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
