@@ -1,4 +1,5 @@
 ﻿using Proyecto_Web_Ingenieria_de_Software.Filters;
+using Proyecto_Web_Ingenieria_de_Software.Models.VentasModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,11 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
             
             using ( Models.BeautySalonEntities db = new Models.BeautySalonEntities())
             {
+                List<ProductsViewModel> lst =
+                   (from d in db.Products
+                    select new ProductsViewModel { }
+                    ).ToList();
+
 
             }
             return View();
