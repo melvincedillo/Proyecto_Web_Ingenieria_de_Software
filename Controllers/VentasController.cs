@@ -21,7 +21,11 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         //[PermisosModulos(moduloId: 1)]
         public ActionResult CrearVenta()
         {
+            
+            using ( Models.BeautySalonEntities db = new Models.BeautySalonEntities())
+            {
 
+            }
             return View();
         }
     }
