@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Editar Usuario";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-    List<SelectListItem> items = (List<SelectListItem>)ViewData["Skills"];
+    List<Proyecto_Web_Ingenieria_de_Software.Models.Skill> items = (List<Proyecto_Web_Ingenieria_de_Software.Models.Skill>)ViewData["Skills"];
 }
 
 @model Proyecto_Web_Ingenieria_de_Software.Models.AddModels.EditUserModel
@@ -16,11 +16,12 @@
         </div>
     </div>
 
-    @using (Html.BeginForm("Agregar", "Usuarios", FormMethod.Post, new { role = "form" }))
+    @using (Html.BeginForm("Edit", "Usuarios", FormMethod.Post, new { role = "form" }))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationMessage("error", new { @class = "text-danger" })
         @Html.HiddenFor(d => d.id)
+        @Html.HiddenFor(d => d.idEmpleado)
         <div class="row">
             <div class="col">
                 @Html.LabelFor(d => d.nombre, new { @class = "form-label" })
@@ -72,7 +73,19 @@
             </div>
             <div class="col">
                 @Html.Label("Rol/Habilidad", new { @class = "form-label" })
-                @Html.DropDownList("skill", items, new { @class = "form-select" })
+                <select name="idSkill" class = "form-select">
+                    @foreach(var sk in items)
+                    {
+                        if(sk.ID == Model.skillId) 
+                        { 
+                            <option value="@sk.ID" selected>@sk.SkillName</option> 
+                        }
+                        else 
+                        { 
+                            <option value="@sk.ID">@sk.SkillName</option>
+                        }
+                    }
+                </select>
             </div>
         </div>
 

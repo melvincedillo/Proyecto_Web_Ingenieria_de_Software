@@ -198,6 +198,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 eModel.correo = empleado.us.UserEmail;
                 eModel.skillId = empleado.em.SkillID;
                 eModel.id = empleado.us.ID;
+                eModel.idEmpleado = empleado.em.ID;
 
                 eModel.ventas = false;
                 eModel.servicios = false;
@@ -222,28 +223,116 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 }
             }
 
-            List<SkillViewModel> skills = null;
+            List<Skill> items = null;
             using (BeautySalonEntities db = new BeautySalonEntities())
             {
-                skills = (from d in db.Skill
-                          select new SkillViewModel
-                          {
-                              ID = d.ID,
-                              SkillName = d.SkillName
-                          }).ToList();
+                items = db.Skill.ToList();
             }
-            List<SelectListItem> items = skills.ConvertAll(d =>
-            {
-                return new SelectListItem()
-                {
-                    Text = d.SkillName.ToString(),
-                    Value = d.ID.ToString(),
-                    Selected = false
-                };
-            });
             ViewData["Skills"] = items;
 
             return View(eModel);
+        }
+
+        [PermisosModulos(moduloId: 8)]
+        [HttpPost]
+        public ActionResult Edit(EditUserModel model, int idSkill)
+        {
+            if (!ModelState.IsValid)
+            {
+                List<Skill> items = null;
+                using (BeautySalonEntities db = new BeautySalonEntities())
+                {
+                    items = db.Skill.ToList();
+                }
+                ViewData["Skills"] = items;
+
+                return View(model);
+            }
+
+            using (var db = new BeautySalonEntities())
+            {
+                //Editando usuario
+                Users u = db.Users.Find(model.id);
+                u.UserEmail = model.correo;
+                u.UserName = model.usuario;
+                if (model.contraseña != null && model.contraseña.Trim() != "")
+                {
+                    u.UserPassword = model.contraseña;
+                }
+                db.Entry(u).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+
+                //Editando Empleado
+                Employee e = db.Employee.Find(model.idEmpleado);
+                e.FirstName = model.nombre;
+                e.LastName = model.apellido;
+                e.PhoneNumber = model.telefono;
+                e.DNI = model.DNI;
+                e.Gender = model.sexo;
+                e.SkillID = Convert.ToInt32(idSkill);
+                db.Entry(e).State = System.Data.Entity.EntityState.Modified;
+
+                //Editando permisos
+                List<Permissions> pD = (from d in db.Permissions where d.UserID == model.id select d).ToList();
+                foreach (var p in pD)
+                {
+                    db.Permissions.Remove(p);
+                    db.SaveChanges();
+                }
+
+                Permissions oPermiso = new Permissions();
+                oPermiso.UserID = model.id;
+                if (model.ventas == true)
+                {
+                    oPermiso.ModuleID = 1;
+                    db.Permissions.Add(oPermiso);
+                    db.SaveChanges();
+                }
+                if (model.servicios == true)
+                {
+                    oPermiso.ModuleID = 2;
+                    db.Permissions.Add(oPermiso);
+                    db.SaveChanges();
+                }
+                if (model.productos == true)
+                {
+                    oPermiso.ModuleID = 3;
+                    db.Permissions.Add(oPermiso);
+                    db.SaveChanges();
+                }
+                if (model.citas == true)
+                {
+                    oPermiso.ModuleID = 4;
+                    db.Permissions.Add(oPermiso);
+                    db.SaveChanges();
+                }
+                if (model.reportes == true)
+                {
+                    oPermiso.ModuleID = 5;
+                    db.Permissions.Add(oPermiso);
+                    db.SaveChanges();
+                }
+                if (model.horarios == true)
+                {
+                    oPermiso.ModuleID = 6;
+                    db.Permissions.Add(oPermiso);
+                    db.SaveChanges();
+                }
+                if (model.general == true)
+                {
+                    oPermiso.ModuleID = 7;
+                    db.Permissions.Add(oPermiso);
+                    db.SaveChanges();
+                }
+                if (model.usuarios == true)
+                {
+                    oPermiso.ModuleID = 8;
+                    db.Permissions.Add(oPermiso);
+                    db.SaveChanges();
+                }
+
+            }
+            return RedirectToAction("Index", "Usuarios");
         }
     }
 }

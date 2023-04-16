@@ -74,6 +74,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models.AddModels
     public class EditUserModel
     {
         public int id { get; set; }
+        public int idEmpleado { get; set; }
 
         [Required]
         [Display(Name = "Nombre")]
