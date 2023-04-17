@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Proyecto_Web_Ingenieria_de_Software.Models.ViewModels;
 using Proyecto_Web_Ingenieria_de_Software.Models;
+using Proyecto_Web_Ingenieria_de_Software.Models.AddModels;
 
 namespace Proyecto_Web_Ingenieria_de_Software.Controllers
 {
@@ -48,13 +49,18 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
 
 
         [HttpPost]
-        public void Agregar(FacturaViewModel factura, List <FacturaDetalleViewModel> detalle)
+        //public void Agregar(FacturaViewModel factura, List <FacturaDetalleViewModel> detalle)
+        public void Agregar(FacturaModel factura)
         {
-            double subTotal=0;
+            double subTotal = 0;
+
+            /*            
             foreach(var i in detalle)
             {
                 subTotal = i.Price + subTotal;
             }
+            */
+
             using (var db = new BeautySalonEntities())
             {
                 Factura oFactura = new Factura();
@@ -62,8 +68,8 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
 
                 oFactura.Time = DateTime.Now;
                 oFactura.Total = (decimal)subTotal;
-                oFactura.Tax = (decimal)factura.Tax;
-                oFactura.ClientName = factura.ClientName;
+                oFactura.Tax = 32;
+                oFactura.ClientName = factura.clientName;
                 oFactura.SalonID = 1;
                 oFactura.EmployeeID = 2;
 
@@ -73,7 +79,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 int idFactura = db.Factura.Max(x => x.FacturaNumero);
 
                 //detallefactura
-                FacturaDetalle oDetalle = null;
+                /*FacturaDetalle oDetalle = null;
                 foreach (var i in detalle)
                 {
                    oDetalle= new FacturaDetalle();
@@ -90,7 +96,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
 
                     var detalleFact = db.FacturaDetalle.Add(oDetalle);
                     db.SaveChanges();
-                }
+                }*/
             }
         }
 

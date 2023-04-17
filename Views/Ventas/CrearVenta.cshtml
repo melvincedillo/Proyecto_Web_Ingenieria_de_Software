@@ -10,6 +10,8 @@
 
 <script>
 
+    var detalleFactura = [];
+
     function llenarPrecio() {
         var precio = $('#ddlProductos option:selected').data('precio');
         var labelPrecio = document.getElementById("priceProduct");
@@ -20,11 +22,18 @@
     function agregarProducto() {
         var descripcion = $('#ddlProductos option:selected').text();
         var precio = $('#ddlProductos option:selected').data('precio');
+        var idProducto = $('#ddlProductos option:selected').val();
 
         var fila = '<tr> <td>' + descripcion + '</td> <td>' + precio + '</td>' +
             '<td><button type="button">-</button></td></tr>';
 
         $('#tblProductos tbody').append(fila);
+
+
+        detalleFactura.push({
+            IdProducto: idProducto,
+            precio: precio
+        });        
     }
 
 
