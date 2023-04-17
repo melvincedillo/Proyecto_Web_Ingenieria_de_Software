@@ -40,65 +40,64 @@
     @using (Html.BeginForm("Agregar", "Ventas", FormMethod.Post))
     {
 
-    <div style="display:inline-block; width:50%;">
-        <div>
-            <label>Fecha:</label>
-            @Html.TextBoxFor(model => model.time)
+        <div style="display:inline-block; width:50%;">
+            <div>
+                <label>Fecha:</label>
+                @Html.TextBoxFor(model => model.time)
+            </div>
+
+            <div>
+                <label>Cliente:</label>
+                @Html.TextBoxFor(model => model.clientName)
+            </div>
+
+            <div>
+                <h3>Productos</h3>
+            </div>
+
+            <div>
+                <table>
+                    <tr>
+                        <td>
+                            <label>
+                                Descripci&oacute;n
+                            </label>
+                        </td>
+                        <td>
+                            <label>
+                                Precio
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <select id="ddlProductos" onchange="llenarPrecio()">
+                                <option value="">Seleccione Producto</option>
+                                @foreach (ProductsViewModel item in ViewBag.listaProductos)
+                                {
+                                    <option value="@item.ID" data-precio="@item.Price">@item.ProductName</option>
+                                }
+                            </select>
+                        </td>
+
+                        <td>
+                            <label id="priceProduct">
+                                0.00
+                            </label>
+                        </td>
+
+                        <td>
+                            <button type="button" onclick="agregarProducto();">+</button>
+                        </td>
+
+                    </tr>
+
+
+                </table>
+            </div>
+
         </div>
-
-        <div>
-            <label>Cliente:</label>
-            @Html.TextBoxFor(model => model.clientName)
-        </div>
-
-        <div>
-            <h3>Productos</h3>
-        </div>
-
-        <div>
-            <table>
-                <tr>
-                    <td>
-                        <label>
-                            Descripci&oacute;n
-                        </label>
-                    </td>
-                    <td>
-                        <label>
-                            Precio
-                        </label>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <select id="ddlProductos" onchange="llenarPrecio()">
-                            <option value="">Seleccione Producto</option>
-                            @foreach (ProductsViewModel item in ViewBag.listaProductos)
-                            {
-                                <option value="@item.ID" data-precio="@item.Price">@item.ProductName</option>
-                            }
-                        </select>
-                    </td>
-
-                    <td>
-                        <label id="priceProduct">
-                            0.00
-                        </label>
-                    </td>
-
-                    <td>
-                        <button type="button" onclick="agregarProducto();">+</button>
-                    </td>
-
-                </tr>
-
-
-            </table>
-        </div>
-        
-    </div>
-       
 
         <div style="display: inline-block; width: 50%;">
             <div class="container text-center" id="productsAdded">
@@ -119,17 +118,5 @@
             <button type="submit" class="btn btn-primary">Crear</button>
         </div>
 
-
-
     }
-
-
-
-
-
-
-
 </div>
-
-
-
