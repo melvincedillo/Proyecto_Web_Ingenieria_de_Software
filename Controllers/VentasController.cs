@@ -91,8 +91,6 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                     var detalleFact = db.FacturaDetalle.Add(oDetalle);
                     db.SaveChanges();
                 }
-
-                return RedirectToAction("Index");
             }
         }
 
