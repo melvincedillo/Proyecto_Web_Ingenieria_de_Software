@@ -10,7 +10,7 @@
 
 <script>
 
-    var detalleFactura = [];
+    var tblProductos = [];
 
     function llenarPrecio() {
         var precio = $('#ddlProductos option:selected').data('precio');
@@ -22,22 +22,30 @@
     function agregarProducto() {
         var descripcion = $('#ddlProductos option:selected').text();
         var precio = $('#ddlProductos option:selected').data('precio');
-        var idProducto = $('#ddlProductos option:selected').val();
+        var idProducto = $('#ddlProductos').val();
 
-        var fila = '<tr> <td>' + descripcion + '</td> <td>' + precio + '</td>' +
-            '<td><button type="button">-</button></td></tr>';
+        if (idProducto !== '') {
+            var fila = '<tr> <td>' + descripcion + '</td> <td>' + precio + '</td>' +
+                '<td><button type="button">-</button></td></tr>';
 
-        $('#tblProductos tbody').append(fila);
+            $('#tblProductos tbody').append(fila);
+                        
+            tblProductos.push({
+                numeroFactura: 1,
+                salonId: 1,
+                productId: idProducto,
+                price: precio,
+                quantity: 1,
+                discount: 20,
+                salesTax:25
+            });
 
 
-        detalleFactura.push({
-            IdProducto: idProducto,
-            precio: precio
-        });        
+        }
+        
+
+        
     }
-
-
-
 
 
 </script>
@@ -128,4 +136,6 @@
         </div>
 
     }
+
+
 </div>

@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using Proyecto_Web_Ingenieria_de_Software.Models.ViewModels;
 using Proyecto_Web_Ingenieria_de_Software.Models;
 using Proyecto_Web_Ingenieria_de_Software.Models.AddModels;
+using Newtonsoft.Json;
 
 namespace Proyecto_Web_Ingenieria_de_Software.Controllers
 {
@@ -48,10 +49,14 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         }
 
 
-        [HttpPost]
+
         //public void Agregar(FacturaViewModel factura, List <FacturaDetalleViewModel> detalle)
+
+        [HttpPost]
         public void Agregar(FacturaModel factura)
         {
+
+            var detalleFactura = JsonConvert.DeserializeObject<List<DetalleFacturaModel>>(Request.Form["tblProductos"]);
             double subTotal = 0;
 
             /*            
