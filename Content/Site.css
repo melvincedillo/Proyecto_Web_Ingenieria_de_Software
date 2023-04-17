@@ -22,3 +22,7 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.cabecera {
+    background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%), url('../Imagenes/backAgendarCita.jpg');
+}
