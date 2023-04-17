@@ -3,94 +3,120 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1 class="homeCaption">Men&uacute; Administrativo del Sistema</h1>
-
 <div class="container backHome">
-    
+    <h1 class="homeCaption">Men&uacute; Administrativo del Sistema</h1>
+    <hr />
     <div class="row" style=" padding-top:5px; padding-bottom: 5px;">
-        <div class="col">
+        <!--Ventas-->
+        <div class="col mt-3">
             <div class="card homeBottons" style="width: 18rem;">
                 <div class="card-body">
-                    <h5 class="card-title">Usuarios</h5>
+                    <di class="row">
+                        <div class="col-2"><i class="fa-solid fa-sack-dollar iconHome"></i></div>
+                        <div class="col"><h5 class="card-title">Ventas</h5></div>
+                    </di>
+                    <p class="card-text">Administre usuarios del sistema</p>
+                    <a href="/Ventas" class="btn homeOptions">Ventas</a>
+                </div>
+            </div>
+        </div>
+
+        <!--Citas-->
+        <div class="col mt-3">
+            <div class="card homeBottons" style="width: 18rem;">
+                <div class="card-body">
+                    <di class="row">
+                        <div class="col-2"><i class="fa-solid fa-calendar-check iconHome"></i></div>
+                        <div class="col"><h5 class="card-title">Citas</h5></div>
+                    </di>
+                    <p class="card-text">Configure par&aacute;metros generales </p>
+                    <a href="/Citas" class="btn homeOptions">Citas</a>
+                </div>
+            </div>
+        </div>
+
+        <!--Servicios-->
+        <div class="col mt-3">
+            <div class="card homeBottons" style="width: 18rem;">
+                <div class="card-body">
+                    <di class="row">
+                        <div class="col-2"><i class="fa-sharp fa-solid fa-sliders iconHome"></i></div>
+                        <div class="col"><h5 class="card-title">Servicios</h5></div>
+                    </di>
+                    <p class="card-text">Administre usuarios del sistema</p>
+                    <a href="/Servicios" class="btn homeOptions">Servicios</a>
+                </div>
+            </div>
+        </div>
+
+        <!--Productos-->
+        <div class="col mt-3">
+            <div class="card homeBottons" style="width: 18rem;">
+                <div class="card-body">
+                    <di class="row">
+                        <div class="col-2"><i class="fa-brands fa-shopify iconHome"></i></i></div>
+                        <div class="col"><h5 class="card-title">Productos</h5></div>
+                    </di>
+                    <p class="card-text">Configure par&aacute;metros generales </p>
+                    <a href="/Productos" class="btn homeOptions">Productos</a>
+                </div>
+            </div>
+        </div>
+
+        <!--Reportes-->
+        <div class="col mt-3">
+            <div class="card homeBottons" style="width: 18rem;">
+                <div class="card-body">
+                    <di class="row">
+                        <div class="col-2"><i class="fa-sharp fa-solid fa-file-excel iconHome"></i></div>
+                        <div class="col"><h5 class="card-title">Reportes</h5></div>
+                    </di>
+                    <p class="card-text">Administre usuarios del sistema</p>
+                    <a href="/Reportes" class="btn homeOptions">Reportes</a>
+                </div>
+            </div>
+        </div>
+
+        <!--Horarios-->
+        <div class="col mt-3">
+            <div class="card homeBottons" style="width: 18rem;">
+                <div class="card-body">
+                    <di class="row">
+                        <div class="col-2"><i class="fa-solid fa-calendar-days iconHome"></i></div>
+                        <div class="col"><h5 class="card-title">Horarios</h5></div>
+                    </di>
+                    <p class="card-text">Configure el horario y dias feriados</p>
+                    <a href="/Horario" class="btn homeOptions">Horarios</a>
+                </div>
+            </div>
+        </div>
+
+        <!--Usuarios-->
+        <div class="col mt-3">
+            <div class="card homeBottons" style="width: 18rem;">
+                <div class="card-body">
+                    <di class="row">
+                        <div class="col-2"><i class="fa-solid fa-users iconHome"></i></div>
+                        <div class="col"><h5 class="card-title">Usuarios</h5></div>
+                    </di>
                     <p class="card-text">Administre usuarios del sistema</p>
                     <a href="/Usuarios" class="btn homeOptions">Usuarios</a>
                 </div>
             </div>
         </div>
 
-        <div class="col">
+        <!--General-->
+        <div class="col mt-3">
             <div class="card homeBottons" style="width: 18rem;">
                 <div class="card-body">
-                    <h5 class="card-title">Par&aacute;metros del sistema</h5>
+                    <di class="row">
+                        <div class="col-2"><i class="fa-solid fa-gears iconHome"></i></div>
+                        <div class="col"><h5 class="card-title">Configuración general</h5></div>
+                    </di>
                     <p class="card-text">Configure par&aacute;metros generales </p>
-                    <a href="/General" class="btn homeOptions">Par&aacute;metros</a>
-                </div>
-            </div>
-        </div>
-
-        
-    </div>
-
-    <div class="row" style="padding-top: 5px; padding-bottom: 5px;">
-        <div class="col">
-            <div class="card homeBottons" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Configuraci&oacute;n de servicios</h5>
-                    <p class="card-text">Configure servicios</p>
-                    <a href="/Servicios" class="btn homeOptions">Servicios</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="card homeBottons" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Configuraci&oacute;n de productos</h5>
-                    <p class="card-text">Configure productos</p>
-                    <a href="/Productos" class="btn homeOptions">Servicios</a>
+                    <a href="/General" class="btn homeOptions">Configuración general</a>
                 </div>
             </div>
         </div>
     </div>
-
-    
-    <div class="row">
-        <div class="col">
-            <div class="card homeBottons" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Reportes</h5>
-                    <p class="card-text">Generaci&oacute;n de reportes</p>
-                    <a href="/Reportes" class="btn homeOptions">Reportes</a>
-                </div>
-            </div>
-        </div>
-
-
-
-        <div class="col">
-            <div class="card homeBottons" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Citas</h5>
-                    <p class="card-text">Cree nuevas citas</p>
-                    <a href="/Administracion/Citas" class="btn homeOptions">Citas</a>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="row">
-        <div class="col">
-            <div class="card homeBottons" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Ventas</h5>
-                    <p class="card-text">Crear venta</p>
-                    <a href="/Ventas" class="btn homeOptions">Ventas</a>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    
 </div>

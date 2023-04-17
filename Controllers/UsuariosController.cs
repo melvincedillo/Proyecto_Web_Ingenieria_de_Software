@@ -35,7 +35,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                         nombre = d.em.FirstName + " " + d.em.LastName,
                         userActive = d.us.UserActive,
                         userName = d.us.UserName,
-                        dateCreate = d.us.UserCreateDate.ToString("dd-mm-yyyy")
+                        dateCreate = d.us.UserCreateDate.ToString("dd-MM-yyyy")
                     };
                 });    
             }

@@ -38,7 +38,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models.AddModels
         [Required]
         [Display(Name = "Confirmar Contraseña")]
         [DataType(DataType.Password)]
-        [System.ComponentModel.DataAnnotations.Compare("contraseña", ErrorMessage = "Las contraseñas no son iguales")]
+        [System.ComponentModel.DataAnnotations.Compare("contraseña", ErrorMessage = "Las contraseñas no corresponden")]
         public string confContraseña { get; set; }
 
         [Required]
@@ -46,6 +46,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models.AddModels
         [Display(Name = "Correo electronico")]
         public string correo { get; set; }
 
+        // Estos son Opcionales
         [Display(Name = "Citas")]
         public bool citas { get; set; }
 
