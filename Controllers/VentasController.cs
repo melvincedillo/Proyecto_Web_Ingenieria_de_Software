@@ -60,14 +60,14 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 Factura oFactura = new Factura();
                 
 
-                oFactura.Time = factura.Time;
+                oFactura.Time = DateTime.Now;
                 oFactura.Total = (decimal)subTotal;
                 oFactura.Tax = (decimal)factura.Tax;
                 oFactura.ClientName = factura.ClientName;
-                oFactura.SalonID = factura.SalonID;
-                oFactura.EmployeeID = factura.EmployeeID;
+                oFactura.SalonID = 1;
+                oFactura.EmployeeID = 2;
 
-                var facturita = db.Factura.Add(oFactura);
+                db.Factura.Add(oFactura);
                 db.SaveChanges();
 
                 int idFactura = db.Factura.Max(x => x.FacturaNumero);
