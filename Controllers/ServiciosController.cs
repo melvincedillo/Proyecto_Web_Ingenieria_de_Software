@@ -16,5 +16,21 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         {
             return View();
         }
+
+        // GET: Agregar
+        [PermisosModulos(moduloId: 2)]
+        [HttpGet]
+        public ActionResult Agregar()
+        {
+            return View();
+        }
+
+        // GET: Editar
+        [PermisosModulos(moduloId: 2)]
+        [HttpGet]
+        public ActionResult Editar()
+        {
+            return View();
+        }
     }
 }

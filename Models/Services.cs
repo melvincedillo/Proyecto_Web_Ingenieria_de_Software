@@ -28,6 +28,8 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models
         public decimal Price { get; set; }
         public int TaxID { get; set; }
         public int SkillID { get; set; }
+        public string Description { get; set; }
+        public decimal PrecioTotal { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Appointment> Appointment { get; set; }

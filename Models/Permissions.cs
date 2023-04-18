@@ -17,6 +17,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models
         public int ID { get; set; }
         public int ModuleID { get; set; }
         public int UserID { get; set; }
+        public bool estado { get; set; }
     
         public virtual Modules Modules { get; set; }
         public virtual Users Users { get; set; }

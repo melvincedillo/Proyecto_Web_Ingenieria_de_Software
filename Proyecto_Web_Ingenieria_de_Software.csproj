@@ -394,6 +394,8 @@
     <Content Include="Views\Horario\Configuracion.cshtml" />
     <Content Include="Views\Usuarios\Edit.cshtml" />
     <Content Include="Views\Ventas\CrearVenta.cshtml" />
+    <Content Include="Views\Servicios\Agregar.cshtml" />
+    <Content Include="Views\Servicios\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

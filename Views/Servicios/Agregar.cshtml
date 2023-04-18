@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "Nuevo Servicio";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/styleUsuarios.css" />
+
+<div class="serviciosDiv mb-5 p-5">
+    <div class="row">
+        <div class="col-8">
+            <h1 class="t-stroke">Nuevo Servicio</h1>
+        </div>
+    </div>
+    <hr class="text-black-50" />
+    @using (Html.BeginForm("Agregar", "Servicios", FormMethod.Post, new { role = "form" }))
+    {
+        <div class="row">
+            <div class="col">
+                @Html.Label("Nombre", new { @class = "form-label" })
+                @Html.TextBox("nombre", "", new { @class = "form-control" })
+            </div>
+            <div class="col">
+                @Html.Label("Codigo de servicio", new { @class = "form-label" })
+                @Html.TextBox("codigo", "", new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col">
+                @Html.Label("Precio", new { @class = "form-label" })
+                @Html.TextBox("precio", "", new { @class = "form-control" })
+            </div>
+            <div class="col">
+                @Html.Label("Habilidad requerida", new { @class = "form-label" })
+                @Html.TextBox("codigo", "", new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col">
+                @Html.Label("Descripción del servicio", new { @class = "form-label" })
+                @Html.TextArea("descripcion", "", new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col">
+                @Html.Label("Productos", new { @class = "form-label" })
+                <table class="table table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Precio Unitarios</th>
+                            <th scope="col">Precio Total</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Uña</td>
+                            <td>
+                                <button class="btn btn-sm btn-danger" onclick="">-</button>
+                                10
+                                <button class="btn btn-sm btn-primary" onclick="">+</button>
+                            </td>
+                            <td>15</td>
+                            <td>150</td>
+                            <td><button class="btn btn-sm btn-danger" onclick="">Quitar</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col">
+                @Html.Label("Costo total del servicio", new { @class = "form-label" })
+                @Html.TextBox("descripcion", "", new { @class = "form-control" })
+            </div>
+        </div>
+
+        <hr class="text-black-50" />
+
+        <div class="row mt-3">
+            <div class="col-6 d-flex justify-content-center">
+                <button type="button" class="btn btn-danger" onclick="document.location.href = '@Url.Content("~/Servicios")'">Cancelar</button>
+            </div>
+            <div class="col-6 d-flex justify-content-center">
+                <button type="submit" class="btn btn-success">Agregar</button>
+            </div>
+        </div>
+    }
+</div>
+

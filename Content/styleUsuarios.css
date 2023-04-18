@@ -10,6 +10,15 @@
     box-shadow: 0px 0px 20px 0px rgba(29,156,22,1);
 }
 
+.serviciosDiv {
+    padding: 15px;
+    border: 1px solid #7a1465;
+    border-radius: 20px;
+    -webkit-box-shadow: 0px 0px 25px 0px rgba(117,41,112,1);
+    -moz-box-shadow: 0px 0px 25px 0px rgba(117,41,112,1);
+    box-shadow: 0px 0px 25px 0px rgba(117,41,112,1);
+}
+
 .addUser {
     font-size: 35px;
     color: #108d17;
