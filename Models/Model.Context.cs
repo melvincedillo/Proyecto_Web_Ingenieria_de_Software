@@ -40,13 +40,13 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models
         public virtual DbSet<Modules> Modules { get; set; }
         public virtual DbSet<Permissions> Permissions { get; set; }
         public virtual DbSet<Products> Products { get; set; }
-        public virtual DbSet<Salon> Salon { get; set; }
         public virtual DbSet<ServiceDetail> ServiceDetail { get; set; }
         public virtual DbSet<Services> Services { get; set; }
         public virtual DbSet<Skill> Skill { get; set; }
         public virtual DbSet<Tax> Tax { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<Horas> Horas { get; set; }
+        public virtual DbSet<Salon> Salon { get; set; }
     
         [DbFunction("BeautySalonEntities", "FechaTerminoSinDiasInhabiles")]
         public virtual IQueryable<FechaTerminoSinDiasInhabiles_Result> FechaTerminoSinDiasInhabiles(Nullable<System.DateTime> fechaInicio, Nullable<int> dias)

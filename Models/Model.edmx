@@ -54,7 +54,6 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FacturaNumero" Type="int" Nullable="false" />
           <Property Name="SalonID" Type="int" Nullable="false" />
           <Property Name="ProductID" Type="int" Nullable="false" />
@@ -64,6 +63,7 @@
           <Property Name="Quantity" Type="int" Nullable="false" />
           <Property Name="Discount" Type="money" Nullable="false" />
           <Property Name="SalesTax" Type="money" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="FacturaImagen">
           <Key>
@@ -156,9 +156,12 @@
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="SalonCode" Type="char" MaxLength="2" Nullable="false" />
           <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Country" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="WhatsApp" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Facebook" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Instagram" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Mision" Type="varchar" MaxLength="1000" Nullable="false" />
         </EntityType>
         <EntityType Name="ServiceDetail">
           <Key>
@@ -667,7 +670,7 @@
           <NavigationProperty Name="FacturaImagen" Relationship="Self.FK_FacturaNumero_FacturaImagen" FromRole="Factura" ToRole="FacturaImagen" />
           <NavigationProperty Name="MedioPagoDetalle" Relationship="Self.FK_FacturaNumero_MedioPagoDetalle" FromRole="Factura" ToRole="MedioPagoDetalle" />
           <NavigationProperty Name="FacturaDetalle" Relationship="Self.FK_FacturaNumeroDetalle" FromRole="Factura" ToRole="FacturaDetalle" />
-          <NavigationProperty Name="Salon" Relationship="Self.FK_SalonID_Factura" FromRole="Factura" ToRole="Salon" />
+          <NavigationProperty Name="Salon" Relationship="BeautySalonModel.FK_SalonID_Factura" FromRole="Factura" ToRole="Salon" />
         </EntityType>
         <EntityType Name="FacturaDetalle">
           <Key>
@@ -685,9 +688,9 @@
           <Property Name="SalesTax" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <NavigationProperty Name="Factura" Relationship="Self.FK_FacturaNumeroDetalle" FromRole="FacturaDetalle" ToRole="Factura" />
           <NavigationProperty Name="Products" Relationship="Self.FK_ProductID_FacturaDetalle" FromRole="FacturaDetalle" ToRole="Products" />
-          <NavigationProperty Name="Salon" Relationship="Self.FK_SalonID_FacturaDetalle" FromRole="FacturaDetalle" ToRole="Salon" />
           <NavigationProperty Name="Services" Relationship="Self.FK_ServiceID_FacturaDetalle" FromRole="FacturaDetalle" ToRole="Services" />
           <NavigationProperty Name="Tax" Relationship="Self.FK_TaxID_FacturaDetalle" FromRole="FacturaDetalle" ToRole="Tax" />
+          <NavigationProperty Name="Salon" Relationship="BeautySalonModel.FK_SalonID_FacturaDetalle" FromRole="FacturaDetalle" ToRole="Salon" />
         </EntityType>
         <EntityType Name="FacturaImagen">
           <Key>
@@ -702,7 +705,7 @@
           <Property Name="FacturaImage" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_EmployeeID_FacturaImagen" FromRole="FacturaImagen" ToRole="Employee" />
           <NavigationProperty Name="Factura" Relationship="Self.FK_FacturaNumero_FacturaImagen" FromRole="FacturaImagen" ToRole="Factura" />
-          <NavigationProperty Name="Salon" Relationship="Self.FK_SalonID_FacturaImagen" FromRole="FacturaImagen" ToRole="Salon" />
+          <NavigationProperty Name="Salon" Relationship="BeautySalonModel.FK_SalonID_FacturaImagen" FromRole="FacturaImagen" ToRole="Salon" />
         </EntityType>
         <EntityType Name="Holiday">
           <Key>
@@ -744,7 +747,7 @@
           <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <NavigationProperty Name="Factura" Relationship="Self.FK_FacturaNumero_MedioPagoDetalle" FromRole="MedioPagoDetalle" ToRole="Factura" />
           <NavigationProperty Name="MedioPago" Relationship="Self.FK_MedioPago_MedioPagoDetalle" FromRole="MedioPagoDetalle" ToRole="MedioPago" />
-          <NavigationProperty Name="Salon" Relationship="Self.FK_SalonID_MedioPagoDetalle" FromRole="MedioPagoDetalle" ToRole="Salon" />
+          <NavigationProperty Name="Salon" Relationship="BeautySalonModel.FK_SalonID_MedioPagoDetalle" FromRole="MedioPagoDetalle" ToRole="Salon" />
         </EntityType>
         <EntityType Name="Modules">
           <Key>
@@ -777,22 +780,6 @@
           <NavigationProperty Name="FacturaDetalle" Relationship="Self.FK_ProductID_FacturaDetalle" FromRole="Products" ToRole="FacturaDetalle" />
           <NavigationProperty Name="Tax" Relationship="Self.FK_TaxID_Products" FromRole="Products" ToRole="Tax" />
           <NavigationProperty Name="ServiceDetail" Relationship="Self.Product_FK" FromRole="Products" ToRole="ServiceDetail" />
-        </EntityType>
-        <EntityType Name="Salon">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SalonCode" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Factura" Relationship="Self.FK_SalonID_Factura" FromRole="Salon" ToRole="Factura" />
-          <NavigationProperty Name="FacturaDetalle" Relationship="Self.FK_SalonID_FacturaDetalle" FromRole="Salon" ToRole="FacturaDetalle" />
-          <NavigationProperty Name="FacturaImagen" Relationship="Self.FK_SalonID_FacturaImagen" FromRole="Salon" ToRole="FacturaImagen" />
-          <NavigationProperty Name="MedioPagoDetalle" Relationship="Self.FK_SalonID_MedioPagoDetalle" FromRole="Salon" ToRole="MedioPagoDetalle" />
         </EntityType>
         <EntityType Name="ServiceDetail">
           <Key>
@@ -950,18 +937,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SalonID_Factura">
-          <End Role="Salon" Type="Self.Salon" Multiplicity="1" />
-          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Salon">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Factura">
-              <PropertyRef Name="SalonID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ProductID_FacturaDetalle">
           <End Role="Products" Type="Self.Products" Multiplicity="1" />
           <End Role="FacturaDetalle" Type="Self.FacturaDetalle" Multiplicity="*" />
@@ -971,18 +946,6 @@
             </Principal>
             <Dependent Role="FacturaDetalle">
               <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SalonID_FacturaDetalle">
-          <End Role="Salon" Type="Self.Salon" Multiplicity="1" />
-          <End Role="FacturaDetalle" Type="Self.FacturaDetalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Salon">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="FacturaDetalle">
-              <PropertyRef Name="SalonID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1010,18 +973,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SalonID_FacturaImagen">
-          <End Role="Salon" Type="Self.Salon" Multiplicity="1" />
-          <End Role="FacturaImagen" Type="Self.FacturaImagen" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Salon">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="FacturaImagen">
-              <PropertyRef Name="SalonID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_MedioPago_MedioPagoDetalle">
           <End Role="MedioPago" Type="Self.MedioPago" Multiplicity="1" />
           <End Role="MedioPagoDetalle" Type="Self.MedioPagoDetalle" Multiplicity="*" />
@@ -1031,18 +982,6 @@
             </Principal>
             <Dependent Role="MedioPagoDetalle">
               <PropertyRef Name="MedioPagoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SalonID_MedioPagoDetalle">
-          <End Role="Salon" Type="Self.Salon" Multiplicity="1" />
-          <End Role="MedioPagoDetalle" Type="Self.MedioPagoDetalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Salon">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="MedioPagoDetalle">
-              <PropertyRef Name="SalonID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1144,7 +1083,6 @@
           <EntitySet Name="Modules" EntityType="Self.Modules" />
           <EntitySet Name="Permissions" EntityType="Self.Permissions" />
           <EntitySet Name="Products" EntityType="Self.Products" />
-          <EntitySet Name="Salon" EntityType="Self.Salon" />
           <EntitySet Name="ServiceDetail" EntityType="Self.ServiceDetail" />
           <EntitySet Name="Services" EntityType="Self.Services" />
           <EntitySet Name="Skill" EntityType="Self.Skill" />
@@ -1182,16 +1120,8 @@
             <End Role="Factura" EntitySet="Factura" />
             <End Role="FacturaDetalle" EntitySet="FacturaDetalle" />
           </AssociationSet>
-          <AssociationSet Name="FK_SalonID_Factura" Association="Self.FK_SalonID_Factura">
-            <End Role="Salon" EntitySet="Salon" />
-            <End Role="Factura" EntitySet="Factura" />
-          </AssociationSet>
           <AssociationSet Name="FK_ProductID_FacturaDetalle" Association="Self.FK_ProductID_FacturaDetalle">
             <End Role="Products" EntitySet="Products" />
-            <End Role="FacturaDetalle" EntitySet="FacturaDetalle" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SalonID_FacturaDetalle" Association="Self.FK_SalonID_FacturaDetalle">
-            <End Role="Salon" EntitySet="Salon" />
             <End Role="FacturaDetalle" EntitySet="FacturaDetalle" />
           </AssociationSet>
           <AssociationSet Name="FK_ServiceID_FacturaDetalle" Association="Self.FK_ServiceID_FacturaDetalle">
@@ -1202,16 +1132,8 @@
             <End Role="Tax" EntitySet="Tax" />
             <End Role="FacturaDetalle" EntitySet="FacturaDetalle" />
           </AssociationSet>
-          <AssociationSet Name="FK_SalonID_FacturaImagen" Association="Self.FK_SalonID_FacturaImagen">
-            <End Role="Salon" EntitySet="Salon" />
-            <End Role="FacturaImagen" EntitySet="FacturaImagen" />
-          </AssociationSet>
           <AssociationSet Name="FK_MedioPago_MedioPagoDetalle" Association="Self.FK_MedioPago_MedioPagoDetalle">
             <End Role="MedioPago" EntitySet="MedioPago" />
-            <End Role="MedioPagoDetalle" EntitySet="MedioPagoDetalle" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SalonID_MedioPagoDetalle" Association="Self.FK_SalonID_MedioPagoDetalle">
-            <End Role="Salon" EntitySet="Salon" />
             <End Role="MedioPagoDetalle" EntitySet="MedioPagoDetalle" />
           </AssociationSet>
           <AssociationSet Name="FK_ModuleID" Association="Self.FK_ModuleID">
@@ -1243,10 +1165,27 @@
             <End Role="Services" EntitySet="Services" />
           </AssociationSet>
           <FunctionImport Name="FechaTerminoSinDiasInhabiles" IsComposable="true" ReturnType="Collection(BeautySalonModel.FechaTerminoSinDiasInhabiles_Result)">
-          <Parameter Name="FechaInicio" Mode="In" Type="DateTime" />
+            <Parameter Name="FechaInicio" Mode="In" Type="DateTime" />
             <Parameter Name="Dias" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="Horas" EntityType="BeautySalonModel.Horas" />
+          <EntitySet Name="Salon" EntityType="BeautySalonModel.Salon" />
+          <AssociationSet Name="FK_SalonID_Factura" Association="BeautySalonModel.FK_SalonID_Factura">
+            <End Role="Salon" EntitySet="Salon" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalonID_FacturaDetalle" Association="BeautySalonModel.FK_SalonID_FacturaDetalle">
+            <End Role="Salon" EntitySet="Salon" />
+            <End Role="FacturaDetalle" EntitySet="FacturaDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalonID_FacturaImagen" Association="BeautySalonModel.FK_SalonID_FacturaImagen">
+            <End Role="Salon" EntitySet="Salon" />
+            <End Role="FacturaImagen" EntitySet="FacturaImagen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalonID_MedioPagoDetalle" Association="BeautySalonModel.FK_SalonID_MedioPagoDetalle">
+            <End Role="Salon" EntitySet="Salon" />
+            <End Role="MedioPagoDetalle" EntitySet="MedioPagoDetalle" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Horas">
           <Key>
@@ -1255,6 +1194,73 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Hora" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="Salon">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SalonCode" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="WhatsApp" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Facebook" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Instagram" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mision" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Factura" Relationship="BeautySalonModel.FK_SalonID_Factura" FromRole="Salon" ToRole="Factura" />
+          <NavigationProperty Name="FacturaDetalle" Relationship="BeautySalonModel.FK_SalonID_FacturaDetalle" FromRole="Salon" ToRole="FacturaDetalle" />
+          <NavigationProperty Name="FacturaImagen" Relationship="BeautySalonModel.FK_SalonID_FacturaImagen" FromRole="Salon" ToRole="FacturaImagen" />
+          <NavigationProperty Name="MedioPagoDetalle" Relationship="BeautySalonModel.FK_SalonID_MedioPagoDetalle" FromRole="Salon" ToRole="MedioPagoDetalle" />
+        </EntityType>
+        <Association Name="FK_SalonID_Factura">
+          <End Type="BeautySalonModel.Salon" Role="Salon" Multiplicity="1" />
+          <End Type="BeautySalonModel.Factura" Role="Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salon">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="SalonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalonID_FacturaDetalle">
+          <End Type="BeautySalonModel.Salon" Role="Salon" Multiplicity="1" />
+          <End Type="BeautySalonModel.FacturaDetalle" Role="FacturaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salon">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FacturaDetalle">
+              <PropertyRef Name="SalonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalonID_FacturaImagen">
+          <End Type="BeautySalonModel.Salon" Role="Salon" Multiplicity="1" />
+          <End Type="BeautySalonModel.FacturaImagen" Role="FacturaImagen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salon">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FacturaImagen">
+              <PropertyRef Name="SalonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalonID_MedioPagoDetalle">
+          <End Type="BeautySalonModel.Salon" Role="Salon" Multiplicity="1" />
+          <End Type="BeautySalonModel.MedioPagoDetalle" Role="MedioPagoDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salon">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MedioPagoDetalle">
+              <PropertyRef Name="SalonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1410,19 +1416,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Salon">
-            <EntityTypeMapping TypeName="BeautySalonModel.Salon">
-              <MappingFragment StoreEntitySet="Salon">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="SalonCode" ColumnName="SalonCode" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ServiceDetail">
             <EntityTypeMapping TypeName="BeautySalonModel.ServiceDetail">
               <MappingFragment StoreEntitySet="ServiceDetail">
@@ -1485,6 +1478,22 @@
             <EntityTypeMapping TypeName="BeautySalonModel.Horas">
               <MappingFragment StoreEntitySet="Horas">
                 <ScalarProperty Name="Hora" ColumnName="Hora" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Salon">
+            <EntityTypeMapping TypeName="BeautySalonModel.Salon">
+              <MappingFragment StoreEntitySet="Salon">
+                <ScalarProperty Name="Mision" ColumnName="Mision" />
+                <ScalarProperty Name="Instagram" ColumnName="Instagram" />
+                <ScalarProperty Name="Facebook" ColumnName="Facebook" />
+                <ScalarProperty Name="WhatsApp" ColumnName="WhatsApp" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="SalonCode" ColumnName="SalonCode" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

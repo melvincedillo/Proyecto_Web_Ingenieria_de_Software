@@ -27,9 +27,12 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models
         public string Name { get; set; }
         public string SalonCode { get; set; }
         public string Address { get; set; }
-        public string City { get; set; }
-        public string Country { get; set; }
         public string PhoneNumber { get; set; }
+        public string Email { get; set; }
+        public string WhatsApp { get; set; }
+        public string Facebook { get; set; }
+        public string Instagram { get; set; }
+        public string Mision { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Factura> Factura { get; set; }

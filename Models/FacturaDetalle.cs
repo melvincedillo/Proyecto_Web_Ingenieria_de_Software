@@ -27,8 +27,8 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models
     
         public virtual Factura Factura { get; set; }
         public virtual Products Products { get; set; }
-        public virtual Salon Salon { get; set; }
         public virtual Services Services { get; set; }
         public virtual Tax Tax { get; set; }
+        public virtual Salon Salon { get; set; }
     }
 }
