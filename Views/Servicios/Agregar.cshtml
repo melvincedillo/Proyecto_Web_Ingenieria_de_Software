@@ -7,77 +7,111 @@
 <link rel="stylesheet" href="~/Content/styleUsuarios.css" />
 
 <div class="serviciosDiv mb-5 p-5">
-    <div class="row">
-        <div class="col-8">
-            <h1 class="t-stroke">Nuevo Servicio</h1>
-        </div>
-    </div>
-    <hr class="text-black-50" />
     @using (Html.BeginForm("Agregar", "Servicios", FormMethod.Post, new { role = "form" }))
     {
         <div class="row">
-            <div class="col">
-                @Html.Label("Nombre", new { @class = "form-label" })
-                @Html.TextBox("nombre", "", new { @class = "form-control" })
+            <div class="col-8">
+                <h1 class="t-stroke">Nuevo Servicio</h1>
             </div>
-            <div class="col">
-                @Html.Label("Codigo de servicio", new { @class = "form-label" })
-                @Html.TextBox("codigo", "", new { @class = "form-control" })
-            </div>
-        </div>
-
-        <div class="row mt-3">
-            <div class="col">
-                @Html.Label("Precio", new { @class = "form-label" })
-                @Html.TextBox("precio", "", new { @class = "form-control" })
-            </div>
-            <div class="col">
-                @Html.Label("Habilidad requerida", new { @class = "form-label" })
-                @Html.TextBox("codigo", "", new { @class = "form-control" })
+            <div class="col-4 d-flex justify-content-end">
+                <div>
+                    @Html.Label("Codigo de servicio", new { @class = "form-label" })
+                    @Html.TextBox("codigo", "", new { disabled = "disabled", @class = "form-control" })
+                </div>
             </div>
         </div>
+        <hr class="text-black-50" />
 
-        <div class="row mt-3">
-            <div class="col">
-                @Html.Label("Descripción del servicio", new { @class = "form-label" })
-                @Html.TextArea("descripcion", "", new { @class = "form-control" })
+        <div class="row">
+            <div class="col-6 border-end">
+                <div class="row mt-3">
+                    <div class="col">
+                        @Html.Label("Nombre", new { @class = "form-label" })
+                        @Html.TextBox("nombre", "", new { @class = "form-control" })
+                    </div>
+                    <div class="col">
+                        @Html.Label("Precio", new { @class = "form-label" })
+                        @Html.TextBox("precio", "", new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col">
+                        @Html.Label("Habilidad requerida", new { @class = "form-label" })
+                        <select class="form-select">
+                            <option selected>Seleccione una habilidad</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        @Html.Label("Descripción del servicio", new { @class = "form-label" })
+                        @Html.TextArea("descripcion", "", new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col">
+                        @Html.Label("Inpuesto", new { @class = "form-label" })
+                        @Html.TextBox("codigo", "", new { disabled = "disabled", @class = "form-control" })
+                    </div>
+                    <div class="col">
+                        @Html.Label("Precio total", new { @class = "form-label" })
+                        @Html.TextBox("codigo", "", new { disabled = "disabled", @class = "form-control" })
+                    </div>
+                </div>
             </div>
-        </div>
+            
 
-        <div class="row mt-3">
-            <div class="col">
-                @Html.Label("Productos", new { @class = "form-label" })
-                <table class="table table-hover table-sm">
-                    <thead>
-                        <tr>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Cantidad</th>
-                            <th scope="col">Precio Unitarios</th>
-                            <th scope="col">Precio Total</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Uña</td>
-                            <td>
-                                <button class="btn btn-sm btn-danger" onclick="">-</button>
-                                10
-                                <button class="btn btn-sm btn-primary" onclick="">+</button>
-                            </td>
-                            <td>15</td>
-                            <td>150</td>
-                            <td><button class="btn btn-sm btn-danger" onclick="">Quitar</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+            <div class="col-6">
 
-        <div class="row mt-3">
-            <div class="col">
-                @Html.Label("Costo total del servicio", new { @class = "form-label" })
-                @Html.TextBox("descripcion", "", new { @class = "form-control" })
+                @Html.Label("Insumos necesarios", new { @class = "form-label" })
+                <div class="row">
+                    <div class="col">
+                        @Html.Label("Codigo", new { @class = "form-label" })
+                        <input type="search" class="form-control form-control-sm rounded" placeholder="Buscar por codigo" aria-label="Search" aria-describedby="search-addon"/>
+                    </div>
+                    <div class="col">
+                        @Html.Label("Nombre", new { @class = "form-label" })
+                        @Html.TextBox("precio", "", new { disabled = "disabled", @class = "form-control form-control-sm" })
+                    </div>
+                    <div class="col">
+                        @Html.Label("Cantidad", new { @class = "form-label" })
+                        @Html.TextBox("precio", "", new { @class = "form-control form-control-sm" })
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col d-flex justify-content-center">
+                        <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#BuscarInsumo">Buscar insumo</button>
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                        <button type="button" class="btn btn-sm btn-success">Agregar insumo</button>
+                    </div>
+                </div>
+
+                <hr class="text-black-50" />
+
+                <div class="row p-2" style="height: 220px; overflow: auto; ">
+                    <table class="table table-hover table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">C/U</th>
+                                <th scope="col">Total</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Uña</td>
+                                <td>10</td>
+                                <td>15</td>
+                                <td>150</td>
+                                <td><button type="button" class="btn btn-sm btn-danger" onclick="">Quitar</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
@@ -94,3 +128,48 @@
     }
 </div>
 
+
+
+<!--Modal para buscar producto-->
+
+<div class="modal fade" id="BuscarInsumo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Buscar Insumo</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-2">
+                    <div class="input-group rounded">
+                        <input type="search" class="form-control rounded" placeholder="Buscar" aria-label="Search" aria-describedby="search-addon" />
+                        <span class="input-group-text border-0" id="search-addon">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+                </div>
+                <table class="table table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Codigo</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>6352</td>
+                            <td>Uña</td>
+                            <td>15</td>
+                            <td><button type="button" class="btn btn-sm btn-primary" onclick="">Elegir</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

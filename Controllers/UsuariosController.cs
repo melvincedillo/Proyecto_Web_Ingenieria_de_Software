@@ -212,7 +212,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 List<Permissions> permisos = (from d in db.Permissions where d.UserID == id select d).ToList();
                 foreach (var p in permisos)
                 {
-                    if (p.ModuleID == 1) { p.estado = eModel.ventas; }
+                    if (p.ModuleID == 1) { eModel.ventas = p.estado; }
                     else if (p.ModuleID == 2) { eModel.servicios = p.estado; }
                     else if (p.ModuleID == 3) { eModel.productos = p.estado; ; }
                     else if (p.ModuleID == 4) { eModel.citas = p.estado; ; }
