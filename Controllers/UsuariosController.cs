@@ -121,54 +121,54 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 //Se le asignan los permisos
                 Permissions oPermiso = new Permissions();
                 oPermiso.UserID = user.ID;
-                if (model.ventas == true)
-                {
-                    oPermiso.ModuleID = 1;
-                    db.Permissions.Add(oPermiso);
-                    db.SaveChanges();
-                }
-                if (model.servicios == true)
-                {
-                    oPermiso.ModuleID = 2;
-                    db.Permissions.Add(oPermiso);
-                    db.SaveChanges();
-                }
-                if (model.productos == true)
-                {
-                    oPermiso.ModuleID = 3;
-                    db.Permissions.Add(oPermiso);
-                    db.SaveChanges();
-                }
-                if (model.citas == true)
-                {
-                    oPermiso.ModuleID = 4;
-                    db.Permissions.Add(oPermiso);
-                    db.SaveChanges();
-                }
-                if (model.reportes == true)
-                {
-                    oPermiso.ModuleID = 5;
-                    db.Permissions.Add(oPermiso);
-                    db.SaveChanges();
-                }
-                if (model.horarios == true)
-                {
-                    oPermiso.ModuleID = 6;
-                    db.Permissions.Add(oPermiso);
-                    db.SaveChanges();
-                }
-                if (model.general == true)
-                {
-                    oPermiso.ModuleID = 7;
-                    db.Permissions.Add(oPermiso);
-                    db.SaveChanges();
-                }
-                if (model.usuarios == true)
-                {
-                    oPermiso.ModuleID = 8;
-                    db.Permissions.Add(oPermiso);
-                    db.SaveChanges();
-                }
+
+                //Ventas
+                oPermiso.ModuleID = 1;
+                oPermiso.estado = model.ventas;
+                db.Permissions.Add(oPermiso);
+                db.SaveChanges();
+
+                //Servicos
+                oPermiso.ModuleID = 2;
+                oPermiso.estado = model.servicios;
+                db.Permissions.Add(oPermiso);
+                db.SaveChanges();
+
+                //Productos
+                oPermiso.ModuleID = 3;
+                oPermiso.estado = model.productos;
+                db.Permissions.Add(oPermiso);
+                db.SaveChanges();
+
+                //Citas
+                oPermiso.ModuleID = 4;
+                oPermiso.estado = model.citas;
+                db.Permissions.Add(oPermiso);
+                db.SaveChanges();
+
+                //Reportes
+                oPermiso.ModuleID = 5;
+                oPermiso.estado = model.reportes;
+                db.Permissions.Add(oPermiso);
+                db.SaveChanges();
+
+                //Horarios
+                oPermiso.ModuleID = 6;
+                oPermiso.estado = model.horarios;
+                db.Permissions.Add(oPermiso);
+                db.SaveChanges();
+
+                //General
+                oPermiso.ModuleID = 7;
+                oPermiso.estado = model.general;
+                db.Permissions.Add(oPermiso);
+                db.SaveChanges();
+
+                //Usuarios
+                oPermiso.ModuleID = 8;
+                oPermiso.estado = model.usuarios;
+                db.Permissions.Add(oPermiso);
+                db.SaveChanges();
 
                 //Se crea el empleado
                 Employee oEmployee = new Employee();
@@ -208,26 +208,21 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 eModel.id = empleado.us.ID;
                 eModel.idEmpleado = empleado.em.ID;
 
-                eModel.ventas = false;
-                eModel.servicios = false;
-                eModel.productos = false;
-                eModel.citas = false;
-                eModel.reportes = false;
-                eModel.horarios = false;
-                eModel.general = false;
-                eModel.usuarios = false;
-
-                List<Permissions> modulos = (from d in db.Permissions where d.UserID == id select d).ToList();
-                foreach (var element in modulos)
+                //Mapeando permisos
+                List<Permissions> permisos = (from d in db.Permissions where d.UserID == id select d).ToList();
+                foreach (var p in permisos)
                 {
-                    if (element.ModuleID == 1) { eModel.ventas = true; }
-                    if (element.ModuleID == 2) { eModel.servicios = true; }
-                    if (element.ModuleID == 3) { eModel.productos = true; }
-                    if (element.ModuleID == 4) { eModel.citas = true; }
-                    if (element.ModuleID == 5) { eModel.reportes = true; }
-                    if (element.ModuleID == 6) { eModel.horarios = true; }
-                    if (element.ModuleID == 7) { eModel.general = true; }
-                    if (element.ModuleID == 8) { eModel.usuarios = true; }
+                    if (p.ModuleID == 1) { p.estado = eModel.ventas; }
+                    else if (p.ModuleID == 2) { eModel.servicios = p.estado; }
+                    else if (p.ModuleID == 3) { eModel.productos = p.estado; ; }
+                    else if (p.ModuleID == 4) { eModel.citas = p.estado; ; }
+                    else if (p.ModuleID == 5) { eModel.reportes = p.estado; ; }
+                    else if (p.ModuleID == 6) { eModel.horarios = p.estado; ; }
+                    else if (p.ModuleID == 7) { eModel.general = p.estado; ; }
+                    else if (p.ModuleID == 8) { eModel.usuarios = p.estado; ; }
+
+                    db.Entry(p).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
                 }
             }
 
@@ -279,66 +274,24 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 e.Gender = model.sexo;
                 e.SkillID = Convert.ToInt32(idSkill);
                 db.Entry(e).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
 
                 //Editando permisos
                 List<Permissions> pD = (from d in db.Permissions where d.UserID == model.id select d).ToList();
                 foreach (var p in pD)
                 {
-                    db.Permissions.Remove(p);
-                    db.SaveChanges();
-                }
+                    if(p.ModuleID == 1) { p.estado = model.ventas; }
+                    else if (p.ModuleID == 2) { p.estado = model.servicios; }
+                    else if (p.ModuleID == 3) { p.estado = model.productos; }
+                    else if (p.ModuleID == 4) { p.estado = model.citas; }
+                    else if (p.ModuleID == 5) { p.estado = model.reportes; }
+                    else if (p.ModuleID == 6) { p.estado = model.horarios; }
+                    else if (p.ModuleID == 7) { p.estado = model.general; }
+                    else if (p.ModuleID == 8) { p.estado = model.usuarios; }
 
-                Permissions oPermiso = new Permissions();
-                oPermiso.UserID = model.id;
-                if (model.ventas == true)
-                {
-                    oPermiso.ModuleID = 1;
-                    db.Permissions.Add(oPermiso);
+                    db.Entry(p).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
                 }
-                if (model.servicios == true)
-                {
-                    oPermiso.ModuleID = 2;
-                    db.Permissions.Add(oPermiso);
-                    db.SaveChanges();
-                }
-                if (model.productos == true)
-                {
-                    oPermiso.ModuleID = 3;
-                    db.Permissions.Add(oPermiso);
-                    db.SaveChanges();
-                }
-                if (model.citas == true)
-                {
-                    oPermiso.ModuleID = 4;
-                    db.Permissions.Add(oPermiso);
-                    db.SaveChanges();
-                }
-                if (model.reportes == true)
-                {
-                    oPermiso.ModuleID = 5;
-                    db.Permissions.Add(oPermiso);
-                    db.SaveChanges();
-                }
-                if (model.horarios == true)
-                {
-                    oPermiso.ModuleID = 6;
-                    db.Permissions.Add(oPermiso);
-                    db.SaveChanges();
-                }
-                if (model.general == true)
-                {
-                    oPermiso.ModuleID = 7;
-                    db.Permissions.Add(oPermiso);
-                    db.SaveChanges();
-                }
-                if (model.usuarios == true)
-                {
-                    oPermiso.ModuleID = 8;
-                    db.Permissions.Add(oPermiso);
-                    db.SaveChanges();
-                }
-
             }
             return RedirectToAction("Index", "Usuarios");
         }

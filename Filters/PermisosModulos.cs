@@ -25,7 +25,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Filters
             {
                 oUser = (Users)HttpContext.Current.Session["User"];
                 var ItsMyModulo = from m in db.Permissions
-                                  where m.UserID == oUser.ID && m.ModuleID == moduloId
+                                  where m.UserID == oUser.ID && m.ModuleID == moduloId && m.estado == true
                                   select m;
 
                 if (ItsMyModulo.ToList().Count() < 1)
