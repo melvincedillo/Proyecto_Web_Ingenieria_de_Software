@@ -17,7 +17,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models
         public int ID { get; set; }
         public int ServiceID { get; set; }
         public int ProductID { get; set; }
-        public int Quantity { get; set; }
+        public decimal Cantidad { get; set; }
     
         public virtual Products Products { get; set; }
         public virtual Services Services { get; set; }

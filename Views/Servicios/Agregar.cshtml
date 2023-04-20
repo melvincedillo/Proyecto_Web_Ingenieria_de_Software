@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Nuevo Servicio";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    List<SelectListItem> skills = (List<SelectListItem>)ViewBag.Skill;
 }
 
 <link rel="stylesheet" href="~/Content/styleUsuarios.css" />
@@ -38,9 +39,7 @@
                 <div class="row mt-3">
                     <div class="col">
                         @Html.Label("Habilidad requerida", new { @class = "form-label" })
-                        <select class="form-select">
-                            <option selected>Seleccione una habilidad</option>
-                        </select>
+                        @Html.DropDownList("hola", skills, new { @class = "form-select" })
                     </div>
                     <div class="col">
                         @Html.Label("Descripción del servicio", new { @class = "form-label" })

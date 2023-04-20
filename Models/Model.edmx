@@ -171,7 +171,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ServiceID" Type="int" Nullable="false" />
           <Property Name="ProductID" Type="int" Nullable="false" />
-          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Cantidad" Type="decimal" Precision="4" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Services">
           <Key>
@@ -772,18 +772,7 @@
           <Property Name="TaxID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="FacturaDetalle" Relationship="Self.FK_ProductID_FacturaDetalle" FromRole="Products" ToRole="FacturaDetalle" />
           <NavigationProperty Name="Tax" Relationship="Self.FK_TaxID_Products" FromRole="Products" ToRole="Tax" />
-          <NavigationProperty Name="ServiceDetail" Relationship="Self.Product_FK" FromRole="Products" ToRole="ServiceDetail" />
-        </EntityType>
-        <EntityType Name="ServiceDetail">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ServiceID" Type="Int32" Nullable="false" />
-          <Property Name="ProductID" Type="Int32" Nullable="false" />
-          <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Products" Relationship="Self.Product_FK" FromRole="ServiceDetail" ToRole="Products" />
-          <NavigationProperty Name="Services" Relationship="BeautySalonModel.Service_FK" FromRole="ServiceDetail" ToRole="Services" />
+          <NavigationProperty Name="ServiceDetail" Relationship="BeautySalonModel.Product_FK" FromRole="Products" ToRole="ServiceDetail" />
         </EntityType>
         <EntityType Name="Skill">
           <Key>
@@ -950,18 +939,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Product_FK">
-          <End Role="Products" Type="Self.Products" Multiplicity="1" />
-          <End Role="ServiceDetail" Type="Self.ServiceDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="ServiceDetail">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="BeautySalonEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Appointment" EntityType="Self.Appointment" />
           <EntitySet Name="Calendar" EntityType="Self.Calendar" />
@@ -975,7 +952,6 @@
           <EntitySet Name="MedioPagoDetalle" EntityType="Self.MedioPagoDetalle" />
           <EntitySet Name="Modules" EntityType="Self.Modules" />
           <EntitySet Name="Products" EntityType="Self.Products" />
-          <EntitySet Name="ServiceDetail" EntityType="Self.ServiceDetail" />
           <EntitySet Name="Skill" EntityType="Self.Skill" />
           <EntitySet Name="Tax" EntityType="Self.Tax" />
           <EntitySet Name="Users" EntityType="Self.Users" />
@@ -1023,10 +999,6 @@
             <End Role="Tax" EntitySet="Tax" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
-          <AssociationSet Name="Product_FK" Association="Self.Product_FK">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="ServiceDetail" EntitySet="ServiceDetail" />
-          </AssociationSet>
           <FunctionImport Name="FechaTerminoSinDiasInhabiles" IsComposable="true" ReturnType="Collection(BeautySalonModel.FechaTerminoSinDiasInhabiles_Result)">
             <Parameter Name="FechaInicio" Mode="In" Type="DateTime" />
             <Parameter Name="Dias" Mode="In" Type="Int32" />
@@ -1067,10 +1039,6 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Permissions" EntitySet="Permissions" />
           </AssociationSet>
-          <AssociationSet Name="Service_FK" Association="BeautySalonModel.Service_FK">
-            <End Role="Services" EntitySet="Services" />
-            <End Role="ServiceDetail" EntitySet="ServiceDetail" />
-          </AssociationSet>
           <AssociationSet Name="FK_TaxID_Services" Association="BeautySalonModel.FK_TaxID_Services">
             <End Role="Tax" EntitySet="Tax" />
             <End Role="Services" EntitySet="Services" />
@@ -1078,6 +1046,15 @@
           <AssociationSet Name="Skill_FK" Association="BeautySalonModel.Skill_FK">
             <End Role="Skill" EntitySet="Skill" />
             <End Role="Services" EntitySet="Services" />
+          </AssociationSet>
+          <EntitySet Name="ServiceDetail" EntityType="BeautySalonModel.ServiceDetail" />
+          <AssociationSet Name="Product_FK" Association="BeautySalonModel.Product_FK">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ServiceDetail" EntitySet="ServiceDetail" />
+          </AssociationSet>
+          <AssociationSet Name="Service_FK" Association="BeautySalonModel.Service_FK">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="ServiceDetail" EntitySet="ServiceDetail" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Horas">
@@ -1179,9 +1156,9 @@
           <Property Name="PrecioTotal" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <NavigationProperty Name="Appointment" Relationship="BeautySalonModel.FK_ServiceID" FromRole="Services" ToRole="Appointment" />
           <NavigationProperty Name="FacturaDetalle" Relationship="BeautySalonModel.FK_ServiceID_FacturaDetalle" FromRole="Services" ToRole="FacturaDetalle" />
-          <NavigationProperty Name="ServiceDetail" Relationship="BeautySalonModel.Service_FK" FromRole="Services" ToRole="ServiceDetail" />
           <NavigationProperty Name="Tax" Relationship="BeautySalonModel.FK_TaxID_Services" FromRole="Services" ToRole="Tax" />
           <NavigationProperty Name="Skill" Relationship="BeautySalonModel.Skill_FK" FromRole="Services" ToRole="Skill" />
+          <NavigationProperty Name="ServiceDetail" Relationship="BeautySalonModel.Service_FK" FromRole="Services" ToRole="ServiceDetail" />
         </EntityType>
         <Association Name="FK_ServiceID">
           <End Type="BeautySalonModel.Services" Role="Services" Multiplicity="1" />
@@ -1231,18 +1208,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Service_FK">
-          <End Type="BeautySalonModel.Services" Role="Services" Multiplicity="1" />
-          <End Type="BeautySalonModel.ServiceDetail" Role="ServiceDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Services">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="ServiceDetail">
-              <PropertyRef Name="ServiceID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TaxID_Services">
           <End Type="BeautySalonModel.Tax" Role="Tax" Multiplicity="1" />
           <End Type="BeautySalonModel.Services" Role="Services" Multiplicity="*" />
@@ -1264,6 +1229,41 @@
             </Principal>
             <Dependent Role="Services">
               <PropertyRef Name="SkillID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ServiceDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServiceID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
+          <NavigationProperty Name="Products" Relationship="BeautySalonModel.Product_FK" FromRole="ServiceDetail" ToRole="Products" />
+          <NavigationProperty Name="Services" Relationship="BeautySalonModel.Service_FK" FromRole="ServiceDetail" ToRole="Services" />
+        </EntityType>
+        <Association Name="Product_FK">
+          <End Type="BeautySalonModel.Products" Role="Products" Multiplicity="1" />
+          <End Type="BeautySalonModel.ServiceDetail" Role="ServiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServiceDetail">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Service_FK">
+          <End Type="BeautySalonModel.Services" Role="Services" Multiplicity="1" />
+          <End Type="BeautySalonModel.ServiceDetail" Role="ServiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServiceDetail">
+              <PropertyRef Name="ServiceID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1413,16 +1413,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ServiceDetail">
-            <EntityTypeMapping TypeName="BeautySalonModel.ServiceDetail">
-              <MappingFragment StoreEntitySet="ServiceDetail">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Skill">
             <EntityTypeMapping TypeName="BeautySalonModel.Skill">
               <MappingFragment StoreEntitySet="Skill">
@@ -1503,6 +1493,16 @@
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
                 <ScalarProperty Name="ServiceCode" ColumnName="ServiceCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServiceDetail">
+            <EntityTypeMapping TypeName="BeautySalonModel.ServiceDetail">
+              <MappingFragment StoreEntitySet="ServiceDetail">
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
