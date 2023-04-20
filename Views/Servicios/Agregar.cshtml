@@ -5,6 +5,8 @@
     List<SelectListItem> skills = (List<SelectListItem>)ViewBag.Skill;
 }
 
+@model Proyecto_Web_Ingenieria_de_Software.Models.AddModels.ServiciosModel
+
 <link rel="stylesheet" href="~/Content/styleUsuarios.css" />
 
 <div class="serviciosDiv mb-5 p-5">
@@ -14,12 +16,6 @@
             <div class="col-8">
                 <h1 class="t-stroke">Nuevo Servicio</h1>
             </div>
-            <div class="col-4 d-flex justify-content-end">
-                <div>
-                    @Html.Label("Codigo de servicio", new { @class = "form-label" })
-                    @Html.TextBox("codigo", "", new { disabled = "disabled", @class = "form-control" })
-                </div>
-            </div>
         </div>
         <hr class="text-black-50" />
 
@@ -28,33 +24,33 @@
                 <div class="row mt-3">
                     <div class="col">
                         @Html.Label("Nombre", new { @class = "form-label" })
-                        @Html.TextBox("nombre", "", new { @class = "form-control" })
+                        @Html.TextBoxFor(d => d.nombre, new { @class = "form-control" })
                     </div>
                     <div class="col">
                         @Html.Label("Precio", new { @class = "form-label" })
-                        @Html.TextBox("precio", "", new { @class = "form-control" })
+                        @Html.TextBoxFor(d => d.precio, new { @class = "form-control" })
                     </div>
                 </div>
 
                 <div class="row mt-3">
                     <div class="col">
                         @Html.Label("Habilidad requerida", new { @class = "form-label" })
-                        @Html.DropDownList("hola", skills, new { @class = "form-select" })
+                        @Html.DropDownListFor(d => d.skill, skills, new { @class = "form-select" })
                     </div>
                     <div class="col">
                         @Html.Label("Descripción del servicio", new { @class = "form-label" })
-                        @Html.TextArea("descripcion", "", new { @class = "form-control" })
+                        @Html.TextAreaFor(d => d.descripcion, new { @class = "form-control" })
                     </div>
                 </div>
 
                 <div class="row mt-3">
                     <div class="col">
                         @Html.Label("Inpuesto", new { @class = "form-label" })
-                        @Html.TextBox("codigo", "", new { disabled = "disabled", @class = "form-control" })
+                        @Html.TextBoxFor(d => d.impuesto, new { disabled = "disabled", @class = "form-control" })
                     </div>
                     <div class="col">
                         @Html.Label("Precio total", new { @class = "form-label" })
-                        @Html.TextBox("codigo", "", new { disabled = "disabled", @class = "form-control" })
+                        @Html.TextBoxFor(d => d.precioTotal, new { disabled = "disabled", @class = "form-control" })
                     </div>
                 </div>
             </div>
@@ -66,15 +62,20 @@
                 <div class="row">
                     <div class="col">
                         @Html.Label("Codigo", new { @class = "form-label" })
-                        <input type="search" class="form-control form-control-sm rounded" placeholder="Buscar por codigo" aria-label="Search" aria-describedby="search-addon"/>
+                        <div class="d-flex">
+                            <input name="search" id="search" type="search" class="form-control form-control-sm rounded" placeholder="Buscar por codigo" aria-label="Search" aria-describedby="search-addon" />
+                            <button class="btn btn-sm btn-success" type="submit" id="searchBnt" name="searchBtn">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="col">
-                        @Html.Label("Nombre", new { @class = "form-label" })
-                        @Html.TextBox("precio", "", new { disabled = "disabled", @class = "form-control form-control-sm" })
+                        @Html.Label("Nombre de producto", new { @class = "form-label" })
+                        @Html.TextBox("Pnombre", "", new { disabled = "disabled", @class = "form-control form-control-sm" })
                     </div>
                     <div class="col">
                         @Html.Label("Cantidad", new { @class = "form-label" })
-                        @Html.TextBox("precio", "", new { @class = "form-control form-control-sm" })
+                        @Html.TextBox("cantidad", "", new { @class = "form-control form-control-sm" })
                     </div>
                 </div>
 
@@ -125,50 +126,4 @@
             </div>
         </div>
     }
-</div>
-
-
-
-<!--Modal para buscar producto-->
-
-<div class="modal fade" id="BuscarInsumo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Buscar Insumo</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row mb-2">
-                    <div class="input-group rounded">
-                        <input type="search" class="form-control rounded" placeholder="Buscar" aria-label="Search" aria-describedby="search-addon" />
-                        <span class="input-group-text border-0" id="search-addon">
-                            <i class="fas fa-search"></i>
-                        </span>
-                    </div>
-                </div>
-                <table class="table table-hover table-sm">
-                    <thead>
-                        <tr>
-                            <th scope="col">Codigo</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Precio</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>6352</td>
-                            <td>Uña</td>
-                            <td>15</td>
-                            <td><button type="button" class="btn btn-sm btn-primary" onclick="">Elegir</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-            </div>
-        </div>
-    </div>
 </div>
