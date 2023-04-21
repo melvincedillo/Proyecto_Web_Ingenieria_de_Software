@@ -1,20 +1,62 @@
 ﻿
+@model Proyecto_Web_Ingenieria_de_Software.Models.AddModels.ServiciosModel
+
 @{
     ViewBag.Title = "Nuevo Servicio";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
     List<SelectListItem> skills = (List<SelectListItem>)ViewBag.Skill;
 }
 
-@model Proyecto_Web_Ingenieria_de_Software.Models.AddModels.ServiciosModel
-
 <link rel="stylesheet" href="~/Content/styleUsuarios.css" />
+
+<script>
+    $(function () {
+        $("#searchBnt").click(function () {
+            if ($("#search").val() == "") {
+                alert("Campo Vacio");
+                $("#idProduct").val("");
+                $("#nombreProduct").val("");
+                $("#precioProduct").val("");
+                $("#cantProduct").val("");
+            } else {
+                var url = '@Url.Action("BuscarProducto", "Servicios")';
+                var buscar = $("#search").val();
+                var data = { codigo: buscar };
+
+                $.get(url, data).done(function (data) {
+                    if (data.encontrado == true) {
+                        $("#idProduct").val(data.ID);
+                        $("#nombreProduct").val(data.ProductName);
+                        $("#precioProduct").val(data.Price);
+                    } else {
+                        $("#idProduct").val("");
+                        $("#nombreProduct").val("");
+                        $("#precioProduct").val("");
+                        $("#cantProduct").val("");
+                        alert("No se encontro ningun producto");
+                    }
+                });
+            }
+        });
+    });
+</script>
+<script src="~/Scripts/ModuloServicios.js"></script>
+
 
 <div class="serviciosDiv mb-5 p-5">
     @using (Html.BeginForm("Agregar", "Servicios", FormMethod.Post, new { role = "form" }))
     {
+        @Html.AntiForgeryToken()
+        @Html.ValidationMessage("error", new { @class = "text-danger" })
+        @Html.HiddenFor(d => d.codigo)
+
         <div class="row">
-            <div class="col-8">
+            <div class="col-9">
                 <h1 class="t-stroke">Nuevo Servicio</h1>
+            </div>
+            <div class="col-3">
+                @Html.LabelFor(d => d.codigo, new { @class = "form-label" })
+                @Html.TextBoxFor(d => d.codigo, new { disabled = "disabled", @class = "form-control" })
             </div>
         </div>
         <hr class="text-black-50" />
@@ -23,11 +65,11 @@
             <div class="col-6 border-end">
                 <div class="row mt-3">
                     <div class="col">
-                        @Html.Label("Nombre", new { @class = "form-label" })
+                        @Html.LabelFor(d => d.nombre, new { @class = "form-label" })
                         @Html.TextBoxFor(d => d.nombre, new { @class = "form-control" })
                     </div>
                     <div class="col">
-                        @Html.Label("Precio", new { @class = "form-label" })
+                        @Html.LabelFor(d => d.precio, new { @class = "form-label" })
                         @Html.TextBoxFor(d => d.precio, new { @class = "form-control" })
                     </div>
                 </div>
@@ -38,76 +80,77 @@
                         @Html.DropDownListFor(d => d.skill, skills, new { @class = "form-select" })
                     </div>
                     <div class="col">
-                        @Html.Label("Descripción del servicio", new { @class = "form-label" })
+                        @Html.LabelFor(d => d.descripcion, new { @class = "form-label" })
                         @Html.TextAreaFor(d => d.descripcion, new { @class = "form-control" })
                     </div>
                 </div>
 
                 <div class="row mt-3">
                     <div class="col">
-                        @Html.Label("Inpuesto", new { @class = "form-label" })
+                        @Html.LabelFor(d => d.impuesto, new { @class = "form-label" })
                         @Html.TextBoxFor(d => d.impuesto, new { disabled = "disabled", @class = "form-control" })
                     </div>
                     <div class="col">
-                        @Html.Label("Precio total", new { @class = "form-label" })
+                        @Html.LabelFor(d => d.precioTotal, new { @class = "form-label" })
                         @Html.TextBoxFor(d => d.precioTotal, new { disabled = "disabled", @class = "form-control" })
                     </div>
                 </div>
             </div>
-            
+
 
             <div class="col-6">
-
-                @Html.Label("Insumos necesarios", new { @class = "form-label" })
                 <div class="row">
                     <div class="col">
-                        @Html.Label("Codigo", new { @class = "form-label" })
-                        <div class="d-flex">
-                            <input name="search" id="search" type="search" class="form-control form-control-sm rounded" placeholder="Buscar por codigo" aria-label="Search" aria-describedby="search-addon" />
-                            <button class="btn btn-sm btn-success" type="submit" id="searchBnt" name="searchBtn">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                            </button>
-                        </div>
+                        @Html.Label("Insumos necesarios", new { @class = "form-label" })
+                    </div>
+                    <div class="col d-flex">
+                        <input name="search" id="search" type="search" class="form-control form-control-sm rounded" placeholder="Buscar por codigo" aria-label="Search" aria-describedby="search-addon" />
+                        <button class="btn btn-sm btn-success" type="button" id="searchBnt" name="searchBtn">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <label class="form-label">ID</label>
+                        @Html.TextBox("idProduct", "", new { disabled = "disabled", @class = "form-control form-control-sm" })
                     </div>
                     <div class="col">
-                        @Html.Label("Nombre de producto", new { @class = "form-label" })
-                        @Html.TextBox("Pnombre", "", new { disabled = "disabled", @class = "form-control form-control-sm" })
+                        <label class="form-label">Nombre</label>
+                        @Html.TextBox("nombreProduct", "", new { disabled = "disabled", @class = "form-control form-control-sm" })
                     </div>
                     <div class="col">
-                        @Html.Label("Cantidad", new { @class = "form-label" })
-                        @Html.TextBox("cantidad", "", new { @class = "form-control form-control-sm" })
+                        <label class="form-label">Precio</label>
+                        @Html.TextBox("precioProduct", "", new { disabled = "disabled", @class = "form-control form-control-sm" })
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Cantidad</label>
+                        @Html.TextBox("cantProduct", "", new { @class = "form-control form-control-sm" })
                     </div>
                 </div>
 
                 <div class="row mt-3">
-                    <div class="col d-flex justify-content-center">
-                        <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#BuscarInsumo">Buscar insumo</button>
-                    </div>
-                    <div class="col d-flex justify-content-center">
-                        <button type="button" class="btn btn-sm btn-success">Agregar insumo</button>
+                    <div class="d-flex justify-content-center">
+                        <button type="button" class="btn btn-sm btn-success" id="addInsumo">Agregar insumo</button>
                     </div>
                 </div>
 
                 <hr class="text-black-50" />
 
                 <div class="row p-2" style="height: 220px; overflow: auto; ">
-                    <table class="table table-hover table-sm">
+                    <table class="table table-hover table-sm" id="tableProducts">
                         <thead>
                             <tr>
+                                <th scope="col">Id</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Cantidad</th>
-                                <th scope="col">C/U</th>
+                                <th scope="col">Precio</th>
                                 <th scope="col">Total</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Uña</td>
-                                <td>10</td>
-                                <td>15</td>
-                                <td>150</td>
-                                <td><button type="button" class="btn btn-sm btn-danger" onclick="">Quitar</button></td>
                             </tr>
                         </tbody>
                     </table>

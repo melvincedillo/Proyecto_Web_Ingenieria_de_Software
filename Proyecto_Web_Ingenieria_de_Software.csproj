@@ -190,6 +190,7 @@
     <Compile Include="Models\AddModels\DetalleFacturaModel.cs" />
     <Compile Include="Models\AddModels\FacturaModel.cs" />
     <Compile Include="Models\AddModels\InsumosProducto.cs" />
+    <Compile Include="Models\AddModels\Product.cs" />
     <Compile Include="Models\AddModels\ServiciosModel.cs" />
     <Compile Include="Models\AddModels\UserModel.cs" />
     <Compile Include="Models\Appointment.cs">

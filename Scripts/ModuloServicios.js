@@ -1,15 +1,7 @@
 ﻿
 
 $(function () {
-    $("searchBnt").click(function () {
-        var url = '@Url.Action';
+    $("#addInsumo").click(function () {
+        alert("que pex")
     });
 });
-
-function buscarInsumo(url) {
-    var buscar = $("search").val;
-    var data = { search: buscar }
-    $.post(url, data).done(function (data) {
-        alert("Exito")
-    });
-}

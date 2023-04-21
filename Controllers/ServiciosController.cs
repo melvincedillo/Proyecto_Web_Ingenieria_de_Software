@@ -39,7 +39,9 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
             });
             ViewBag.Skill = skill;
 
-            return View();
+            ServiciosModel model = new ServiciosModel();
+            model.codigo = "PRUEBA";
+            return View(model);
         }
 
         // POST: Agregar
@@ -79,15 +81,30 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
 
         // POST: Buscar Producto
         //[PermisosModulos(moduloId: 2)]
-        [HttpPost]
-        public ActionResult BuscarProducto(string search)
+        public JsonResult BuscarProducto(string codigo)
         {
             Products p = null;
             using (var db = new BeautySalonEntities()) {
-                p = (from d in db.Products where d.Sku == search.ToString() select d).FirstOrDefault();
+                p = (from d in db.Products where d.Sku == codigo select d).FirstOrDefault();
             }
 
-            return RedirectToAction("Agregar", p);
+            if(p != null)
+            {
+                Product product = new Product();
+                product.ID = p.ID;
+                product.ProductName = p.ProductName;
+                product.Price = p.Price;
+                product.Sku = p.Sku;
+                product.encontrado = true;
+
+                return Json(product, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                Product product = new Product();
+                product.encontrado = false;
+                return Json(product, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

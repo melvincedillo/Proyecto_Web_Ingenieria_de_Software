@@ -11,18 +11,24 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models.AddModels
     {
         public int id { get; set; }
         [Required]
+        [Display(Name = "Codigo del servicio")]
+        public string codigo { get; set; }
+        [Required]
+        [Display(Name = "Nombre del servicio")]
         public string nombre { get; set; }
         [Required]
+        [Display(Name = "Descripción")]
         public string descripcion { get; set; }
         [Required]
+        [Display(Name = "Precio del servicio")]
         public decimal precio { get; set; }
         [Required]
+        [Display(Name = "Precio Total")]
         public decimal precioTotal { get; set; }
         [Required]
+        [Display(Name = "Impuesto aplicado")]
         public decimal impuesto { get; set; }
         [Required]
         public IEnumerable<SelectListItem> skill { get; set; }
-        [Required]
-        public List<InsumosProducto> insumos { get; set; }
     }
 }
