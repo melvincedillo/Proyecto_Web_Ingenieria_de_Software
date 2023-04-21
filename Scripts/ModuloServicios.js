@@ -2,35 +2,23 @@
 
 $(function () {
     $("#addInsumo").click(function () {
-        var id = $("#idProduct").val();
-        var nombre = $("#nombreProduct").val();
-        var precio = $("#precioProduct").val();
-        var cantidad = $("#cantProduct").val();
-        var total = parseFloat(precio) * parseFloat(cantidad);
-
-        var data = {
-            id: id,
-            nombre: nombre,
-            precio: precio,
-            cantidad: cantidad,
-            total: total
-        };
-
-        productos.push(data);
-
         if (id != "" && nombre != "" && precio != "" && cantidad != "") {
-            $("#tableProducts").append(
-                '<tr id = "' + id +'"><td>'
-                + id + '</td><td>'
-                + nombre + '</td><td>'
-                + cantidad + '</td><td>'
-                + precio + '</td><td>'
-                + total + '</td>' +
-                '<td><button class="btn btn-sm btn-danger" onclick="deleteProduct(' + id +');">Quitar</button></td></tr>'
-            );
+            var id = $("#idProduct").val();
+            var nombre = $("#nombreProduct").val();
+            var precio = $("#precioProduct").val();
+            var cantidad = $("#cantProduct").val();
+            var total = parseFloat(precio) * parseFloat(cantidad);
+
+            var data = {
+                id: id,
+                nombre: nombre,
+                precio: parseFloat(precio),
+                cantidad: parseFloat(cantidad),
+                total: total
+            };
+
+            addProduct(data);
             limpiar();
-        } else {
-            alert("Campos vacios");
         }
         console.log(productos);
     });
@@ -44,7 +32,50 @@ function limpiar() {
 }
 
 function deleteProduct(id) {
-    var a = $("#" + id);
-    console.log(a);
+    let elementos = [];
+    for (const d of productos) {
+        if (d.id != id) {
+            elementos.push(d);
+        }
+    }
+    productos = elementos;
     $("#" + id).remove();
+    console.log(productos);
+}
+
+function addProduct(data) {
+    let esta = false;
+    let produ;
+    let elementos = [];
+    for (const d of productos) {
+        if (d.id == data.id) {
+            esta = true;
+            produ = d;
+        } else {
+            elementos.push(d);
+        }
+    }
+
+    if (esta == true) {
+        produ.cantidad = produ.cantidad + data.cantidad;
+        produ.total = produ.total + data.total;
+        elementos.push(produ);
+        addInTabla(produ);
+        productos = elementos;
+    } else {
+        productos.push(data);
+        addInTabla(data);
+    }
+}
+
+function addInTabla(data) {
+    $("#" + data.id).remove();
+    $("#tableProducts").append(
+        '<tr id = "' + data.id + '"><td>'
+        + data.nombre + '</td><td>'
+        + data.cantidad + '</td><td>'
+        + data.precio + '</td><td>'
+        + data.total + '</td>' +
+        '<td><button class="btn btn-sm btn-danger" type="button" onclick="deleteProduct(' + data.id + ');">Quitar</button></td></tr>'
+    );
 }

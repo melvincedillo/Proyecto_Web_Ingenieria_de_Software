@@ -1,10 +1,9 @@
 ﻿
-@model Proyecto_Web_Ingenieria_de_Software.Models.AddModels.ServiciosModel
-
 @{
     ViewBag.Title = "Nuevo Servicio";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
     List<SelectListItem> skills = (List<SelectListItem>)ViewBag.Skill;
+    string code = (string)ViewBag.Code;
 }
 
 <link rel="stylesheet" href="~/Content/styleUsuarios.css" />
@@ -38,25 +37,25 @@
                 });
             }
         });
+
+        $("#precioProducto").keyup(function () {
+            let precio = $("#precioProducto").val();
+            $("#totalServicio").val(precio);
+        });
     });
 </script>
 <script src="~/Scripts/ModuloServicios.js"></script>
 
 
 <div class="serviciosDiv mb-5 p-5">
-    @using (Html.BeginForm("Agregar", "Servicios", FormMethod.Post, new { role = "form" }))
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationMessage("error", new { @class = "text-danger" })
-        @Html.HiddenFor(d => d.codigo)
-
+    <form>
         <div class="row">
             <div class="col-9">
                 <h1 class="t-stroke">Nuevo Servicio</h1>
             </div>
             <div class="col-3">
-                @Html.LabelFor(d => d.codigo, new { @class = "form-label" })
-                @Html.TextBoxFor(d => d.codigo, new { disabled = "disabled", @class = "form-control" })
+                <label class = "form-label">Codigo de servicio</label>
+                @Html.TextBox("codigoServicio", code, new { disabled = "disabled", @class = "form-control" })
             </div>
         </div>
         <hr class="text-black-50" />
@@ -65,34 +64,30 @@
             <div class="col-6 border-end">
                 <div class="row mt-3">
                     <div class="col">
-                        @Html.LabelFor(d => d.nombre, new { @class = "form-label" })
-                        @Html.TextBoxFor(d => d.nombre, new { @class = "form-control" })
+                        <label class="form-label">Nombre del servicio</label>
+                        @Html.TextBox("nombreServicio", "", new { @class = "form-control" })
                     </div>
                     <div class="col">
-                        @Html.LabelFor(d => d.precio, new { @class = "form-label" })
-                        @Html.TextBoxFor(d => d.precio, new { @class = "form-control" })
-                    </div>
-                </div>
-
-                <div class="row mt-3">
-                    <div class="col">
-                        @Html.Label("Habilidad requerida", new { @class = "form-label" })
-                        @Html.DropDownListFor(d => d.skill, skills, new { @class = "form-select" })
-                    </div>
-                    <div class="col">
-                        @Html.LabelFor(d => d.descripcion, new { @class = "form-label" })
-                        @Html.TextAreaFor(d => d.descripcion, new { @class = "form-control" })
+                        <label class="form-label">Precio del servicio</label>
+                        @Html.TextBox("precioProducto", "", new { @class = "form-control" })
                     </div>
                 </div>
 
                 <div class="row mt-3">
                     <div class="col">
-                        @Html.LabelFor(d => d.impuesto, new { @class = "form-label" })
-                        @Html.TextBoxFor(d => d.impuesto, new { disabled = "disabled", @class = "form-control" })
+                        <label class="form-label">Habilidad requerida</label>
+                        @Html.DropDownList("skillServicio", skills, new { @class = "form-select" })
                     </div>
                     <div class="col">
-                        @Html.LabelFor(d => d.precioTotal, new { @class = "form-label" })
-                        @Html.TextBoxFor(d => d.precioTotal, new { disabled = "disabled", @class = "form-control" })
+                        <label class="form-label">Descripción</label>
+                        @Html.TextArea("descripServicio", "", new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="row mt-5">
+                    <div class="col">
+                        <label class="form-label">Precio total</label>
+                        @Html.TextBox("totalServicio", "", new { disabled = "disabled", @class = "form-control" })
                     </div>
                 </div>
             </div>
@@ -101,7 +96,7 @@
             <div class="col-6">
                 <div class="row">
                     <div class="col">
-                        @Html.Label("Insumos necesarios", new { @class = "form-label" })
+                        <label class="form-label">Insumos necesarios</label>
                     </div>
                     <div class="col d-flex">
                         <input name="search" id="search" type="search" class="form-control form-control-sm rounded" placeholder="Buscar por codigo" aria-label="Search" aria-describedby="search-addon" />
@@ -141,7 +136,6 @@
                     <table class="table table-hover table-sm" id="tableProducts">
                         <thead>
                             <tr>
-                                <th scope="col">Id</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Cantidad</th>
                                 <th scope="col">Precio</th>
@@ -168,5 +162,5 @@
                 <button type="submit" class="btn btn-success">Agregar</button>
             </div>
         </div>
-    }
+    </form>
 </div>

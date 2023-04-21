@@ -38,10 +38,8 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 };
             });
             ViewBag.Skill = skill;
-
-            ServiciosModel model = new ServiciosModel();
-            model.codigo = "PRUEBA";
-            return View(model);
+            ViewBag.code = "CODIGO";
+            return View();
         }
 
         // POST: Agregar
