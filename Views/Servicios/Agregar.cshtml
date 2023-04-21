@@ -8,11 +8,13 @@
 
 <link rel="stylesheet" href="~/Content/styleUsuarios.css" />
 
+<script src="~/Scripts/ModuloServicios.js"></script>
+
 <script>
     $(function () {
         $("#searchBnt").click(function () {
             if ($("#search").val() == "") {
-                alert("Campo Vacio");
+                alert("Campo de busqueda vacio");
                 $("#idProduct").val("");
                 $("#nombreProduct").val("");
                 $("#precioProduct").val("");
@@ -38,17 +40,42 @@
             }
         });
 
-        $("#precioProducto").keyup(function () {
+        $("#formServices").submit(function () {
+            let codigo = $("#codigoServicio").val();
+            let nombre = $("#nombreServicio").val();
+            let descripcion = $("#descripServicio").val();
+            let skill = $("#skillServicio").val();
             let precio = $("#precioProducto").val();
-            $("#totalServicio").val(precio);
+            let total = $("#totalServicio").val();
+
+            let data = {
+                Servicio: {
+                    codigo: codigo,
+                    nombre: nombre,
+                    descripcion: descripcion,
+                    skill: parseInt(skill),
+                    precio: parseFloat(precio),
+                    total: parseFloat(total),
+                    products: productos
+                }
+            }
+
+            $.ajax({
+                method: "POST",
+                url: '@Url.Action("Agregar", "Servicios")',
+                data: JSON.stringify(data),
+                contentType: "application/json; charset-utf-8",
+                dataType: "json"
+            }).done(function () {
+                alert("Exito;")
+            })
         });
     });
 </script>
-<script src="~/Scripts/ModuloServicios.js"></script>
 
 
 <div class="serviciosDiv mb-5 p-5">
-    <form>
+    <form id="formServices">
         <div class="row">
             <div class="col-9">
                 <h1 class="t-stroke">Nuevo Servicio</h1>

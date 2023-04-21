@@ -1,5 +1,9 @@
 ﻿var productos = [];
 
+var numero = /^\d*\.?\d*$/;
+
+calcularTotal();
+
 $(function () {
     $("#addInsumo").click(function () {
         if (id != "" && nombre != "" && precio != "" && cantidad != "") {
@@ -20,7 +24,11 @@ $(function () {
             addProduct(data);
             limpiar();
         }
-        console.log(productos);
+        calcularTotal();
+    });
+
+    $("#precioProducto").keyup(function () {
+        calcularTotal();
     });
 });
 
@@ -40,7 +48,7 @@ function deleteProduct(id) {
     }
     productos = elementos;
     $("#" + id).remove();
-    console.log(productos);
+    calcularTotal();
 }
 
 function addProduct(data) {
@@ -78,4 +86,17 @@ function addInTabla(data) {
         + data.total + '</td>' +
         '<td><button class="btn btn-sm btn-danger" type="button" onclick="deleteProduct(' + data.id + ');">Quitar</button></td></tr>'
     );
+}
+
+function calcularTotal() {
+    let total = 0;
+    let precio = $("#precioProducto").val();
+    for (const tol of productos) {
+        total = total + tol.total;
+    }
+    if (numero.test(precio) && precio != "") {
+        total = total + parseFloat(precio);
+    }
+
+    $("#totalServicio").val(total);
 }

@@ -38,34 +38,13 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 };
             });
             ViewBag.Skill = skill;
-            ViewBag.code = "CODIGO";
+            ViewBag.code = "S4567";
             return View();
         }
 
-        // POST: Agregar
-        //[PermisosModulos(moduloId: 2)]
         [HttpPost]
-        public ActionResult Agregar(ServiciosModel model)
+        public ActionResult Agregar(Servicio servicio)
         {
-            if (!ModelState.IsValid)
-            {
-                List<Skill> skills = null;
-                using (var db = new BeautySalonEntities())
-                {
-                    skills = db.Skill.ToList();
-                }
-                List<SelectListItem> skill = skills.ConvertAll(d =>
-                {
-                    return new SelectListItem()
-                    {
-                        Value = d.ID.ToString(),
-                        Text = d.SkillName.ToString()
-                    };
-                });
-                ViewBag.Skill = skill;
-                return View(model);
-            }
-
             return View();
         }
 
