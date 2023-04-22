@@ -85,9 +85,25 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         // GET: Editar
         //[PermisosModulos(moduloId: 2)]
         [HttpGet]
-        public ActionResult Editar()
+        public ActionResult Editar(int id)
         {
-            return View();
+            List<Skill> skills = null;
+            Services servicio;
+            using (var db = new BeautySalonEntities())
+            {
+                skills = db.Skill.ToList();
+                servicio = db.Services.Find(id);
+            }
+            List<SelectListItem> skill = skills.ConvertAll(d =>
+            {
+                return new SelectListItem()
+                {
+                    Value = d.ID.ToString(),
+                    Text = d.SkillName.ToString()
+                };
+            });
+            ViewBag.Skill = skill;
+            return View(servicio);
         }
 
         // POST: Buscar Producto
