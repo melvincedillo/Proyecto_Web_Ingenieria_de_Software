@@ -23,8 +23,8 @@ $(function () {
 
             addProduct(data);
             limpiar();
+            calcularTotal();
         }
-        calcularTotal();
     });
 
     $("#precioProducto").keyup(function () {

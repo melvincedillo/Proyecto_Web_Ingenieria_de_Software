@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Servicios";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    List<Proyecto_Web_Ingenieria_de_Software.Models.Services> services = ViewBag.Servicios;
 }
 
 <link rel="stylesheet" href="~/Content/styleUsuarios.css" />
@@ -22,21 +23,24 @@
                 <tr>
                     <th scope="col">Codigo</th>
                     <th scope="col">Nombre</th>
-                    <th scope="col">Habilidad</th>
+                    <th scope="col">Descripción</th>
                     <th scope="col">Precio</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>2345634</td>
-                    <td>Manicure GOLD</td>
-                    <td>Manicure/Pedicure</td>
-                    <td>600</td>
-                    <td>
-                        <button class="btn btn-sm btn-primary" onclick="document.location.href = '@Url.Content("~/Servicios/Editar/")'">Editar</button>
-                    </td>
-                </tr>
+                @foreach (var s in services)
+                {
+                    <tr>
+                        <td>@s.ServiceCode</td>
+                        <td>@s.ServiceName</td>
+                        <td>@s.Description</td>
+                        <td>@s.PrecioTotal</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary" onclick="document.location.href = '@Url.Content("~/Servicios/Editar/")' + @s.ID">Editar</button>
+                        </td>
+                    </tr>
+                  }
             </tbody>
         </table>
     </div>

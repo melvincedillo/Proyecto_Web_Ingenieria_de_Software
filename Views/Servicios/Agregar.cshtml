@@ -40,7 +40,8 @@
             }
         });
 
-        $("#formServices").submit(function () {
+        $("#guardar").click(function () {
+
             let codigo = $("#codigoServicio").val();
             let nombre = $("#nombreServicio").val();
             let descripcion = $("#descripServicio").val();
@@ -60,15 +61,12 @@
                 }
             }
 
-            $.ajax({
-                method: "POST",
-                url: '@Url.Action("Agregar", "Servicios")',
-                data: JSON.stringify(data),
-                contentType: "application/json; charset-utf-8",
-                dataType: "json"
-            }).done(function () {
-                alert("Exito;")
-            })
+            let url = '@Url.Content("~/Servicios/Agregar")';
+
+            $.post(url, data).done(function (dt) {
+                alert(dt);
+                location.href = '@Url.Action("Index", "Servicios")';
+            });
         });
     });
 </script>
@@ -183,10 +181,10 @@
 
         <div class="row mt-3">
             <div class="col-6 d-flex justify-content-center">
-                <button type="button" class="btn btn-danger" onclick="document.location.href = '@Url.Content("~/Servicios")'">Cancelar</button>
+                <button type="button" class="btn btn-danger" onclick="document.location.href = '@Url.Content("~/Servicios")'">Volver</button>
             </div>
             <div class="col-6 d-flex justify-content-center">
-                <button type="submit" class="btn btn-success">Agregar</button>
+                <button type="button" id="guardar" class="btn btn-success">Agregar</button>
             </div>
         </div>
     </form>

@@ -16,6 +16,12 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         //[PermisosModulos(moduloId: 2)]
         public ActionResult Index()
         {
+            List<Services> servicios = null;
+            using(var db = new BeautySalonEntities())
+            {
+                servicios = db.Services.ToList();
+            }
+            ViewBag.Servicios = servicios;
             return View();
         }
 
@@ -25,9 +31,11 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         public ActionResult Agregar()
         {
             List<Skill> skills = null;
+            int code;
             using(var db = new BeautySalonEntities())
             {
                 skills = db.Skill.ToList();
+                code = db.Services.ToList().Count + 10;
             }
             List<SelectListItem> skill = skills.ConvertAll(d =>
             {
@@ -38,14 +46,40 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 };
             });
             ViewBag.Skill = skill;
-            ViewBag.code = "S4567";
+            ViewBag.code = code.ToString();
             return View();
         }
 
         [HttpPost]
-        public ActionResult Agregar(Servicio servicio)
+        public JsonResult Agregar(Servicio servicio)
         {
-            return View();
+            using(var db = new BeautySalonEntities())
+            {
+                //Creando el servicio
+                Services service = new Services();
+                service.TaxID = 2;
+                service.SkillID = servicio.skill;
+                service.ServiceCode = servicio.codigo;
+                service.ServiceName = servicio.nombre;
+                service.Price = servicio.precio;
+                service.PrecioTotal = servicio.total;
+                service.Description = servicio.descripcion;
+                var s = db.Services.Add(service);
+                db.SaveChanges();
+
+                //Agregando los productos
+                foreach(var p in servicio.products)
+                {
+                    ServiceDetail sD = new ServiceDetail();
+                    sD.ServiceID = s.ID;
+                    sD.ProductID = p.id;
+                    sD.Cantidad = p.cantidad;
+                    db.ServiceDetail.Add(sD);
+                    db.SaveChanges();
+                }
+            }
+
+            return Json("Servicio agregado con exito", JsonRequestBehavior.AllowGet);
         }
 
         // GET: Editar
