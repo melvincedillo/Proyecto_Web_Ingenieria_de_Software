@@ -2,7 +2,46 @@
 @{
     ViewBag.Title = "Productos";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    List<Proyecto_Web_Ingenieria_de_Software.Models.Products> productos = ViewBag.productos;
 }
 
-<h2>Productos</h2>
+<link rel="stylesheet" href="~/Content/styleUsuarios.css" />
 
+<div class="serviciosDiv mb-5 p-5">
+    <div class="row">
+        <div class="col-8">
+            <h1 class="t-stroke">Productos</h1>
+        </div>
+        <div class="col-4 d-flex justify-content-end">
+            <button class="btn btn-success" onclick="document.location.href = '@Url.Content("~/Productos/Agregar")'">Nuevo Producto</button>
+        </div>
+    </div>
+    <hr class="text-black-50" />
+    <div class="table-responsive">
+        <table class="table table-hover table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Codigo</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Stock</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var s in productos)
+                {
+                    <tr>
+                        <td>@s.ID</td>
+                        <td>@s.ProductName</td>
+                        <td>@s.Price</td>
+                        <td>@s.Quantity</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary" onclick="document.location.href = '@Url.Content("~/Servicios/Editar/")' + @s.ID">Editar</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
