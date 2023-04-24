@@ -50,6 +50,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
             return View();
         }
 
+        // POST: Agregar
         [HttpPost]
         public JsonResult Agregar(Servicio servicio)
         {
@@ -106,6 +107,46 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
             return View(servicio);
         }
 
+        // POST: Editar
+        [HttpPost]
+        public JsonResult Editar(Servicio servicio, int id)
+        {
+            using (var db = new BeautySalonEntities())
+            {
+                //Editando el servicio
+                Services service = db.Services.Find(id);
+                service.SkillID = servicio.skill;
+                service.ServiceCode = servicio.codigo;
+                service.ServiceName = servicio.nombre;
+                service.Price = servicio.precio;
+                service.PrecioTotal = servicio.total;
+                service.Description = servicio.descripcion;
+                db.Entry(service).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+
+                //Eliminando el detalle de servicio
+                var dsp = (from d in db.ServiceDetail where d.ServiceID == id select d).ToList();
+                foreach(var pd in dsp)
+                {
+                    db.ServiceDetail.Remove(pd);
+                    db.SaveChanges();
+                }
+
+                //Agregando el detalle del servicio
+                foreach (var p in servicio.products)
+                {
+                    ServiceDetail sD = new ServiceDetail();
+                    sD.ServiceID = id;
+                    sD.ProductID = p.id;
+                    sD.Cantidad = p.cantidad;
+                    db.ServiceDetail.Add(sD);
+                    db.SaveChanges();
+                }
+            }
+
+            return Json("Servicio Editado con exito", JsonRequestBehavior.AllowGet);
+        }
+
         // POST: Buscar Producto
         //[PermisosModulos(moduloId: 2)]
         public JsonResult BuscarProducto(string codigo)
@@ -132,6 +173,32 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 product.encontrado = false;
                 return Json(product, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        // GET: Obtener productos
+        //[PermisosModulos(moduloId: 2)]
+        public JsonResult GetAllProducts(int id)
+        {
+            List<Productos> productos = new List<Productos>();
+
+            using(var db = new BeautySalonEntities())
+            {
+                var produ = db.ServiceDetail.Join(db.Products, sd => sd.ProductID, p => p.ID, (sd, p) => new { sd, p }).Where(x => x.sd.ServiceID == id).ToList();
+
+                foreach(var pr in produ)
+                {
+                    productos.Add(new Productos()
+                    {
+                        id = pr.p.ID,
+                        nombre = pr.p.ProductName,
+                        cantidad = pr.sd.Cantidad,
+                        precio = pr.p.Price,
+                        total = pr.p.Price * pr.sd.Cantidad
+                    });
+                }
+            }
+
+            return Json(productos, JsonRequestBehavior.AllowGet);
         }
     }
 }

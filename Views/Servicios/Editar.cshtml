@@ -7,6 +7,30 @@
 
 @model Proyecto_Web_Ingenieria_de_Software.Models.Services
 
+<script src="~/Scripts/EditarServicio.js"></script>
+<script>
+    $(function () {
+        $("#searchBnt").click(function () {
+            buscarProducto('@Url.Action("BuscarProducto", "Servicios")');
+        });
+
+        $("#precioProducto").keyup(function () {
+            calcularTotal();
+        });
+
+        $("#addInsumo").click(function () {
+            addProducto();
+            console.log(productos);
+        });
+
+        $("#Editar").click(function () {
+            edit('@Url.Content("~/Servicios/Editar")', '@Url.Action("Index", "Servicios")');
+        });
+    });
+</script>
+
+@Html.Hidden("idServicio", Model.ID)
+
 <div class="serviciosDiv mb-5 p-5">
     <form id="formServices">
         <div class="row">
@@ -25,29 +49,41 @@
                 <div class="row mt-3">
                     <div class="col">
                         <label class="form-label">Nombre del servicio</label>
-                        @Html.TextBox("nombreServicio", "", new { @class = "form-control" })
+                        @Html.TextBox("nombreServicio", Model.ServiceName, new { @class = "form-control" })
                     </div>
                     <div class="col">
                         <label class="form-label">Precio del servicio</label>
-                        @Html.TextBox("precioProducto", "", new { @class = "form-control" })
+                        @Html.TextBox("precioProducto", Model.Price, new { @class = "form-control" })
                     </div>
                 </div>
 
                 <div class="row mt-3">
                     <div class="col">
                         <label class="form-label">Habilidad requerida</label>
-                        @Html.DropDownList("skillServicio", skills, new { @class = "form-select" })
+                        <select id="skillServicio" class="form-select">
+                            @foreach (var sk in skills)
+                            {
+                                if (sk.Value.ToString() == Model.SkillID.ToString())
+                                {
+                                    <option value="@sk.Value" selected>@sk.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@sk.Value">@sk.Text</option>
+                                }
+                            }
+                        </select>
                     </div>
                     <div class="col">
                         <label class="form-label">Descripción</label>
-                        @Html.TextArea("descripServicio", "", new { @class = "form-control" })
+                        @Html.TextArea("descripServicio", Model.Description, new { @class = "form-control" })
                     </div>
                 </div>
 
                 <div class="row mt-5">
                     <div class="col">
                         <label class="form-label">Precio total</label>
-                        @Html.TextBox("totalServicio", "", new { disabled = "disabled", @class = "form-control" })
+                        @Html.TextBox("totalServicio", Model.PrecioTotal, new { disabled = "disabled", @class = "form-control" })
                     </div>
                 </div>
             </div>
@@ -124,3 +160,7 @@
         </div>
     </form>
 </div>
+
+<script>
+    getAllProducts('@Url.Content("~/Servicios/GetAllProducts")');
+</script>
