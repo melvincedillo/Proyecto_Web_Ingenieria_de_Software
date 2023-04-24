@@ -17,9 +17,9 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Services()
         {
-            this.Appointment = new HashSet<Appointment>();
             this.FacturaDetalle = new HashSet<FacturaDetalle>();
             this.ServiceDetail = new HashSet<ServiceDetail>();
+            this.AppointmentDetail = new HashSet<AppointmentDetail>();
         }
     
         public int ID { get; set; }
@@ -32,12 +32,12 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models
         public decimal PrecioTotal { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Appointment> Appointment { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FacturaDetalle> FacturaDetalle { get; set; }
         public virtual Tax Tax { get; set; }
         public virtual Skill Skill { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServiceDetail> ServiceDetail { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AppointmentDetail> AppointmentDetail { get; set; }
     }
 }

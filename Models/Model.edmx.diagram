@@ -5,7 +5,6 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="f010c0061b454a1ca534e8733f1f6eea" Name="Diagram1">
-        <EntityTypeShape EntityType="BeautySalonModel.Appointment" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="BeautySalonModel.Calendar" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BeautySalonModel.Employee" Width="1.5" PointX="0.75" PointY="13.875" IsExpanded="true" />
         <EntityTypeShape EntityType="BeautySalonModel.Factura" Width="1.5" PointX="3" PointY="15.875" IsExpanded="true" />
@@ -39,7 +38,6 @@
         <AssociationConnector Association="BeautySalonModel.FK_SalonID_MedioPagoDetalle" />
         <EntityTypeShape EntityType="BeautySalonModel.Permissions" Width="1.5" PointX="7.75" PointY="18.125" />
         <EntityTypeShape EntityType="BeautySalonModel.Services" Width="1.5" PointX="3" PointY="3.875" />
-        <AssociationConnector Association="BeautySalonModel.FK_ServiceID" />
         <AssociationConnector Association="BeautySalonModel.FK_ServiceID_FacturaDetalle" />
         <AssociationConnector Association="BeautySalonModel.FK_ModuleID" />
         <AssociationConnector Association="BeautySalonModel.FK_UserID" />
@@ -48,6 +46,10 @@
         <EntityTypeShape EntityType="BeautySalonModel.ServiceDetail" Width="1.5" PointX="8.25" PointY="7.375" />
         <AssociationConnector Association="BeautySalonModel.Product_FK" />
         <AssociationConnector Association="BeautySalonModel.Service_FK" />
+        <EntityTypeShape EntityType="BeautySalonModel.Appointment" Width="3.5" PointX="3" PointY="27.5" />
+        <EntityTypeShape EntityType="BeautySalonModel.AppointmentDetail" Width="3.5" PointX="5.25" PointY="4.5" />
+        <AssociationConnector Association="BeautySalonModel.FK_Appointment_Detail" />
+        <AssociationConnector Association="BeautySalonModel.FK_Servicio_Appointment" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
