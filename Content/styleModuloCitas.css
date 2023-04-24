@@ -1,22 +1,10 @@
-﻿body {
-}
+﻿
 
-.iconFormAgendar {
-    align-items: center;
-    font-size: 20px;
-    color: #d221d9
-}
-
-
-.formAgendarCita {
-    border: 1px solid #ccc;
-    padding: 20px;
-    border-radius: 25px;
-    background: rgb(255 255 255 / 0.95);
-    box-shadow: 7px 7px 15px #301431;
-}
-
-.iconbuscar {
-    color: #000000;
-    font-size: 25px;
+.CitasDiv {
+    padding: 15px;
+    border: 1px solid #7a1465;
+    border-radius: 20px;
+    -webkit-box-shadow: 0px 0px 25px 0px rgba(117,41,112,1);
+    -moz-box-shadow: 0px 0px 25px 0px rgba(117,41,112,1);
+    box-shadow: 0px 0px 25px 0px rgba(117,41,112,1);
 }

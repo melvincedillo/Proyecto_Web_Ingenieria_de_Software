@@ -2,145 +2,79 @@
 @{
     ViewBag.Title = "Citas";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    List<Proyecto_Web_Ingenieria_de_Software.Models.Appointment> citas = (List<Proyecto_Web_Ingenieria_de_Software.Models.Appointment>)ViewBag.Citas;
 }
-
 
 <link rel="stylesheet" href="~/Content/styleModuloCitas.css" />
 
-<div class="container p-3">
-    <div class="row mb-2">
-        <div class="col-4">
-            <h1 class="t-stroke">CITAS</h1>
+<div class="CitasDiv  mb-5 p-5">
+    <div class="row">
+        <div class="col-8">
+            <h1 class="t-stroke">Citas</h1>
         </div>
-
-        <div class="col-8 d-block d-sm-none justify-content-center d-flex">
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalNewCita">
-                <spn>Nueva cita</spn>
-            </button>
+        <div class="col-4 d-flex justify-content-end">
+            <button class="btn btn-success" onclick="document.location.href = '@Url.Content("~/Citas/Agregar")'">Nueva Cita</button>
         </div>
     </div>
-
-    <div class="row mb-4 flex-wrap">
-        <div class="col-4 d-flex d-none d-sm-block">
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalNewCita">
-                Nueva Cita
-            </button>
+    <hr class="text-black-50" />
+    <div class="row mt-2">
+        <div class="col">
+            <div class="d-flex">
+                <input type="search" class="form-control" id="Buscar" placeholder="Buscar por cliente">
+                <button id="btnBuscar" type="button" class="btn btn-success"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+            <div>
+                <div class="col mt-3">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="fiterStatus" id="todas" value="Todas">
+                        <label class="form-check-label" for="todas">Todas</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="fiterStatus" id="pendiente" value="Pendiente">
+                        <label class="form-check-label" for="pendiente">Pendientes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="fiterStatus" id="cancelada" value="Cancelada">
+                        <label class="form-check-label" for="cancelada">Canceladas</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="fiterStatus" id="completada" value="Completada">
+                        <label class="form-check-label" for="completada">Completadas</label>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="col-auto">
-            <form class="d-flex">
-                <input type="text" class="form-control" id="inputBuscar" placeholder="Buscar" />
-                <button type="submit" class="btn btn-success"><i class="fa-solid fa-magnifying-glass fa-lg iconbuscar"></i></button>
-            </form>
+        <div class="col">
+            <label class="form-label">Filtrar por fecha</label>
+            <input id="inputDate" type="date" class="form-control" />
+            
         </div>
     </div>
-
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover table-sm">
+    <hr class="text-black-50" />
+    <div class="table-responsive mt-3">
+        <table class="table table-hover table-sm">
             <thead>
-                <tr class="table-dark">
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Servicio</th>
+                <tr>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Numero</th>
                     <th scope="col">Fecha</th>
-                    <th scope="col">Hora</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Elias Cedillo</td>
-                    <td>Corte de Cabello</td>
-                    <td>21/03/2023</td>
-                    <td>13:30</td>
-                </tr>
+                @foreach (var c in citas)
+                {
+                    <tr>
+                        <td>@c.ClientName</td>
+                        <td>@c.PhoneNumber</td>
+                        <td>@c.AppointmentDate.ToString("yyyyy-MM-dd")</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary" onclick="document.location.href = '@Url.Content("~/Citas/Detalle/")' + @c.ID">Detalles</button>
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
-    </div>
-</div>
-
-<!-- Modal para agregar una nueva cita -->
-<div class="modal fade" id="modalNewCita" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content formAgendarCita">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Agendar nueva cita</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="row mb-3">
-                        <div class="col-1 col-form-label">
-                            <i class="fa-solid fa-gem iconFormAgendar"></i>
-                        </div>
-                        <label for="inputServicio" class="col-3 col-form-label">Servicio</label>
-                        <div class="col-8">
-                            <select class="form-select" id="inputServicio">
-                                <option selected>Seleccione un servicio</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-1 col-form-label">
-                            <i class="fa-solid fa-user iconFormAgendar"></i>
-                        </div>
-                        <label for="inputName" class="col-3 col-form-label">Nombre</label>
-                        <div class="col-8">
-                            <input type="text" class="form-control" id="inputName" placeholder="Nombre" />
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-1 col-form-label">
-                            <i class="fa-solid fa-phone iconFormAgendar"></i>
-                        </div>
-                        <label for="inputPhone" class="col-3 col-form-label">Telefono</label>
-                        <div class="col-8">
-                            <input type="tel" class="form-control" id="inputPhone" placeholder="Telefono" />
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-1 col-form-label">
-                            <i class="fa-solid fa-calendar-days iconFormAgendar"></i>
-                        </div>
-                        <label for="inputFecha" class="col-3 col-form-label">Nombre</label>
-                        <div class="col-8">
-                            <input type="date" class="form-control" id="inputFecha" placeholder="Fecha de cita" />
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-1 col-form-label">
-                            <i class="fa-solid fa-clock iconFormAgendar"></i>
-                        </div>
-                        <label for="inputHora" class="col-3 col-form-label">Hora</label>
-                        <div class="col-8">
-                            <select class="form-select" id="inputHora">
-                                <option selected>Seleccione una hora</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-1 col-form-label">
-                            <i class="fa-solid fa-sack-dollar iconFormAgendar"></i>
-                        </div>
-                        <label for="inputP" class="col-3 col-form-label">Precio</label>
-                        <div class="col-8">
-                            <label for="inputPrecio" class="col-form-label-lg">0.00 Lps</label>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <div class="row mb-3">
-                            <div class="col-12 d-flex justify-content-center">
-                                <button type="submit" class="btn btn-primary">Agendar Cita</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
     </div>
 </div>
 
