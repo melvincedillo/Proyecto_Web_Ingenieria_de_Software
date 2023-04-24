@@ -9,11 +9,11 @@ using System.Web.Mvc;
 
 namespace Proyecto_Web_Ingenieria_de_Software.Controllers
 {
-    //[ValideSession]
+    [ValideSession]
     public class ServiciosController : Controller
     {
         // GET: Servicios
-        //[PermisosModulos(moduloId: 2)]
+        [PermisosModulos(moduloId: 2)]
         public ActionResult Index()
         {
             List<Services> servicios = null;
@@ -26,7 +26,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         }
 
         // GET: Agregar
-        //[PermisosModulos(moduloId: 2)]
+        [PermisosModulos(moduloId: 2)]
         [HttpGet]
         public ActionResult Agregar()
         {
@@ -51,6 +51,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         }
 
         // POST: Agregar
+        [PermisosModulos(moduloId: 2)]
         [HttpPost]
         public JsonResult Agregar(Servicio servicio)
         {
@@ -84,7 +85,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         }
 
         // GET: Editar
-        //[PermisosModulos(moduloId: 2)]
+        [PermisosModulos(moduloId: 2)]
         [HttpGet]
         public ActionResult Editar(int id)
         {
@@ -108,6 +109,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         }
 
         // POST: Editar
+        [PermisosModulos(moduloId: 2)]
         [HttpPost]
         public JsonResult Editar(Servicio servicio, int id)
         {
@@ -148,7 +150,6 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         }
 
         // POST: Buscar Producto
-        //[PermisosModulos(moduloId: 2)]
         public JsonResult BuscarProducto(string codigo)
         {
             Products p = null;
@@ -176,7 +177,6 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         }
 
         // GET: Obtener productos
-        //[PermisosModulos(moduloId: 2)]
         public JsonResult GetAllProducts(int id)
         {
             List<Productos> productos = new List<Productos>();
