@@ -1,0 +1,74 @@
+﻿@model Proyecto_Web_Ingenieria_de_Software.Models.Salon
+
+@{
+    ViewBag.Title = "Editar";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="generalDiv mb-5 p-5">
+
+    @using (Html.BeginForm("Editar", "General", FormMethod.Post))
+    {
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="row">
+            <div class="col-9">
+                <h1 class="t-stroke">Actualizar Parametros</h1>
+            </div>
+        </div>
+        <hr class="text-black-50" />
+
+        <div class="row">
+            <div class="col-6 border-end">
+                <div class="row mt-3">
+                    <div class="col">
+                        <label class="form-label">Direccion</label>
+                        @Html.TextBoxFor(model => model.Address)
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Facebook</label>
+                        @Html.TextBoxFor(model => model.Facebook)
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col">
+                        <label class="form-label">Instagram</label>
+                        @Html.TextBoxFor(model => model.Instagram)
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Whatsapp</label>
+                        @Html.TextBoxFor(model => model.WhatsApp)
+                    </div>
+                </div>
+
+                <div class="row mt-5">
+                    <div class="col">
+                        <label class="form-label">Correo Electronico</label>
+                        @Html.TextBoxFor(model => model.Email)
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Mision</label>
+                        @Html.TextBoxFor(model => model.Mision)
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <hr class="text-black-50" />
+
+        <div class="row mt-3">
+            <div class="col-6 d-flex justify-content-center">
+                <button type="button" class="btn btn-danger" onclick="document.location.href = '@Url.Content("~/General")'">Volver</button>
+            </div>
+            <div class="col-6 d-flex justify-content-center">
+                <button type="submit" id="guardar" class="btn btn-success">Guardar Cambios</button>
+            </div>
+        </div>
+
+
+    }
+
+</div>

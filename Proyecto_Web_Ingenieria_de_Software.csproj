@@ -406,6 +406,7 @@
     <Content Include="Views\Servicios\Editar.cshtml" />
     <Content Include="Views\Productos\Agregar.cshtml" />
     <Content Include="Views\Productos\Editar.cshtml" />
+    <Content Include="Views\General\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

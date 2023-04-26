@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Configuración General";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    List<Proyecto_Web_Ingenieria_de_Software.Models.Salon> salon = ViewBag.salon;
 }
 
 <link rel="stylesheet" href="~/Content/styleParametros.css" />
@@ -13,99 +14,24 @@
         </div>
     </div>
     <div class="Datos">
-        <p> <i class="fas fa-home me-3"></i> Direccion</p>
-        <p> <i class="fa-brands fa-facebook iconRedes"></i> Facebook</p>
-        <p> <i class="fa-brands fa-instagram iconRedes"></i> Instagram</p>
-        <p> <i class="fa-brands fa-facebook iconRedes"></i> Whatsapp</p>
-        <p> <i class="fa-solid fa-envelope"></i> Correo Electronico</p>
+        @foreach (var s in salon)
+        {
+            <p> <h2>@s.Name</h2></p>
+
+            <p><h6><i class="fas fa-home me-3"></i>Direccion: </h6> @s.Address </p>
+            <p> <h6><i class="fa-brands fa-facebook iconRedes"></i> Facebook: </h6> @s.Facebook</p>
+            <p> <h6><i class="fa-brands fa-instagram iconRedes"></i> Instagram: </h6> @s.Instagram</p>
+            <p> <h6><i class="fa-brands fa-facebook iconRedes"></i> Whatsapp</h6> @s.WhatsApp</p>
+            <p><h6> <i class="fa-solid fa-envelope"></i> Correo Electronico:  </h6>@s.Email</p>
+            <p><h6> <i class="fa-solid fa-hand-holding-heart"></i> Mision: :  </h6>@s.Mision</p>
+
+            <button class="btn btn-success" onclick="document.location.href = '@Url.Content("~/General/Editar/")'+ + @s.ID">Editar Parametros</button>
+        }
+
     </div>
+    
 </div>
 
-<div class="col-8 d-block d-sm-none justify-content-center d-flex">
-    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalParametros">
-        <spn>Editar Parametros</spn>
-    </button>
-</div>
 
 
-<div class="row mb-4 flex-wrap">
-    <div class="col-4 d-flex d-none d-sm-block">
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalParametros">
-            Editar Parametros
-        </button>
-    </div>
-
-    <!-- Modal para editar Parametros-->
-    <div class="modal fade" id="modalParametros" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content formAgendarCita">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Parametros</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="row mb-3">
-                            <div class="col-1 col-form-label">
-                                <i class="fas fa-home me-3"></i>
-                            </div>
-                            <label for="inputServicio" class="col-3 col-form-label">Direccion</label>
-                            <div class="col-8">
-                                <div class="col-8">
-                                    <input type="text" class="form-control" id="inputName" placeholder="Nueva dirrecion" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-1 col-form-label">
-                                <i class="fa-brands fa-facebook iconRedes"></i>
-                            </div>
-                            <label for="inputName" class="col-3 col-form-label">Facebook</label>
-                            <div class="col-8">
-                                <input type="text" class="form-control" id="inputName" placeholder="Direccion de Facebook" />
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-1 col-form-label">
-                                <i class="fa-brands fa-instagram iconRedes"></i>
-                            </div>
-                            <label for="inputPhone" class="col-3 col-form-label">Instagram</label>
-                            <div class="col-8">
-                                <input type="tel" class="form-control" id="inputPhone" placeholder="Direccion Instagram" />
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-1 col-form-label">
-                                <i class="fa-brands fa-facebook iconRedes"></i>
-                            </div>
-                            <label for="inputFecha" class="col-3 col-form-label">Whatsapp</label>
-                            <div class="col-8">
-                                <input type="text" class="form-control" id="inputName" placeholder="Numero de Telefono" />
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-1 col-form-label">
-                                <i class="fa-solid fa-envelope"></i>
-                            </div>
-                            <label for="inputHora" class="col-3 col-form-label">Correo Electronico</label>
-                            <div class="col-8">
-                                <input type="text" class="form-control" id="inputName" placeholder="Correo electronico" />
-                            </div>
-
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary">Guardar Cambios</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
+                        
