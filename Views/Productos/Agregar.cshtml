@@ -1,79 +1,82 @@
 ﻿@{
     ViewBag.Title = "Agregar";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-    List<SelectListItem> taxs = (List<SelectListItem>)ViewBag.Tax;
-    string code = (string)ViewBag.Code;
+    List<SelectListItem> taxs = (List<SelectListItem>)ViewBag.Tax;        
 }
 
 @model Proyecto_Web_Ingenieria_de_Software.Models.Products
 
 
 <div class="serviciosDiv mb-5 p-5">
+    @if(ViewBag.code != null)
+    {
+        if(ViewBag.code == "1")
+        {
+            <div class="alert alert-success"><i class="fa fa-check-circle"></i> @ViewBag.messageSave</div>
+        }
+        else if(ViewBag.code =="0")
+        {
+            <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> @ViewBag.messageSave</div>
+        }
+   }
+
 
     @using (Html.BeginForm("Agregar", "Productos", FormMethod.Post))
     {
-        <div class="row">
-            <div class="col-9">
-                <h1 class="t-stroke">Nuevo Producto</h1>
-            </div>            
+    <div class="row">
+        <div class="col-9">
+            <h1 class="t-stroke">Nuevo Producto</h1>
         </div>
-        <hr class="text-black-50" />
+    </div>
+    <hr class="text-black-50" />
 
-        <div class="row">
-            <div class="col-6 border-end">
-                <div class="row mt-3">
-                    <div class="col">
-                        <label class="form-label">Nombre del Producto</label>
-                        @Html.TextBoxFor(model=>model.ProductName)                        
-                    </div>
-                    <div class="col">
-                        <label class="form-label">Precio del producto</label>
-                        @Html.TextBoxFor(model=>model.Price)                        
-                    </div>
+    <div class="row">
+        <div class="col-6 border-end">
+            <div class="row mt-3">
+                <div class="col">
+                    <label class="form-label">Nombre del Producto</label>
+                    @Html.TextBoxFor(model=>model.ProductName)
                 </div>
-
-                <div class="row mt-3">
-                    <div class="col">
-                        <label class="form-label">Cantidad agregar</label>
-                        @Html.TextBoxFor(model=>model.Quantity)                        
-                    </div>
-                    <div class="col">
-                        <label class="form-label">Codigo de barra (SKU)</label>
-                        @Html.TextBoxFor(model=>model.Sku)
-                    </div>
-                </div>
-
-                <div class="row mt-5">
-                    <div class="col">
-                        <label class="form-label">Tipo Impuesto</label>                        
-                        @Html.DropDownListFor(model=>model.TaxID, taxs)                        
-                    </div>
+                <div class="col">
+                    <label class="form-label">Precio del producto</label>
+                    @Html.TextBoxFor(model=>model.Price)
                 </div>
             </div>
 
-
-        </div>
-
-        <hr class="text-black-50" />
-
-        <div class="row mt-3">
-            <div class="col-6 d-flex justify-content-center">
-                <button type="button" class="btn btn-danger" onclick="document.location.href = '@Url.Content("~/Productos")'">Volver</button>
+            <div class="row mt-3">
+                <div class="col">
+                    <label class="form-label">Cantidad agregar</label>
+                    @Html.TextBoxFor(model=>model.Quantity)
+                </div>
+                <div class="col">
+                    <label class="form-label">Codigo de barra (SKU)</label>
+                    @Html.TextBoxFor(model=>model.Sku)
+                </div>
             </div>
-            <div class="col-6 d-flex justify-content-center">
-                <button type="submit" id="guardar" class="btn btn-success">Agregar</button>
+
+            <div class="row mt-5">
+                <div class="col">
+                    <label class="form-label">Tipo Impuesto</label>
+                    @Html.DropDownListFor(model=>model.TaxID, taxs)
+                </div>
             </div>
         </div>
 
 
+    </div>
 
+    <hr class="text-black-50" />
 
-
-
+    <div class="row mt-3">
+        <div class="col-6 d-flex justify-content-center">
+            <button type="button" class="btn btn-danger" onclick="document.location.href = '@Url.Content("~/Productos")'">Volver</button>
+        </div>
+        <div class="col-6 d-flex justify-content-center">
+            <button type="submit" id="guardar" class="btn btn-success">Agregar</button>
+        </div>
+    </div>
 
     }
-
-
 
 
 </div>
