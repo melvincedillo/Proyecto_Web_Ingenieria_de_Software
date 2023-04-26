@@ -11,6 +11,8 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models.AddModels
         public string nombre { get; set; }
         public decimal cantidad { get; set; }
         public decimal precio { get; set; }
+        public string Sku { get; set; }
+
         public decimal total { get; set; }
     }
 }
