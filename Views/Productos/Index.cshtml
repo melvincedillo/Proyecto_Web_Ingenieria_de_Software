@@ -7,6 +7,17 @@
 
 <link rel="stylesheet" href="~/Content/styleUsuarios.css" />
 
+<script>
+
+    function eliminar(id) {
+        if (confirm('¿Estás seguro de que deseas eliminar este registro?')) {
+            document.location.href = '@Url.Content("~/Productos/Delete/")' + encodeURIComponent(id);
+        }
+    }
+
+</script>
+
+
 <div class="serviciosDiv mb-5 p-5">
     <div class="row">
         <div class="col-8">
@@ -26,20 +37,24 @@
                     <th scope="col">Precio</th>
                     <th scope="col">Stock</th>
                     <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var s in productos)
                 {
-                    <tr>
-                        <td>@s.ID</td>
-                        <td>@s.ProductName</td>
-                        <td>@s.Price</td>
-                        <td>@s.Quantity</td>
-                        <td>
-                            <button class="btn btn-sm btn-primary" onclick="document.location.href = '@Url.Content("~/Productos/Editar/")' + @s.ID">Editar</button>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>@s.ID</td>
+                    <td>@s.ProductName</td>
+                    <td>@s.Price</td>
+                    <td>@s.Quantity</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary" onclick="document.location.href = '@Url.Content("~/Productos/Editar/")' + @s.ID">Editar</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-danger" onclick="eliminar('@s.ID')">Eliminar</button>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>

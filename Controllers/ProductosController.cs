@@ -34,6 +34,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
             return View();
         }
 
+
         [HttpPost]
         public ActionResult Agregar(Products producto)
         {
@@ -81,6 +82,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
             return View(product);
         }
 
+
         [HttpPost]
         public ActionResult Editar(Products productUpdate)
         {
@@ -105,6 +107,25 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
             }
 
             
+        }
+
+
+
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            using (var db = new BeautySalonEntities())
+            {
+                var product = db.Products.Find(id);
+                if(product == null)
+                {
+                    return HttpNotFound();
+                }
+                db.Products.Remove(product);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
         }
 
 
