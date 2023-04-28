@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Agregar";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/styleUsuarios.css" />
+
+<div class="serviciosDiv mb-5 p-5">
+    <form id="formCitas">
+        <div class="row">
+            <div class="col">
+                <h1 class="t-stroke">Agendar Cita</h1>
+            </div>
+        </div>
+        <hr class="text-black-50" />
+
+        <div class="row mt-3">
+            <div class="col">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control form-control-sm" id="nameCliente" name="nameCliente" placeholder="Melvin">
+                    <label for="nameCliente">Nombre Completo</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control form-control-sm" id="phoneCliente" name="phoneCliente" placeholder="33223322">
+                    <label for="phoneCliente">Telefono</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating mb-3">
+                    <input type="date" class="form-control form-control-sm" id="fecha" name="fecha" placeholder="33223322">
+                    <label for="fecha">Fecha</label>
+                </div>
+            </div>
+        </div>
+
+        <hr class="text-black-50" />
+
+        <div class="row mt-3">
+            <div class="col-6 d-flex justify-content-center">
+                <button type="button" class="btn btn-danger" onclick="document.location.href = '@Url.Content("~/Citas")'">Volver</button>
+            </div>
+            <div class="col-6 d-flex justify-content-center">
+                <button type="button" id="Agregar" class="btn btn-success">Agregar</button>
+            </div>
+        </div>
+    </form>
+</div>
+

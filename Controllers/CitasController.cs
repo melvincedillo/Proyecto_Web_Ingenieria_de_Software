@@ -25,5 +25,11 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
 
             return View();
         }
+
+        [PermisosModulos(moduloId: 4)]
+        public ActionResult Agregar()
+        {
+            return View();
+        }
     }
 }
