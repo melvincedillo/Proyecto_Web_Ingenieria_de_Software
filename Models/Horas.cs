@@ -14,7 +14,19 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models
     
     public partial class Horas
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Horas()
+        {
+            this.Horario = new HashSet<Horario>();
+            this.Horario1 = new HashSet<Horario>();
+        }
+    
         public int ID { get; set; }
         public string Hora { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Horario> Horario { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Horario> Horario1 { get; set; }
     }
 }

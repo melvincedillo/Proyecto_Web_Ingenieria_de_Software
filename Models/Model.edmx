@@ -99,9 +99,9 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Day" Type="varchar" MaxLength="10" />
-          <Property Name="OpenTime" Type="varchar" MaxLength="10" />
-          <Property Name="CloseTime" Type="varchar" MaxLength="10" />
           <Property Name="Weekday" Type="bit" Nullable="false" />
+          <Property Name="OpenTime" Type="int" Nullable="false" />
+          <Property Name="CloseTime" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Horas">
           <Key>
@@ -289,6 +289,30 @@
             </Principal>
             <Dependent Role="FacturaDetalle">
               <PropertyRef Name="FacturaNumero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Hora_Horario_C">
+          <End Role="Horas" Type="Self.Horas" Multiplicity="1" />
+          <End Role="Horario" Type="Self.Horario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Horas">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Horario">
+              <PropertyRef Name="CloseTime" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Hora_Horario_O">
+          <End Role="Horas" Type="Self.Horas" Multiplicity="1" />
+          <End Role="Horario" Type="Self.Horario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Horas">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Horario">
+              <PropertyRef Name="OpenTime" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -565,6 +589,14 @@
             <End Role="Factura" EntitySet="Factura" />
             <End Role="FacturaDetalle" EntitySet="FacturaDetalle" />
           </AssociationSet>
+          <AssociationSet Name="FK_Hora_Horario_C" Association="Self.FK_Hora_Horario_C">
+            <End Role="Horas" EntitySet="Horas" />
+            <End Role="Horario" EntitySet="Horario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Hora_Horario_O" Association="Self.FK_Hora_Horario_O">
+            <End Role="Horas" EntitySet="Horas" />
+            <End Role="Horario" EntitySet="Horario" />
+          </AssociationSet>
           <AssociationSet Name="FK_MedioPago_MedioPagoDetalle" Association="Self.FK_MedioPago_MedioPagoDetalle">
             <End Role="MedioPago" EntitySet="MedioPago" />
             <End Role="MedioPagoDetalle" EntitySet="MedioPagoDetalle" />
@@ -730,16 +762,6 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Horario">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
-          <Property Name="Day" MaxLength="10" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="OpenTime" MaxLength="10" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="CloseTime" MaxLength="10" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="Weekday" Nullable="false" Type="Boolean" />
         </EntityType>
         <EntityType Name="MedioPago">
           <Key>
@@ -959,7 +981,6 @@
           <EntitySet Name="FacturaDetalle" EntityType="Self.FacturaDetalle" />
           <EntitySet Name="FacturaImagen" EntityType="Self.FacturaImagen" />
           <EntitySet Name="Holiday" EntityType="Self.Holiday" />
-          <EntitySet Name="Horario" EntityType="Self.Horario" />
           <EntitySet Name="MedioPago" EntityType="Self.MedioPago" />
           <EntitySet Name="MedioPagoDetalle" EntityType="Self.MedioPagoDetalle" />
           <EntitySet Name="Modules" EntityType="Self.Modules" />
@@ -1074,6 +1095,15 @@
             <End Role="Services" EntitySet="Services" />
             <End Role="AppointmentDetail" EntitySet="AppointmentDetail" />
           </AssociationSet>
+          <EntitySet Name="Horario" EntityType="BeautySalonModel.Horario" />
+          <AssociationSet Name="FK_Hora_Horario_C" Association="BeautySalonModel.FK_Hora_Horario_C">
+            <End Role="Horas" EntitySet="Horas" />
+            <End Role="Horario" EntitySet="Horario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Hora_Horario_O" Association="BeautySalonModel.FK_Hora_Horario_O">
+            <End Role="Horas" EntitySet="Horas" />
+            <End Role="Horario" EntitySet="Horario" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Horas">
           <Key>
@@ -1081,6 +1111,8 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Hora" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Horario" Relationship="BeautySalonModel.FK_Hora_Horario_C" FromRole="Horas" ToRole="Horario" />
+          <NavigationProperty Name="Horario1" Relationship="BeautySalonModel.FK_Hora_Horario_O" FromRole="Horas" ToRole="Horario" />
         </EntityType>
         <EntityType Name="Salon">
           <Key>
@@ -1319,6 +1351,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Horario">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Day" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Weekday" Type="Boolean" Nullable="false" />
+          <Property Name="OpenTime" Type="Int32" Nullable="false" />
+          <Property Name="CloseTime" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Horas" Relationship="BeautySalonModel.FK_Hora_Horario_C" FromRole="Horario" ToRole="Horas" />
+          <NavigationProperty Name="Horas1" Relationship="BeautySalonModel.FK_Hora_Horario_O" FromRole="Horario" ToRole="Horas" />
+        </EntityType>
+        <Association Name="FK_Hora_Horario_C">
+          <End Type="BeautySalonModel.Horas" Role="Horas" Multiplicity="1" />
+          <End Type="BeautySalonModel.Horario" Role="Horario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Horas">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Horario">
+              <PropertyRef Name="CloseTime" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Hora_Horario_O">
+          <End Type="BeautySalonModel.Horas" Role="Horas" Multiplicity="1" />
+          <End Type="BeautySalonModel.Horario" Role="Horario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Horas">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Horario">
+              <PropertyRef Name="OpenTime" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1397,17 +1465,6 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Horario">
-            <EntityTypeMapping TypeName="BeautySalonModel.Horario">
-              <MappingFragment StoreEntitySet="Horario">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Day" ColumnName="Day" />
-                <ScalarProperty Name="OpenTime" ColumnName="OpenTime" />
-                <ScalarProperty Name="CloseTime" ColumnName="CloseTime" />
-                <ScalarProperty Name="Weekday" ColumnName="Weekday" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1564,6 +1621,17 @@
                 <ScalarProperty Name="Hora" ColumnName="Hora" />
                 <ScalarProperty Name="ServicioID" ColumnName="ServicioID" />
                 <ScalarProperty Name="AppointmentID" ColumnName="AppointmentID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Horario">
+            <EntityTypeMapping TypeName="BeautySalonModel.Horario">
+              <MappingFragment StoreEntitySet="Horario">
+                <ScalarProperty Name="CloseTime" ColumnName="CloseTime" />
+                <ScalarProperty Name="OpenTime" ColumnName="OpenTime" />
+                <ScalarProperty Name="Weekday" ColumnName="Weekday" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

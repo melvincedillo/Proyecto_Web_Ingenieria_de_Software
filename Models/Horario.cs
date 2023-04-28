@@ -16,8 +16,11 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models
     {
         public int ID { get; set; }
         public string Day { get; set; }
-        public string OpenTime { get; set; }
-        public string CloseTime { get; set; }
         public bool Weekday { get; set; }
+        public int OpenTime { get; set; }
+        public int CloseTime { get; set; }
+    
+        public virtual Horas Horas { get; set; }
+        public virtual Horas Horas1 { get; set; }
     }
 }

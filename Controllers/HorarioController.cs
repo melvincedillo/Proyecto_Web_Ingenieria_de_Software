@@ -114,13 +114,13 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         [PermisosModulos(moduloId: 6)]
         [HttpPost]
         public ActionResult Configuracion(
-            string Lunes, string LunesO, string LunesC,
-            string Martes, string MartesO, string MartesC,
-            string Miercoles, string MiercolesO, string MiercolesC,
-            string Jueves, string JuevesO, string JuevesC,
-            string Viernes, string ViernesO, string ViernesC,
-            string Sabado, string SabadoO, string SabadoC,
-            string Domingo, string DomingoO, string DomingoC
+            string Lunes, int LunesO, int LunesC,
+            string Martes, int MartesO, int MartesC,
+            string Miercoles, int MiercolesO, int MiercolesC,
+            string Jueves, int JuevesO, int JuevesC,
+            string Viernes, int ViernesO, int ViernesC,
+            string Sabado, int SabadoO, int SabadoC,
+            string Domingo, int DomingoO, int DomingoC
             )
         {
             using (var db = new BeautySalonEntities())
