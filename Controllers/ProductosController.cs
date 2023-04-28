@@ -12,7 +12,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
     public class ProductosController : Controller
     {
         // GET: Productos
-        //[PermisosModulos(moduloId: 3)]
+        [PermisosModulos(moduloId: 3)]
         public ActionResult Index()
         {
             List<Products> productList = null;
@@ -26,7 +26,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         }
 
         // GET: Agregar
-        //[PermisosModulos(moduloId: 2)]
+        [PermisosModulos(moduloId: 3)]
         [HttpGet]
         public ActionResult Agregar()
         {
@@ -36,6 +36,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
 
 
         [HttpPost]
+        [PermisosModulos(moduloId: 3)]
         public ActionResult Agregar(Products producto)
         {
             try
@@ -70,6 +71,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         }
 
         [HttpGet]
+        [PermisosModulos(moduloId: 3)]
         public ActionResult Editar(int id)
         {
             Products product = null;
@@ -84,6 +86,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
 
 
         [HttpPost]
+        [PermisosModulos(moduloId: 3)]
         public ActionResult Editar(Products productUpdate)
         {
             if (ModelState.IsValid)
@@ -112,6 +115,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
 
 
         [HttpGet]
+        [PermisosModulos(moduloId: 3)]
         public ActionResult Delete(int id)
         {
             using (var db = new BeautySalonEntities())
