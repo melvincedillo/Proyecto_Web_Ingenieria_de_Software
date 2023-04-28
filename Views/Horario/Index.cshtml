@@ -3,7 +3,7 @@
     ViewBag.Title = "Horario";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 
-    List<Proyecto_Web_Ingenieria_de_Software.Models.Horario> Horarios = ViewBag.Horarios;
+    List<Proyecto_Web_Ingenieria_de_Software.Models.ViewModels.HorarioView> Horarios = ViewBag.Horarios;
     List<Proyecto_Web_Ingenieria_de_Software.Models.Holiday> Holidays = ViewBag.Holidays;
 }
 
@@ -38,9 +38,9 @@
                     @foreach(var oHorario in Horarios)
                      {
                     <tr>
-                        <td>@oHorario.Day</td>
-                        <td>@oHorario.OpenTime</td>
-                        <td>@oHorario.CloseTime</td>
+                        <td>@oHorario.day</td>
+                        <td>@oHorario.open</td>
+                        <td>@oHorario.close</td>
                     </tr>
                      }
                 </tbody>
@@ -114,9 +114,9 @@
                 @foreach (var oHorario in Horarios)
                 {
                     <tr>
-                        <td>@oHorario.Day</td>
-                        <td>@oHorario.OpenTime</td>
-                        <td>@oHorario.CloseTime</td>
+                        <td>@oHorario.day</td>
+                        <td>@oHorario.open</td>
+                        <td>@oHorario.close</td>
                     </tr>
                 }
             </tbody>

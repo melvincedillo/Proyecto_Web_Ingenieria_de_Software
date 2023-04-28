@@ -18,14 +18,29 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            List<Horario> listHorario = null;
+            List<HorarioView> listHorario = new List<HorarioView>();
             List<Holiday> listHoliday = null;
 
             using (var db = new BeautySalonEntities())
             {
-                listHorario = (from d in db.Horario
+                var horario = (from d in db.Horario
                                where d.Weekday == true
                                select d).ToList();
+
+                foreach(var h in horario)
+                {
+                    var o = db.Horas.Find(h.OpenTime);
+                    var c = db.Horas.Find(h.CloseTime);
+                    listHorario.Add(
+                            new HorarioView()
+                            {
+                                id = h.ID,
+                                day = h.Day,
+                                open = o.Hora,
+                                close = c.Hora
+                            }
+                        );
+                }
 
                 listHoliday = (from d in db.Holiday
                               where d.Date >= DateTime.Today
@@ -126,7 +141,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
             using (var db = new BeautySalonEntities())
             {
                 // Lunes
-                var lunes = db.Horario.Find(8);
+                var lunes = db.Horario.Find(15);
                 lunes.OpenTime = LunesO;
                 lunes.CloseTime = LunesC;
                 if(Lunes == "1") { lunes.Weekday = true; } else { lunes.Weekday = false; }
@@ -134,7 +149,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 db.SaveChanges();
 
                 // Martes
-                var martes = db.Horario.Find(9);
+                var martes = db.Horario.Find(16);
                 martes.OpenTime = MartesO;
                 martes.CloseTime = MartesC;
                 if (Martes == "1") { martes.Weekday = true; } else { martes.Weekday = false; }
@@ -142,7 +157,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 db.SaveChanges();
 
                 // Miercoles
-                var miercoles = db.Horario.Find(10);
+                var miercoles = db.Horario.Find(17);
                 miercoles.OpenTime = MiercolesO;
                 miercoles.CloseTime = MiercolesC;
                 if (Miercoles == "1") { miercoles.Weekday = true; } else { miercoles.Weekday = false; }
@@ -150,7 +165,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 db.SaveChanges();
 
                 // Jueves
-                var jueves = db.Horario.Find(11);
+                var jueves = db.Horario.Find(18);
                 jueves.OpenTime = JuevesO;
                 jueves.CloseTime = JuevesC;
                 if (Jueves == "1") { jueves.Weekday = true; } else { jueves.Weekday = false; }
@@ -158,7 +173,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 db.SaveChanges();
 
                 // Viernes
-                var viernes = db.Horario.Find(12);
+                var viernes = db.Horario.Find(19);
                 viernes.OpenTime = ViernesO;
                 viernes.CloseTime = ViernesC;
                 if (Viernes == "1") { viernes.Weekday = true; } else { viernes.Weekday = false; }
@@ -166,7 +181,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 db.SaveChanges();
 
                 // Sabado
-                var sabado = db.Horario.Find(13);
+                var sabado = db.Horario.Find(20);
                 sabado.OpenTime = SabadoO;
                 sabado.CloseTime = SabadoC;
                 if (Sabado == "1") { sabado.Weekday = true; } else { sabado.Weekday = false; }
@@ -174,7 +189,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 db.SaveChanges();
 
                 // Domingo
-                var domingo = db.Horario.Find(14);
+                var domingo = db.Horario.Find(21);
                 domingo.OpenTime = DomingoO;
                 domingo.CloseTime = DomingoC;
                 if (Domingo == "1") { domingo.Weekday = true; } else { domingo.Weekday = false; }

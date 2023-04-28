@@ -30,13 +30,13 @@
                 <select name="@oElemento.nameOpen" class="form-select">
                     @foreach (var h in horas)
                     {
-                        if (oElemento.open == h.Hora)
+                        if (oElemento.open == h.ID)
                         {
-                            <option value="@h.Hora" selected>@h.Hora</option>
+                            <option value="@h.ID" selected>@h.Hora</option>
                         }
                         else
                         {
-                            <option value="@h.Hora">@h.Hora</option>
+                            <option value="@h.ID">@h.Hora</option>
                         }
                     }
                 </select>
@@ -45,13 +45,13 @@
                 <select name="@oElemento.nameClose" class="form-select" select="@oElemento.close">
                     @foreach (var h in horas)
                     {
-                        if (oElemento.close == h.Hora)
+                        if (oElemento.close == h.ID)
                         {
-                            <option value="@h.Hora" selected>@h.Hora</option>
+                            <option value="@h.ID" selected>@h.Hora</option>
                         }
                         else
                         {
-                            <option value="@h.Hora">@h.Hora</option>
+                            <option value="@h.ID">@h.Hora</option>
                         }
                     }
                 </select>
