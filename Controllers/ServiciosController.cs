@@ -176,6 +176,31 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
             }
         }
 
+
+        public JsonResult buscarServicio(int codigo)
+        {
+            Services s = null;
+            using (var db = new BeautySalonEntities())
+            {
+                s = (from d in db.Services where d.ID == codigo select d).FirstOrDefault();
+            }
+
+            if (s != null)
+            {
+                Services service = new Services();
+                
+                service.ID = s.ID;
+                service.ServiceName = s.ServiceName;
+                service.Price = s.Price;
+
+                return Json(service, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {                
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         // GET: Obtener productos
         public JsonResult GetAllProducts(int id)
         {

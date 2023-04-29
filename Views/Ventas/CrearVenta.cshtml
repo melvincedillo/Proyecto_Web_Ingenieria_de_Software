@@ -10,7 +10,56 @@
 
 <script>
 
-    var tblProductos = [];
+
+    $(function () {
+
+        //Botón de búsqueda de producto
+        $("#searchBnt").click(function () {
+            if ($("#search").val() == "") {
+                alert("Campo de busqueda vacio");
+                $("#idProduct").val("");
+                $("#nombreProduct").val("");
+                $("#precioProduct").val("");
+                $("#cantProduct").val("");
+            } else {
+                var url = '@Url.Action("BuscarProducto", "Servicios")';
+                var buscar = $("#search").val();
+                var data = { codigo: buscar };
+
+                $.get(url, data).done(function (data) {
+                    if (data.encontrado == true) {
+                        $("#idProduct").val(data.ID);
+                        $("#nombreProduct").val(data.ProductName);
+                        $("#precioProduct").val(data.Price);
+                    } else {
+                        url = '@Url.Action("buscarServicio", "Servicios")'; //ahora busco servicio
+                        data = { codigo: buscar };
+                        alert('buscando servicio: ' + buscar);
+                        $.get(url, data).done(function (data) {
+                            if (data != null) {
+                                alert('lleno');
+                                $("#idProduct").val(data.ID);
+                                $("#nombreProduct").val(data.ServiceName);
+                                $("#precioProduct").val(data.Price);
+                            } else {
+                                $("#idProduct").val("");
+                                $("#nombreProduct").val("");
+                                $("#precioProduct").val("");
+                                $("#cantProduct").val("");
+                                alert("No se encontro producto o servicio");
+                            }
+
+                        });                        
+                    }
+                });
+            }
+        });
+
+    }
+    );
+
+    var productos = new Array;
+
 
     function llenarPrecio() {
         var precio = $('#ddlProductos option:selected').data('precio');
@@ -29,22 +78,24 @@
                 '<td><button type="button">-</button></td></tr>';
 
             $('#tblProductos tbody').append(fila);
-                        
-            tblProductos.push({
-                numeroFactura: 1,
-                salonId: 1,
-                productId: idProducto,
-                price: precio,
-                quantity: 1,
-                discount: 20,
-                salesTax:25
-            });
+
+
+            var nvoProducto = {
+                Producto: {
+                    idProducto: idProducto,
+                    precio: precio
+                }
+            }
+
+            productos.push(nvoProducto);
+            console.log(productos);
+
 
 
         }
-        
 
-        
+
+
     }
 
 
@@ -60,7 +111,7 @@
         <div style="display:inline-block; width:50%;">
             <div>
                 <label>Fecha:</label>
-                @Html.TextBoxFor(model => model.time)
+                @Html.TextBoxFor(model => model.time, new { @Value = @DateTime.Now.ToShortDateString(), @readonly = "readonly" })
             </div>
 
             <div>
@@ -72,49 +123,46 @@
                 <h3>Productos</h3>
             </div>
 
-            <div>
-                <table>
-                    <tr>
-                        <td>
-                            <label>
-                                Descripci&oacute;n
-                            </label>
-                        </td>
-                        <td>
-                            <label>
-                                Precio
-                            </label>
-                        </td>
-                    </tr>
+        </div>
 
-                    <tr>
-                        <td>
-                            <select id="ddlProductos" onchange="llenarPrecio()">
-                                <option value="">Seleccione Producto</option>
-                                @foreach (ProductsViewModel item in ViewBag.listaProductos)
-                                {
-                                    <option value="@item.ID" data-precio="@item.Price">@item.ProductName</option>
-                                }
-                            </select>
-                        </td>
+        <hr class="text-black-50" />
 
-                        <td>
-                            <label id="priceProduct">
-                                0.00
-                            </label>
-                        </td>
+        <div class="col-6">
+            <div class="row">                
+                <div class="col d-flex">
+                    <input name="search" id="search" type="search" class="form-control form-control-sm rounded" placeholder="Buscar por codigo" aria-label="Search" aria-describedby="search-addon" />
+                    <button class="btn btn-sm btn-success" type="button" id="searchBnt" name="searchBtn">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <label class="form-label">ID</label>
+                    @Html.TextBox("idProduct", "", new { disabled = "disabled", @class = "form-control form-control-sm" })
+                </div>
+                <div class="col">
+                    <label class="form-label">Nombre</label>
+                    @Html.TextBox("nombreProduct", "", new { disabled = "disabled", @class = "form-control form-control-sm" })
+                </div>
+                <div class="col">
+                    <label class="form-label">Precio</label>
+                    @Html.TextBox("precioProduct", "", new { disabled = "disabled", @class = "form-control form-control-sm" })
+                </div>
+                <div class="col">
+                    <label class="form-label">Cantidad</label>
+                    @Html.TextBox("cantProduct", "", new { @class = "form-control form-control-sm" })
+                </div>
+            </div>
 
-                        <td>
-                            <button type="button" onclick="agregarProducto();">+</button>
-                        </td>
-
-                    </tr>
-
-
-                </table>
+            <div class="row mt-3">
+                <div class="d-flex justify-content-center">
+                    <button type="button" class="btn btn-sm btn-success" id="addInsumo">Agregar</button>
+                </div>
             </div>
 
         </div>
+
 
         <div style="display: inline-block; width: 50%;">
             <div class="container text-center" id="productsAdded">
