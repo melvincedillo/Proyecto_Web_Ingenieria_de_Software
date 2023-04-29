@@ -192,6 +192,7 @@
     <Compile Include="Models\AddModels\Product.cs" />
     <Compile Include="Models\AddModels\Productos.cs" />
     <Compile Include="Models\AddModels\Servicio.cs" />
+    <Compile Include="Models\AddModels\ServicioModelCita.cs" />
     <Compile Include="Models\AddModels\UserModel.cs" />
     <Compile Include="Models\Appointment.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -223,6 +224,8 @@
     <Compile Include="Models\Horario.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\HorarioModel\HorasDisponibles.cs" />
+    <Compile Include="Models\HorarioModel\RespDate.cs" />
     <Compile Include="Models\Horas.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -326,6 +329,7 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\agregarCita.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />

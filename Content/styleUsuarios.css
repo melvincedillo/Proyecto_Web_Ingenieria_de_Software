@@ -34,3 +34,8 @@
     padding: 10px;
     border-radius: 20px;
 }
+
+.bordeSeccion{
+    border: 1px solid;
+    border-radius: 25px;
+}

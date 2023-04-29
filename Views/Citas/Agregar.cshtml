@@ -2,9 +2,30 @@
 @{
     ViewBag.Title = "Agregar";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    List<Proyecto_Web_Ingenieria_de_Software.Models.Services> servicios = ViewBag.Servicios;
 }
 
 <link rel="stylesheet" href="~/Content/styleUsuarios.css" />
+
+<script src="~/Scripts/agregarCita.js"></script>
+<script>
+    $(function () {
+        $("#fecha").change(function () {
+            if ($("#fecha").val() != "") {
+                comprobarFecha('@Url.Action("ComprobarFecha", "Citas")', '@Url.Action("GetHoras", "Citas")');
+            }
+        });
+
+        $("#btnCancelar").click(function () {
+            CambiarVisibleSeccion();
+        });
+    });
+
+    function mostrarServicio(id) {
+        idServicio = id;
+        cargarServicio('@Url.Action("BuscarServicio", "Citas")');
+    }
+</script>
 
 <div class="serviciosDiv mb-5 p-5">
     <form id="formCitas">
@@ -30,10 +51,68 @@
             </div>
             <div class="col">
                 <div class="form-floating mb-3">
-                    <input type="date" class="form-control form-control-sm" id="fecha" name="fecha" placeholder="33223322">
+                    <input type="date" class="form-control form-control-sm" id="fecha" name="fecha" min="@DateTime.Today.ToString("yyyy-MM-dd")">
                     <label for="fecha">Fecha</label>
                 </div>
             </div>
+        </div>
+
+        <div class="row mt-3">
+            <div>
+                <button disabled id="btnModal" type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addService">
+                    Agregar servicio
+                </button>
+            </div>
+        </div>
+
+        <section id="addServiceSeccion" class="mt-2 p-3 bordeSeccion" style="display:none;">
+            <div class="row">
+                <div class="col">
+                    <label class="form-label">Servicio</label>
+                    <input type="text" class="form-control" disabled id="nombreServicio" name="nombreServicio" />
+                </div>
+                <div class="col">
+                    <label class="form-label">Descripción</label>
+                    <input type="text" class="form-control" disabled id="descripcionServicio" name="descripcionServicio" />
+                </div>
+                <div class="col">
+                    <label class="form-label">Precio</label>
+                    <input type="text" class="form-control" disabled id="precioServicio" name="precioServicio" />
+                </div>
+                <div class="col">
+                    <label class="form-label">Hora</label>
+                    <select class="form-select" id="horaServicio">
+                        <option>Seleccione una hora</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col d-flex justify-content-end">
+                    <button type="button" id="btnCancelar" class="btn btn-sm btn-danger">Cancelar</button>
+                </div>
+                <div class="col">
+                    <button type="button" id="btnAceptar" class="btn btn-sm btn-success">Aceptar</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="row mt-3">
+            <label class="form-label">Servicios</label>
+        </div>
+
+        <div class="row mt-2">
+            <table id="tableServicios" class="table table-hover table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Servicio</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
 
         <hr class="text-black-50" />
@@ -47,5 +126,47 @@
             </div>
         </div>
     </form>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addService" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Servicio</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="p-3">
+                        <table class="table table-hover table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Servicio</th>
+                                    <th scope="col">Precio</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var s in servicios)
+                                {
+                                    <tr>
+                                        <td>@s.ServiceName</td>
+                                        <td>@s.PrecioTotal</td>
+                                        <td>
+                                            <button type="button" onclick="mostrarServicio(@s.ID);" class="btn btn-sm btn-success" data-bs-dismiss="modal">+</button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
 </div>
 
