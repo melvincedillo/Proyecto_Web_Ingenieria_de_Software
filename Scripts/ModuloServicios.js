@@ -77,15 +77,27 @@ function addProduct(data) {
 }
 
 function addInTabla(data) {
-    $("#" + data.id).remove();
-    $("#tableProducts").append(
-        '<tr id = "' + data.id + '"><td>'
-        + data.nombre + '</td><td>'
-        + data.cantidad + '</td><td>'
-        + data.precio + '</td><td>'
-        + data.total + '</td>' +
-        '<td><button class="btn btn-sm btn-danger" type="button" onclick="deleteProduct(' + data.id + ');">Quitar</button></td></tr>'
-    );
+    var accion = $('#accion').val();
+    if (accion != null) {
+        var fila = '<tr> <td>' + data.nombre + '</td> <td>' + data.precio + '</td>' +
+            '<td><button type="button">-</button></td></tr>';
+
+        $('#tblProductos tbody').append(fila);
+    }
+
+    else {
+        $("#" + data.id).remove();
+        $("#tableProducts").append(
+            '<tr id = "' + data.id + '"><td>'
+            + data.nombre + '</td><td>'
+            + data.cantidad + '</td><td>'
+            + data.precio + '</td><td>'
+            + data.total + '</td>' +
+            '<td><button class="btn btn-sm btn-danger" type="button" onclick="deleteProduct(' + data.id + ');">Quitar</button></td></tr>'
+        );
+
+    }
+    
 }
 
 function calcularTotal() {
