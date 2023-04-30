@@ -12,7 +12,9 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models.AddModels
         public decimal total { get; set; }
         public int skill { get; set; }
         public decimal precio { get; set; }
-        public string descripcion { get; set; }
+        public string descripcion { get; set; } 
+
+        public bool encontrado  { get; set; }
         public List<Productos> products { get; set; }
     }
 }

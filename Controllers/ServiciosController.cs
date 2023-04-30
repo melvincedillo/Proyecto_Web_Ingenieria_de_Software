@@ -196,8 +196,10 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 return Json(service, JsonRequestBehavior.AllowGet);
             }
             else
-            {                
-                return Json(null, JsonRequestBehavior.AllowGet);
+            {
+                Servicio srv = new Servicio();
+                srv.encontrado = false;
+                return Json(srv, JsonRequestBehavior.AllowGet);
             }
         }
 

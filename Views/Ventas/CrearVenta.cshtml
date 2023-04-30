@@ -8,6 +8,8 @@
 @model Proyecto_Web_Ingenieria_de_Software.Models.AddModels.FacturaModel
 
 
+<script src="~/Scripts/AccionesVentas.js"></script>
+
 <script>
 
 
@@ -15,6 +17,8 @@
 
         //Botón de búsqueda de producto
         $("#searchBnt").click(function () {
+            var encontroProducto = false;
+
             if ($("#search").val() == "") {
                 alert("Campo de busqueda vacio");
                 $("#idProduct").val("");
@@ -25,38 +29,45 @@
                 var url = '@Url.Action("BuscarProducto", "Servicios")';
                 var buscar = $("#search").val();
                 var data = { codigo: buscar };
-
+                
                 $.get(url, data).done(function (data) {
                     if (data.encontrado == true) {
                         $("#idProduct").val(data.ID);
                         $("#nombreProduct").val(data.ProductName);
                         $("#precioProduct").val(data.Price);
-                    } else {
-                        url = '@Url.Action("buscarServicio", "Servicios")'; //ahora busco servicio
-                        data = { codigo: buscar };
-                        alert('buscando servicio: ' + buscar);
-                        $.get(url, data).done(function (data) {
-                            if (data != null) {
-                                alert('lleno');
-                                $("#idProduct").val(data.ID);
-                                $("#nombreProduct").val(data.ServiceName);
-                                $("#precioProduct").val(data.Price);
-                            } else {
-                                $("#idProduct").val("");
-                                $("#nombreProduct").val("");
-                                $("#precioProduct").val("");
-                                $("#cantProduct").val("");
-                                alert("No se encontro producto o servicio");
-                            }
-
-                        });                        
+                        encontroProducto = true;
                     }
                 });
+
             }
+
+            
+            if (!encontroProducto) {
+                url = '@Url.Action("buscarServicio", "Servicios")'; //ahora busco servicio
+                data = { codigo: buscar };  
+
+                $.get(url, data).done(function (data) {                    
+                    if (data.encontrado) {
+                        alert('nulo');
+                        $("#idProduct").val(data.ID);
+                        $("#nombreProduct").val(data.ServiceName);
+                        $("#precioProduct").val(data.Price);
+                    } else {
+                        $("#idProduct").val("");
+                        $("#nombreProduct").val("");
+                        $("#precioProduct").val("");
+                        $("#cantProduct").val("");
+                        alert('No se encontro producto o servicio');
+                    }
+                });
+
+            }
+
+
+
         });
 
-    }
-    );
+    });
 
     var productos = new Array;
 
@@ -91,7 +102,6 @@
             console.log(productos);
 
 
-
         }
 
 
@@ -107,6 +117,7 @@
 
     @using (Html.BeginForm("Agregar", "Ventas", FormMethod.Post))
     {
+        @Html.Hidden("accion", new {@value="venta"} );
 
         <div style="display:inline-block; width:50%;">
             <div>
@@ -128,7 +139,7 @@
         <hr class="text-black-50" />
 
         <div class="col-6">
-            <div class="row">                
+            <div class="row">
                 <div class="col d-flex">
                     <input name="search" id="search" type="search" class="form-control form-control-sm rounded" placeholder="Buscar por codigo" aria-label="Search" aria-describedby="search-addon" />
                     <button class="btn btn-sm btn-success" type="button" id="searchBnt" name="searchBtn">
@@ -157,7 +168,7 @@
 
             <div class="row mt-3">
                 <div class="d-flex justify-content-center">
-                    <button type="button" class="btn btn-sm btn-success" id="addInsumo">Agregar</button>
+                    <button type="button" class="btn btn-sm btn-success" id="addProducto">Agregar</button>
                 </div>
             </div>
 
@@ -186,4 +197,4 @@
     }
 
 
-</div>
+    </div>
