@@ -83,6 +83,7 @@ function comprobarFecha(url) {
         if (resp.disponible == false) {
             alert("Lo sentimos la fecha ingresada no es laborable");
             $("#fecha").val("");
+            fechaSeleccionada = null;
             $("#btnModal").attr('disabled', true);
         } else {
             $("#btnModal").attr('disabled', false);
@@ -122,4 +123,30 @@ function cargarSelect() {
 function limpiarSelect() {
     let horasSelect = document.getElementById("horaServicio");
     horasSelect.innerHTML = `<option>Seleccione una hora</option>`;
+}
+
+function agendarCita(url, url2) {
+    let s = [];
+    for (const xs of servicios) {
+        s.push(
+            {
+                id: xs.id,
+                hora: xs.idhora
+            }
+        );
+    }
+
+    let data = {
+        Cita: {
+            name: $("#nameCliente").val(),
+            phone: $("#phoneCliente").val(),
+            fecha: fechaSeleccionada,
+            servicios: s
+        }
+    }
+
+    $.post(url, data).done(function (resp) {
+        alert(resp);
+        location.href = url2;
+    });
 }

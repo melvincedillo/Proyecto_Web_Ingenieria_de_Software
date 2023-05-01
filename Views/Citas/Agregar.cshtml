@@ -11,8 +11,21 @@
 <script>
     $(function () {
         $("#fecha").change(function () {
-            if ($("#fecha").val() != "") {
+            if (fechaSeleccionada == null) {
                 comprobarFecha('@Url.Action("ComprobarFecha", "Citas")');
+            } else {
+                if (confirm("¿Desea cambiar la fecha? Si lo hace los servicios que haya configurado se eliminaran.")) {
+                    $("#tableServicios tbody").html("");
+                    servicios = [];
+                    if ($("#fecha").val() == "") {
+                        fechaSeleccionada = null;
+                        $("#btnModal").attr('disabled', true);
+                    } else {
+                        comprobarFecha('@Url.Action("ComprobarFecha", "Citas")');
+                    }
+                } else {
+                    $("#fecha").val(fechaSeleccionada);
+                }
             }
         });
 
@@ -22,6 +35,14 @@
 
         $("#btnAceptar").click(function () {
             addServicio();
+        });
+
+        $("#Agregar").click(function () {
+            if (servicios.length > 0 && $("#phoneCliente").val() != "" && $("#nameCliente").val() != "") {
+                agendarCita('@Url.Content("~/Citas/Agregar")', '@Url.Action("Index", "Citas")');
+            } else {
+                alert("Asegurese de brindar un nombre, telefono y configurar al menos un servicio.");
+            }
         });
     });
 

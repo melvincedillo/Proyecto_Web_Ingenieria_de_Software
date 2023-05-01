@@ -44,6 +44,13 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
             return View();
         }
 
+        [HttpPost]
+        public JsonResult Agregar(Cita cita)
+        {
+
+            return Json("Cita guardada con exito", JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult BuscarServicio(int id)
         {
             Services s = null;
