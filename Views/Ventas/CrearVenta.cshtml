@@ -27,7 +27,7 @@
                 var url = '@Url.Action("BuscarProducto", "Servicios")';
                 var buscar = $("#search").val();
                 var data = { codigo: buscar };
-                
+
                 $.get(url, data).done(function (data) {
                     if (data.encontrado == true) {
                         $("#idProduct").val(data.ID);
@@ -39,12 +39,12 @@
 
             }
 
-            
+
             if (!encontroProducto) {
                 url = '@Url.Action("buscarServicio", "Servicios")'; //ahora busco servicio
-                data = { codigo: buscar };  
+                data = { codigo: buscar };
 
-                $.get(url, data).done(function (data) {                    
+                $.get(url, data).done(function (data) {
                     if (data.encontrado) {
                         alert('nulo');
                         $("#idProduct").val(data.ID);
@@ -66,64 +66,37 @@
 
         //Botón guardar
         $("#crearVenta").click(function () {
-            let FacturaNumero = "1";
             let time = 'time';
-            let total = 420;
-            let tax = 45.65;
+            let totalVenta = $("#totalVenta").val();
+            let tax = $("#isv").val();
             let clientName = 'cliente final';
-            let salonId = '1';
-            let employeId = '1';
+
+            alert('total: ' + totalVenta + 'isv: ' + tax);
 
             let data = {
                 Factura: {
-
+                    time: time,
+                    total : totalVenta,
+                    tax: tax,
+                    clientName: clientName,
+                    detalleFactura: productos
                 }
-            }
+            };
+
+            alert(data);
+
+            let url = '@Url.Content("~/Ventas/Agregar")';
+
+            $.post(url, data).done(function (dt) {
+                alert(dt);
+                location.href = '@Url.Action("Index", "Servicios")';
+            });
+
+
 
         });
 
     });
-
-
-
-    var productos = new Array;
-
-
-    function llenarPrecio() {
-        var precio = $('#ddlProductos option:selected').data('precio');
-        var labelPrecio = document.getElementById("priceProduct");
-
-        labelPrecio.innerHTML = precio;
-    }
-
-    function agregarProducto() {
-        var descripcion = $('#ddlProductos option:selected').text();
-        var precio = $('#ddlProductos option:selected').data('precio');
-        var idProducto = $('#ddlProductos').val();
-
-        if (idProducto !== '') {
-            var fila = '<tr> <td>' + descripcion + '</td> <td>' + precio + '</td>' +
-                '<td><button type="button">-</button></td></tr>';
-
-            $('#tblProductos tbody').append(fila);
-
-
-            var nvoProducto = {
-                Producto: {
-                    idProducto: idProducto,
-                    precio: precio
-                }
-            }
-
-            productos.push(nvoProducto);
-            console.log(productos);
-
-
-        }
-
-
-
-    }
 
 
 </script>
@@ -134,86 +107,117 @@
 
     <form id="ventas">
 
-            <div style="display:inline-block; width:50%;">
-                <div>
-                    <label>Fecha:</label>
-                    @Html.TextBoxFor(model => model.time, new { @Value = @DateTime.Now.ToShortDateString(), @readonly = "readonly" })
+        <div class="row">
+
+            <div class="col-6 border-end">
+                <div class="row mt-3">
+                    <div class="col">
+                        <label class="form-label">Fecha</label>
+                        @Html.TextBoxFor(model => model.time, new { @Value = @DateTime.Now.ToShortDateString(), @readonly = "readonly" })
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Cliente</label>
+                        @Html.TextBoxFor(model => model.clientName, "Cliente Final")
+                    </div>
                 </div>
-
-                <div>
-                    <label>Cliente:</label>
-                    @Html.TextBoxFor(model => model.clientName, "Cliente Final")
-                </div>
-
-
-
-                <hr class="text-black-50" />
-                <div>
-                    <h3>Productos</h3>
-                </div>
-
             </div>
-
-            <hr class="text-black-50" />
 
             <div class="col-6">
                 <div class="row">
-                    <div class="col d-flex">
-                        <input name="search" id="search" type="search" class="form-control form-control-sm rounded" placeholder="Buscar por codigo" aria-label="Search" aria-describedby="search-addon" />
-                        <button class="btn btn-sm btn-success" type="button" id="searchBnt" name="searchBtn">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </button>
+                    <div class="col">
+                        <label class="form-label">Sub Total</label>
+                        @Html.TextBox("subTotalVenta", "", new { disabled = "disabled", @class = "form-control" })
                     </div>
                 </div>
-                <div class="row mt-3">
+                <div class="row">
                     <div class="col">
-                        <label class="form-label">ID</label>
-                        @Html.TextBox("idProduct", "", new { disabled = "disabled", @class = "form-control form-control-sm" })
-                    </div>
-                    <div class="col">
-                        <label class="form-label">Nombre</label>
-                        @Html.TextBox("nombreProduct", "", new { disabled = "disabled", @class = "form-control form-control-sm" })
-                    </div>
-                    <div class="col">
-                        <label class="form-label">Precio</label>
-                        @Html.TextBox("precioProduct", "", new { disabled = "disabled", @class = "form-control form-control-sm" })
-                    </div>
-                    <div class="col">
-                        <label class="form-label">Cantidad</label>
-                        @Html.TextBox("cantProduct", "1", new { @class = "form-control form-control-sm" })
+                        <label class="form-label">ISV</label>
+                        @Html.TextBox("isv", "", new { disabled = "disabled", @class = "form-control" })
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col">
+                        <label class="form-label">Total</label>
+                        @Html.TextBox("totalVenta", "", new { disabled = "disabled", @class = "form-control" })
+                    </div>
+                </div>
+            </div>
 
-                <div class="row mt-3">
+        </div>
+
+        <hr class="text-black-50" />
+        <div>
+            <h3>Productos</h3>
+        </div>
+
+                        
+
+        <hr class="text-black-50" />
+
+        <div class="col-6">
+            <div class="row">
+                <div class="col d-flex">
+                    <input name="search" id="search" type="search" class="form-control form-control-sm rounded" placeholder="Buscar por codigo" aria-label="Search" aria-describedby="search-addon" />
+                    <button class="btn btn-sm btn-success" type="button" id="searchBnt" name="searchBtn">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <label class="form-label">ID</label>
+                    @Html.TextBox("idProduct", "", new { disabled = "disabled", @class = "form-control form-control-sm" })
+                </div>
+                <div class="col">
+                    <label class="form-label">Nombre</label>
+                    @Html.TextBox("nombreProduct", "", new { disabled = "disabled", @class = "form-control form-control-sm" })
+                </div>
+                <div class="col">
+                    <label class="form-label">Precio</label>
+                    @Html.TextBox("precioProduct", "", new { disabled = "disabled", @class = "form-control form-control-sm" })
+                </div>
+                <div class="col">
+                    <label class="form-label">Cantidad</label>
+                    @Html.TextBox("cantProduct", "1", new { @class = "form-control form-control-sm" })
+                </div>
+                <div class="col">
+                    <label></label>
                     <div class="d-flex justify-content-center">
                         <button type="button" class="btn btn-sm btn-success" id="addProducto">Agregar</button>
                     </div>
                 </div>
-
             </div>
+        </div>
+
+        <hr class="text-black-50" />
 
 
-            <div style="display: inline-block; width: 50%;">
-                <div class="container text-center" id="productsAdded">
-                    <table class="table table-hover table-sm" id="tblProductos">
-                        <thead>
-                            <tr>
-                                <th>Descripci&oacute;n</th>
-                                <th>Precio</th>
-                                <th>Cantidad</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
+        <div style="display: inline-block; width: 50%;">
+            <div class="container text-center" id="productsAdded">
+                <table class="table table-hover table-sm" id="tblProductos">
+                    <thead>
+                        <tr>
+                            <th>Descripci&oacute;n</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                            <th>Sub Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
+        </div>
 
-            <div>
-                <button type="button" id="crearVenta" class="btn btn-primary">Crear</button>
-            </div>
+        <hr class="text-black-50" />
 
-        
+        <div>
+            <button type="button" id="crearVenta" class="btn btn-primary">Crear</button>
+        </div>
+
+        <hr class="text-black-50" />
+
+
 
     </form>
 

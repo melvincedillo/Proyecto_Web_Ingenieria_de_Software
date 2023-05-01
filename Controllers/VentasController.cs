@@ -53,18 +53,8 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         //public void Agregar(FacturaViewModel factura, List <FacturaDetalleViewModel> detalle)
       //  [PermisosModulos(moduloId: 1)]
         [HttpPost]
-        public void Agregar(FacturaModel factura)
-        {
-
-            var detalleFactura = JsonConvert.DeserializeObject<List<DetalleFacturaModel>>(Request.Form["tblProductos"]);
-            double subTotal = 0;
-
-            /*            
-            foreach(var i in detalle)
-            {
-                subTotal = i.Price + subTotal;
-            }
-            */
+        public JsonResult Agregar(FacturaModel factura)
+        {   
 
             using (var db = new BeautySalonEntities())
             {
@@ -72,7 +62,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 
 
                 oFactura.Time = DateTime.Now;
-                oFactura.Total = (decimal)subTotal;
+                oFactura.Total = (decimal)820.65;
                 oFactura.Tax = 32;
                 oFactura.ClientName = factura.clientName;
                 oFactura.SalonID = 1;
@@ -103,6 +93,8 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                     db.SaveChanges();
                 }*/
             }
+
+            return Json("Servicio agregado con exito", JsonRequestBehavior.AllowGet);
         }
 
 

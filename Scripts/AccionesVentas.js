@@ -83,6 +83,7 @@ function addInTabla(data) {
                     '<td> ' + data.nombre +  '</td> '+
                     '<td> ' + data.precio +  '</td>' +
                     '<td>' + data.cantidad + '</td>' +
+                    '<td>' + (data.cantidad * data.precio) + '</td>' +
                     '<td><button class="btn btn-sm btn-danger type="button" onclick="deleteProduct(' + data.id + ');">Quitar</button></td>' +
                 '</tr>';
 
@@ -101,5 +102,10 @@ function calcularTotal() {
         total = total + parseFloat(precio);
     }
 
-    $("#totalServicio").val(total);
+    let isv = total * 0.15;
+    let totalVenta = total + isv;
+
+    $("#subTotalVenta").val(total);
+    $("#isv").val(isv);
+    $("#totalVenta").val(totalVenta);
 }
