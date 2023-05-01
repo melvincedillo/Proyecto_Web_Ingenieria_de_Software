@@ -9,5 +9,6 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models.HorarioModel
     {
         public int id { get; set; }
         public string hora { get; set; }
+        public int personal { get; set; }
     }
 }

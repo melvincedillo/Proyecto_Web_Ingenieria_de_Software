@@ -1,6 +1,10 @@
 ﻿
 var idServicio = 0; //Guearda el id del servicio seleccionado
+
 var idDia = 0; //Guarda el id del dia de la semana seleccionado
+var fechaSeleccionada = null;
+var idSkillService = 0;
+
 var numServicio = 0; //Apoyo para el manejo de la tabla y el arreglo de servicios 
 var servicios = []; //Servicios solicitados por el cliente
 var horas = []; //Horas disponibles segun la fecha elegida.
@@ -55,7 +59,7 @@ function addTable(data) {
     );
 }
 
-function cargarServicio(url) {
+function cargarServicio(url, url2) {
     let data = { id: idServicio }
 
     $.get(url, data).done(function (resp) {
@@ -63,31 +67,37 @@ function cargarServicio(url) {
         $("#descripcionServicio").val(resp.descripcion);
         $("#precioServicio").val(resp.precio);
 
+        idSkillService = resp.idSkill;
+
+        GetHoras(url2);
         let x = document.getElementById("addServiceSeccion");
         x.style.display = "block";
-        console.log(resp);
     });
 }
 
-function comprobarFecha(url, url2) {
-    let date = $("#fecha").val();
-    let data = { fecha: date };
+function comprobarFecha(url) {
+    fechaSeleccionada = $("#fecha").val();
+    let data = { fecha: fechaSeleccionada };
 
     $.get(url, data).done(function (resp) {
         if (resp.disponible == false) {
             alert("Lo sentimos la fecha ingresada no es laborable");
             $("#fecha").val("");
+            fechaSeleccionada = null;
             $("#btnModal").attr('disabled', true);
         } else {
             $("#btnModal").attr('disabled', false);
             idDia = resp.idDay;
-            GetHoras(url2);
         }
     });
 }
 
 function GetHoras(url) {
-    let data = { id: idDia };
+    let data = {
+        idHorario: idDia,
+        idSkill: idSkillService,
+        fecha: fechaSeleccionada
+    };
     $.get(url, data).done(function (resp) {
         horas = resp;
         limpiarSelect();
@@ -104,11 +114,39 @@ function limpiar() {
 function cargarSelect() {
     let horasSelect = document.getElementById("horaServicio");
     for (const h of horas) {
-        horasSelect.innerHTML += `<option value="${h.id}">${h.hora}</option>`;
+        if (h.personal > 0) {
+            horasSelect.innerHTML += `<option value="${h.id}">${h.hora}</option>`;
+        }
     }
 }
 
 function limpiarSelect() {
     let horasSelect = document.getElementById("horaServicio");
     horasSelect.innerHTML = `<option>Seleccione una hora</option>`;
+}
+
+function agendarCita(url, url2) {
+    let s = [];
+    for (const xs of servicios) {
+        s.push(
+            {
+                id: xs.id,
+                hora: xs.idhora
+            }
+        );
+    }
+
+    let data = {
+        Cita: {
+            name: $("#nameCliente").val(),
+            phone: $("#phoneCliente").val(),
+            fecha: fechaSeleccionada,
+            servicios: s
+        }
+    }
+
+    $.post(url, data).done(function (resp) {
+        alert(resp);
+        location.href = url2;
+    });
 }

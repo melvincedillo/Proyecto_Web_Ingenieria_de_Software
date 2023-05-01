@@ -8,6 +8,6 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models.AddModels
     public class Servicios
     {
         public int id { get; set; }
-        public string hora { get; set; }
+        public int hora { get; set; }
     }
 }
