@@ -22,7 +22,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AppointmentID" Type="int" Nullable="false" />
           <Property Name="ServicioID" Type="int" Nullable="false" />
-          <Property Name="Hora" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="idHora" Type="int" />
         </EntityType>
         <EntityType Name="Calendar">
           <Key>
@@ -69,8 +69,6 @@
           <Property Name="TaxID" Type="int" Nullable="false" />
           <Property Name="Price" Type="money" Nullable="false" />
           <Property Name="Quantity" Type="int" Nullable="false" />
-          <Property Name="Discount" Type="money" Nullable="false" />
-          <Property Name="SalesTax" Type="money" Nullable="false" />
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="FacturaImagen">
@@ -289,6 +287,18 @@
             </Principal>
             <Dependent Role="FacturaDetalle">
               <PropertyRef Name="FacturaNumero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Hora_Cita_Detalle">
+          <End Role="Horas" Type="Self.Horas" Multiplicity="0..1" />
+          <End Role="AppointmentDetail" Type="Self.AppointmentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Horas">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AppointmentDetail">
+              <PropertyRef Name="idHora" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -588,6 +598,10 @@
           <AssociationSet Name="FK_FacturaNumeroDetalle" Association="Self.FK_FacturaNumeroDetalle">
             <End Role="Factura" EntitySet="Factura" />
             <End Role="FacturaDetalle" EntitySet="FacturaDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Hora_Cita_Detalle" Association="Self.FK_Hora_Cita_Detalle">
+            <End Role="Horas" EntitySet="Horas" />
+            <End Role="AppointmentDetail" EntitySet="AppointmentDetail" />
           </AssociationSet>
           <AssociationSet Name="FK_Hora_Horario_C" Association="Self.FK_Hora_Horario_C">
             <End Role="Horas" EntitySet="Horas" />
@@ -1086,15 +1100,6 @@
             <End Role="ServiceDetail" EntitySet="ServiceDetail" />
           </AssociationSet>
           <EntitySet Name="Appointment" EntityType="BeautySalonModel.Appointment" />
-          <EntitySet Name="AppointmentDetail" EntityType="BeautySalonModel.AppointmentDetail" />
-          <AssociationSet Name="FK_Appointment_Detail" Association="BeautySalonModel.FK_Appointment_Detail">
-            <End Role="Appointment" EntitySet="Appointment" />
-            <End Role="AppointmentDetail" EntitySet="AppointmentDetail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Servicio_Appointment" Association="BeautySalonModel.FK_Servicio_Appointment">
-            <End Role="Services" EntitySet="Services" />
-            <End Role="AppointmentDetail" EntitySet="AppointmentDetail" />
-          </AssociationSet>
           <EntitySet Name="Horario" EntityType="BeautySalonModel.Horario" />
           <AssociationSet Name="FK_Hora_Horario_C" Association="BeautySalonModel.FK_Hora_Horario_C">
             <End Role="Horas" EntitySet="Horas" />
@@ -1103,6 +1108,19 @@
           <AssociationSet Name="FK_Hora_Horario_O" Association="BeautySalonModel.FK_Hora_Horario_O">
             <End Role="Horas" EntitySet="Horas" />
             <End Role="Horario" EntitySet="Horario" />
+          </AssociationSet>
+          <EntitySet Name="AppointmentDetail" EntityType="BeautySalonModel.AppointmentDetail" />
+          <AssociationSet Name="FK_Appointment_Detail" Association="BeautySalonModel.FK_Appointment_Detail">
+            <End Role="Appointment" EntitySet="Appointment" />
+            <End Role="AppointmentDetail" EntitySet="AppointmentDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Hora_Cita_Detalle" Association="BeautySalonModel.FK_Hora_Cita_Detalle">
+            <End Role="Horas" EntitySet="Horas" />
+            <End Role="AppointmentDetail" EntitySet="AppointmentDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Servicio_Appointment" Association="BeautySalonModel.FK_Servicio_Appointment">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="AppointmentDetail" EntitySet="AppointmentDetail" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Horas">
@@ -1113,6 +1131,7 @@
           <Property Name="Hora" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Horario" Relationship="BeautySalonModel.FK_Hora_Horario_C" FromRole="Horas" ToRole="Horario" />
           <NavigationProperty Name="Horario1" Relationship="BeautySalonModel.FK_Hora_Horario_O" FromRole="Horas" ToRole="Horario" />
+          <NavigationProperty Name="AppointmentDetail" Relationship="BeautySalonModel.FK_Hora_Cita_Detalle" FromRole="Horas" ToRole="AppointmentDetail" />
         </EntityType>
         <EntityType Name="Salon">
           <Key>
@@ -1316,41 +1335,6 @@
           <Property Name="Status" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AppointmentDetail" Relationship="BeautySalonModel.FK_Appointment_Detail" FromRole="Appointment" ToRole="AppointmentDetail" />
         </EntityType>
-        <EntityType Name="AppointmentDetail">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AppointmentID" Type="Int32" Nullable="false" />
-          <Property Name="ServicioID" Type="Int32" Nullable="false" />
-          <Property Name="Hora" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Appointment" Relationship="BeautySalonModel.FK_Appointment_Detail" FromRole="AppointmentDetail" ToRole="Appointment" />
-          <NavigationProperty Name="Services" Relationship="BeautySalonModel.FK_Servicio_Appointment" FromRole="AppointmentDetail" ToRole="Services" />
-        </EntityType>
-        <Association Name="FK_Appointment_Detail">
-          <End Type="BeautySalonModel.Appointment" Role="Appointment" Multiplicity="1" />
-          <End Type="BeautySalonModel.AppointmentDetail" Role="AppointmentDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Appointment">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="AppointmentDetail">
-              <PropertyRef Name="AppointmentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Servicio_Appointment">
-          <End Type="BeautySalonModel.Services" Role="Services" Multiplicity="1" />
-          <End Type="BeautySalonModel.AppointmentDetail" Role="AppointmentDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Services">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="AppointmentDetail">
-              <PropertyRef Name="ServicioID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Horario">
           <Key>
             <PropertyRef Name="ID" />
@@ -1384,6 +1368,54 @@
             </Principal>
             <Dependent Role="Horario">
               <PropertyRef Name="OpenTime" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AppointmentDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AppointmentID" Type="Int32" Nullable="false" />
+          <Property Name="ServicioID" Type="Int32" Nullable="false" />
+          <Property Name="idHora" Type="Int32" />
+          <NavigationProperty Name="Appointment" Relationship="BeautySalonModel.FK_Appointment_Detail" FromRole="AppointmentDetail" ToRole="Appointment" />
+          <NavigationProperty Name="Horas" Relationship="BeautySalonModel.FK_Hora_Cita_Detalle" FromRole="AppointmentDetail" ToRole="Horas" />
+          <NavigationProperty Name="Services" Relationship="BeautySalonModel.FK_Servicio_Appointment" FromRole="AppointmentDetail" ToRole="Services" />
+        </EntityType>
+        <Association Name="FK_Appointment_Detail">
+          <End Type="BeautySalonModel.Appointment" Role="Appointment" Multiplicity="1" />
+          <End Type="BeautySalonModel.AppointmentDetail" Role="AppointmentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Appointment">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AppointmentDetail">
+              <PropertyRef Name="AppointmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Hora_Cita_Detalle">
+          <End Type="BeautySalonModel.Horas" Role="Horas" Multiplicity="0..1" />
+          <End Type="BeautySalonModel.AppointmentDetail" Role="AppointmentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Horas">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AppointmentDetail">
+              <PropertyRef Name="idHora" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Servicio_Appointment">
+          <End Type="BeautySalonModel.Services" Role="Services" Multiplicity="1" />
+          <End Type="BeautySalonModel.AppointmentDetail" Role="AppointmentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AppointmentDetail">
+              <PropertyRef Name="ServicioID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1441,9 +1473,7 @@
                 <ScalarProperty Name="TaxID" ColumnName="TaxID" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="SalesTax" ColumnName="SalesTax" />
-              </MappingFragment>
+                </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="FacturaImagen">
@@ -1615,16 +1645,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="AppointmentDetail">
-            <EntityTypeMapping TypeName="BeautySalonModel.AppointmentDetail">
-              <MappingFragment StoreEntitySet="AppointmentDetail">
-                <ScalarProperty Name="Hora" ColumnName="Hora" />
-                <ScalarProperty Name="ServicioID" ColumnName="ServicioID" />
-                <ScalarProperty Name="AppointmentID" ColumnName="AppointmentID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Horario">
             <EntityTypeMapping TypeName="BeautySalonModel.Horario">
               <MappingFragment StoreEntitySet="Horario">
@@ -1632,6 +1652,16 @@
                 <ScalarProperty Name="OpenTime" ColumnName="OpenTime" />
                 <ScalarProperty Name="Weekday" ColumnName="Weekday" />
                 <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppointmentDetail">
+            <EntityTypeMapping TypeName="BeautySalonModel.AppointmentDetail">
+              <MappingFragment StoreEntitySet="AppointmentDetail">
+                <ScalarProperty Name="idHora" ColumnName="idHora" />
+                <ScalarProperty Name="ServicioID" ColumnName="ServicioID" />
+                <ScalarProperty Name="AppointmentID" ColumnName="AppointmentID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

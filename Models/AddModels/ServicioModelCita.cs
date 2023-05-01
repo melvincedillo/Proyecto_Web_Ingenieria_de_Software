@@ -11,5 +11,6 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models.AddModels
         public string name { get; set; }
         public string descripcion { get; set; }
         public decimal precio { get; set; }
+        public int idSkill { get; set; }
     }
 }

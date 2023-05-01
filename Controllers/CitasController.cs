@@ -59,6 +59,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 service.name = s.ServiceName;
                 service.descripcion = s.Description;
                 service.precio = s.PrecioTotal;
+                service.idSkill = s.SkillID;
 
                 return Json(service, JsonRequestBehavior.AllowGet);
             }
@@ -130,6 +131,39 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
             }
 
             return Json(horas, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetHoraLibreSkill(int idSkill, int idHorario)
+        {
+            int userSkill = 0;
+            List<HorasDisponibles> horas = null;
+
+            using (var db = new BeautySalonEntities())
+            {
+                //Contando los empreados por skill
+                var users = db.Employee.Join(db.Users, em => em.UserID, us => us.ID, (em, us) => new { em, us }).Where(x => x.em.SkillID == idSkill && x.us.UserActive == true).ToList();
+                if(users != null) { userSkill = users.Count(); }
+
+                //Obteniendo el horario completo del dia
+                Horario hx = db.Horario.Find(idHorario);
+                if (hx != null)
+                {
+                    List<Horas> hora = (from d in db.Horas
+                                        where d.ID >= hx.OpenTime && d.ID <= hx.CloseTime
+                                        select d).ToList();
+
+                    horas = hora.ConvertAll(h =>
+                    {
+                        return new HorasDisponibles()
+                        {
+                            id = h.ID,
+                            hora = h.Hora
+                        };
+                    });
+                }
+            }
+
+            return Json(userSkill, JsonRequestBehavior.AllowGet);
         }
     }
 }

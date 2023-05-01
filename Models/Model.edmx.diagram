@@ -46,12 +46,13 @@
         <AssociationConnector Association="BeautySalonModel.Product_FK" />
         <AssociationConnector Association="BeautySalonModel.Service_FK" />
         <EntityTypeShape EntityType="BeautySalonModel.Appointment" Width="3.5" PointX="3" PointY="27.5" />
-        <EntityTypeShape EntityType="BeautySalonModel.AppointmentDetail" Width="3.5" PointX="5.25" PointY="4.5" />
-        <AssociationConnector Association="BeautySalonModel.FK_Appointment_Detail" />
-        <AssociationConnector Association="BeautySalonModel.FK_Servicio_Appointment" />
         <EntityTypeShape EntityType="BeautySalonModel.Horario" Width="1.5" PointX="6.625" PointY="0.5" />
         <AssociationConnector Association="BeautySalonModel.FK_Hora_Horario_C" />
         <AssociationConnector Association="BeautySalonModel.FK_Hora_Horario_O" />
+        <EntityTypeShape EntityType="BeautySalonModel.AppointmentDetail" Width="1.5" PointX="11" PointY="14" />
+        <AssociationConnector Association="BeautySalonModel.FK_Appointment_Detail" />
+        <AssociationConnector Association="BeautySalonModel.FK_Hora_Cita_Detalle" />
+        <AssociationConnector Association="BeautySalonModel.FK_Servicio_Appointment" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
