@@ -76,16 +76,7 @@ function addProduct(data) {
     }
 }
 
-function addInTabla(data) {
-    var accion = $('#accion').val();
-    if (accion != null) {
-        var fila = '<tr> <td>' + data.nombre + '</td> <td>' + data.precio + '</td>' +
-            '<td><button type="button">-</button></td></tr>';
-
-        $('#tblProductos tbody').append(fila);
-    }
-
-    else {
+function addInTabla(data) {    
         $("#" + data.id).remove();
         $("#tableProducts").append(
             '<tr id = "' + data.id + '"><td>'
@@ -96,7 +87,7 @@ function addInTabla(data) {
             '<td><button class="btn btn-sm btn-danger" type="button" onclick="deleteProduct(' + data.id + ');">Quitar</button></td></tr>'
         );
 
-    }
+    
     
 }
 

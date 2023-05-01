@@ -12,9 +12,7 @@
 
 <script>
 
-
     $(function () {
-
         //Botón de búsqueda de producto
         $("#searchBnt").click(function () {
             var encontroProducto = false;
@@ -63,11 +61,30 @@
 
             }
 
+        });
 
+
+        //Botón guardar
+        $("#crearVenta").click(function () {
+            let FacturaNumero = "1";
+            let time = 'time';
+            let total = 420;
+            let tax = 45.65;
+            let clientName = 'cliente final';
+            let salonId = '1';
+            let employeId = '1';
+
+            let data = {
+                Factura: {
+
+                }
+            }
 
         });
 
     });
+
+
 
     var productos = new Array;
 
@@ -115,86 +132,90 @@
 
 <div class="container">
 
-    @using (Html.BeginForm("Agregar", "Ventas", FormMethod.Post))
-    {
-        @Html.Hidden("accion", new {@value="venta"} );
+    <form id="ventas">
 
-        <div style="display:inline-block; width:50%;">
+            <div style="display:inline-block; width:50%;">
+                <div>
+                    <label>Fecha:</label>
+                    @Html.TextBoxFor(model => model.time, new { @Value = @DateTime.Now.ToShortDateString(), @readonly = "readonly" })
+                </div>
+
+                <div>
+                    <label>Cliente:</label>
+                    @Html.TextBoxFor(model => model.clientName, "Cliente Final")
+                </div>
+
+
+
+                <hr class="text-black-50" />
+                <div>
+                    <h3>Productos</h3>
+                </div>
+
+            </div>
+
+            <hr class="text-black-50" />
+
+            <div class="col-6">
+                <div class="row">
+                    <div class="col d-flex">
+                        <input name="search" id="search" type="search" class="form-control form-control-sm rounded" placeholder="Buscar por codigo" aria-label="Search" aria-describedby="search-addon" />
+                        <button class="btn btn-sm btn-success" type="button" id="searchBnt" name="searchBtn">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <label class="form-label">ID</label>
+                        @Html.TextBox("idProduct", "", new { disabled = "disabled", @class = "form-control form-control-sm" })
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Nombre</label>
+                        @Html.TextBox("nombreProduct", "", new { disabled = "disabled", @class = "form-control form-control-sm" })
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Precio</label>
+                        @Html.TextBox("precioProduct", "", new { disabled = "disabled", @class = "form-control form-control-sm" })
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Cantidad</label>
+                        @Html.TextBox("cantProduct", "1", new { @class = "form-control form-control-sm" })
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="d-flex justify-content-center">
+                        <button type="button" class="btn btn-sm btn-success" id="addProducto">Agregar</button>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div style="display: inline-block; width: 50%;">
+                <div class="container text-center" id="productsAdded">
+                    <table class="table table-hover table-sm" id="tblProductos">
+                        <thead>
+                            <tr>
+                                <th>Descripci&oacute;n</th>
+                                <th>Precio</th>
+                                <th>Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <div>
-                <label>Fecha:</label>
-                @Html.TextBoxFor(model => model.time, new { @Value = @DateTime.Now.ToShortDateString(), @readonly = "readonly" })
+                <button type="button" id="crearVenta" class="btn btn-primary">Crear</button>
             </div>
 
-            <div>
-                <label>Cliente:</label>
-                @Html.TextBoxFor(model => model.clientName)
-            </div>
+        
 
-            <div>
-                <h3>Productos</h3>
-            </div>
-
-        </div>
-
-        <hr class="text-black-50" />
-
-        <div class="col-6">
-            <div class="row">
-                <div class="col d-flex">
-                    <input name="search" id="search" type="search" class="form-control form-control-sm rounded" placeholder="Buscar por codigo" aria-label="Search" aria-describedby="search-addon" />
-                    <button class="btn btn-sm btn-success" type="button" id="searchBnt" name="searchBtn">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="row mt-3">
-                <div class="col">
-                    <label class="form-label">ID</label>
-                    @Html.TextBox("idProduct", "", new { disabled = "disabled", @class = "form-control form-control-sm" })
-                </div>
-                <div class="col">
-                    <label class="form-label">Nombre</label>
-                    @Html.TextBox("nombreProduct", "", new { disabled = "disabled", @class = "form-control form-control-sm" })
-                </div>
-                <div class="col">
-                    <label class="form-label">Precio</label>
-                    @Html.TextBox("precioProduct", "", new { disabled = "disabled", @class = "form-control form-control-sm" })
-                </div>
-                <div class="col">
-                    <label class="form-label">Cantidad</label>
-                    @Html.TextBox("cantProduct", "", new { @class = "form-control form-control-sm" })
-                </div>
-            </div>
-
-            <div class="row mt-3">
-                <div class="d-flex justify-content-center">
-                    <button type="button" class="btn btn-sm btn-success" id="addInsumo">Agregar</button>
-                </div>
-            </div>
-
-        </div>
-
-
-        <div style="display: inline-block; width: 50%;">
-            <div class="container text-center" id="productsAdded">
-                <table id="tblProductos">
-                    <thead>
-                        <tr>
-                            <th>Descripci&oacute;n</th>
-                            <th>Precio</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div>
-            <button type="submit" class="btn btn-primary">Crear</button>
-        </div>
-
-    }
+    </form>
 
 
     </div>
