@@ -67,7 +67,7 @@
                     <tr>
                         <td>@c.ClientName</td>
                         <td>@c.PhoneNumber</td>
-                        <td>@c.AppointmentDate.ToString("yyyyy-MM-dd")</td>
+                        <td>@c.AppointmentDate.ToString("yyyy-MM-dd")</td>
                         <td>
                             <button class="btn btn-sm btn-primary" onclick="document.location.href = '@Url.Content("~/Citas/Detalle/")' + @c.ID">Detalles</button>
                         </td>

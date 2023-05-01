@@ -133,10 +133,11 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
             return Json(horas, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetHoraLibreSkill(int idSkill, int idHorario)
+        public JsonResult GetHoraLibreSkill(int idSkill, int idHorario, DateTime fecha)
         {
             int userSkill = 0;
             List<HorasDisponibles> horas = null;
+            List<int> horasReservadas = new List<int>();
 
             using (var db = new BeautySalonEntities())
             {
@@ -161,6 +162,18 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                         };
                     });
                 }
+
+                //Obteniendo 
+                var serviciosReservados = (from cita in db.Appointment
+                                           join detalle in db.AppointmentDetail on cita.ID equals detalle.AppointmentID
+                                           join service in db.Services on detalle.ServicioID equals service.ID
+                                           where cita.AppointmentDate == fecha && cita.Status == "Pendiente" && service.SkillID == idSkill
+                                           select new
+                                           {
+                                               cliente = cita.ClientName,
+                                               service = service.ServiceName,
+                                               hora = detalle.idHora
+                                           }).ToList();
             }
 
             return Json(userSkill, JsonRequestBehavior.AllowGet);

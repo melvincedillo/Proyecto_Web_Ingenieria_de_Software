@@ -19,8 +19,8 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models
         public int ServicioID { get; set; }
         public Nullable<int> idHora { get; set; }
     
-        public virtual Appointment Appointment { get; set; }
         public virtual Horas Horas { get; set; }
         public virtual Services Services { get; set; }
+        public virtual Appointment Appointment { get; set; }
     }
 }

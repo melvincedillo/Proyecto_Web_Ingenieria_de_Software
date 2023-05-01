@@ -23,8 +23,8 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models
         public int ID { get; set; }
         public string ClientName { get; set; }
         public string PhoneNumber { get; set; }
-        public System.DateTime AppointmentDate { get; set; }
         public string Status { get; set; }
+        public Nullable<System.DateTime> AppointmentDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AppointmentDetail> AppointmentDetail { get; set; }

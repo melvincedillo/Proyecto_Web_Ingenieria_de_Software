@@ -14,7 +14,6 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models
     
     public partial class FacturaDetalle
     {
-        public int ID { get; set; }
         public int FacturaNumero { get; set; }
         public int SalonID { get; set; }
         public int ProductID { get; set; }
@@ -22,13 +21,12 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models
         public int TaxID { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
-        public decimal Discount { get; set; }
-        public decimal SalesTax { get; set; }
+        public int ID { get; set; }
     
         public virtual Factura Factura { get; set; }
         public virtual Products Products { get; set; }
-        public virtual Tax Tax { get; set; }
         public virtual Salon Salon { get; set; }
         public virtual Services Services { get; set; }
+        public virtual Tax Tax { get; set; }
     }
 }
