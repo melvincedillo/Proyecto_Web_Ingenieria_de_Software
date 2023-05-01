@@ -17,9 +17,9 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Tax()
         {
-            this.FacturaDetalle = new HashSet<FacturaDetalle>();
             this.Products = new HashSet<Products>();
             this.Services = new HashSet<Services>();
+            this.FacturaDetalle = new HashSet<FacturaDetalle>();
         }
     
         public int ID { get; set; }
@@ -27,10 +27,10 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models
         public int Percentage { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FacturaDetalle> FacturaDetalle { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Products> Products { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Services> Services { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FacturaDetalle> FacturaDetalle { get; set; }
     }
 }

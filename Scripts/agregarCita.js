@@ -12,12 +12,17 @@ function CambiarVisibleSeccion() {
 }
 
 function addServicio() {
+    let hr = "";
+    for (const h of horas) {
+        if (h.id == parseInt($("#horaServicio").val())) { hr = h.hora;}
+    }
     let data = {
         id: idServicio,
         name: $("#nombreServicio").val(),
         descripcion: $("#descripcionServicio").val(),
         precio: parseFloat($("#precioServicio").val()),
-        hora: $("#horaServicio").val(),
+        idhora: parseInt($("#horaServicio").val()),
+        hora: hr,
         numero: numServicio
     }
     servicios.push(data);
@@ -60,6 +65,7 @@ function cargarServicio(url) {
 
         let x = document.getElementById("addServiceSeccion");
         x.style.display = "block";
+        console.log(resp);
     });
 }
 

@@ -30,7 +30,6 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models
         public virtual DbSet<Calendar> Calendar { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<Factura> Factura { get; set; }
-        public virtual DbSet<FacturaDetalle> FacturaDetalle { get; set; }
         public virtual DbSet<FacturaImagen> FacturaImagen { get; set; }
         public virtual DbSet<Holiday> Holiday { get; set; }
         public virtual DbSet<MedioPago> MedioPago { get; set; }
@@ -45,9 +44,10 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models
         public virtual DbSet<Permissions> Permissions { get; set; }
         public virtual DbSet<Services> Services { get; set; }
         public virtual DbSet<ServiceDetail> ServiceDetail { get; set; }
-        public virtual DbSet<Appointment> Appointment { get; set; }
-        public virtual DbSet<AppointmentDetail> AppointmentDetail { get; set; }
         public virtual DbSet<Horario> Horario { get; set; }
+        public virtual DbSet<AppointmentDetail> AppointmentDetail { get; set; }
+        public virtual DbSet<FacturaDetalle> FacturaDetalle { get; set; }
+        public virtual DbSet<Appointment> Appointment { get; set; }
     
         [DbFunction("BeautySalonEntities", "FechaTerminoSinDiasInhabiles")]
         public virtual IQueryable<FechaTerminoSinDiasInhabiles_Result> FechaTerminoSinDiasInhabiles(Nullable<System.DateTime> fechaInicio, Nullable<int> dias)

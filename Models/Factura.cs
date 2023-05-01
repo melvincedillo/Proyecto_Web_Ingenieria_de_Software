@@ -35,8 +35,8 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models
         public virtual ICollection<FacturaImagen> FacturaImagen { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MedioPagoDetalle> MedioPagoDetalle { get; set; }
+        public virtual Salon Salon { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FacturaDetalle> FacturaDetalle { get; set; }
-        public virtual Salon Salon { get; set; }
     }
 }

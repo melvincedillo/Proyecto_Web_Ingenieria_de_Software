@@ -18,9 +18,9 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models
         public Salon()
         {
             this.Factura = new HashSet<Factura>();
-            this.FacturaDetalle = new HashSet<FacturaDetalle>();
             this.FacturaImagen = new HashSet<FacturaImagen>();
             this.MedioPagoDetalle = new HashSet<MedioPagoDetalle>();
+            this.FacturaDetalle = new HashSet<FacturaDetalle>();
         }
     
         public int ID { get; set; }
@@ -37,10 +37,10 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Factura> Factura { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FacturaDetalle> FacturaDetalle { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FacturaImagen> FacturaImagen { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MedioPagoDetalle> MedioPagoDetalle { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FacturaDetalle> FacturaDetalle { get; set; }
     }
 }

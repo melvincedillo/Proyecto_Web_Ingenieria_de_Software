@@ -59,6 +59,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 service.name = s.ServiceName;
                 service.descripcion = s.Description;
                 service.precio = s.PrecioTotal;
+                service.idSkill = s.SkillID;
 
                 return Json(service, JsonRequestBehavior.AllowGet);
             }
@@ -130,6 +131,52 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
             }
 
             return Json(horas, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetHoraLibreSkill(int idSkill, int idHorario, DateTime fecha)
+        {
+            int userSkill = 0;
+            List<HorasDisponibles> horas = null;
+            List<int> horasReservadas = new List<int>();
+
+            using (var db = new BeautySalonEntities())
+            {
+                //Contando los empreados por skill
+                var users = db.Employee.Join(db.Users, em => em.UserID, us => us.ID, (em, us) => new { em, us }).Where(x => x.em.SkillID == idSkill && x.us.UserActive == true).ToList();
+                if(users != null) { userSkill = users.Count(); }
+
+                //Obteniendo el horario completo del dia
+                Horario hx = db.Horario.Find(idHorario);
+                if (hx != null)
+                {
+                    List<Horas> hora = (from d in db.Horas
+                                        where d.ID >= hx.OpenTime && d.ID <= hx.CloseTime
+                                        select d).ToList();
+
+                    horas = hora.ConvertAll(h =>
+                    {
+                        return new HorasDisponibles()
+                        {
+                            id = h.ID,
+                            hora = h.Hora
+                        };
+                    });
+                }
+
+                //Obteniendo 
+                var serviciosReservados = (from cita in db.Appointment
+                                           join detalle in db.AppointmentDetail on cita.ID equals detalle.AppointmentID
+                                           join service in db.Services on detalle.ServicioID equals service.ID
+                                           where cita.AppointmentDate == fecha && cita.Status == "Pendiente" && service.SkillID == idSkill
+                                           select new
+                                           {
+                                               cliente = cita.ClientName,
+                                               service = service.ServiceName,
+                                               hora = detalle.idHora
+                                           }).ToList();
+            }
+
+            return Json(userSkill, JsonRequestBehavior.AllowGet);
         }
     }
 }
