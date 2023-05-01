@@ -193,6 +193,7 @@
     <Compile Include="Models\AddModels\Productos.cs" />
     <Compile Include="Models\AddModels\Servicio.cs" />
     <Compile Include="Models\AddModels\ServicioModelCita.cs" />
+    <Compile Include="Models\AddModels\Servicios.cs" />
     <Compile Include="Models\AddModels\UserModel.cs" />
     <Compile Include="Models\Appointment.cs">
       <DependentUpon>Model.tt</DependentUpon>

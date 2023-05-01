@@ -27,7 +27,9 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
 
 
         }
+
         [HttpGet]
+        [PermisosModulos(moduloId: 7)]
         public ActionResult Editar(int id)
         {
             Salon salon = null;
@@ -43,6 +45,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         }
 
         [HttpPost]
+        [PermisosModulos(moduloId: 7)]
         public ActionResult Editar(Salon salonUpdate)
         {
             if (ModelState.IsValid)
