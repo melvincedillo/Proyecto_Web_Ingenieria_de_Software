@@ -107,37 +107,12 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
             return Json(resp, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetHoras(int id)
-        {
-            List<HorasDisponibles> horas = null;
-            using (var db = new BeautySalonEntities())
-            {
-                Horario x = db.Horario.Find(id);
-                if(x != null)
-                {
-                    List<Horas> hora = (from d in db.Horas
-                                        where d.ID >= x.OpenTime && d.ID <= x.CloseTime
-                                        select d).ToList();
-
-                    horas = hora.ConvertAll(h =>
-                    {
-                        return new HorasDisponibles()
-                        {
-                            id = h.ID,
-                            hora = h.Hora
-                        };
-                    });
-                }
-            }
-
-            return Json(horas, JsonRequestBehavior.AllowGet);
-        }
-
         public JsonResult GetHoraLibreSkill(int idSkill, int idHorario, DateTime fecha)
         {
             int userSkill = 0;
             List<HorasDisponibles> horas = null;
             List<int> horasReservadas = new List<int>();
+
 
             using (var db = new BeautySalonEntities())
             {
@@ -150,7 +125,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 if (hx != null)
                 {
                     List<Horas> hora = (from d in db.Horas
-                                        where d.ID >= hx.OpenTime && d.ID <= hx.CloseTime
+                                        where d.ID >= hx.OpenTime && d.ID < hx.CloseTime
                                         select d).ToList();
 
                     horas = hora.ConvertAll(h =>
@@ -158,7 +133,8 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                         return new HorasDisponibles()
                         {
                             id = h.ID,
-                            hora = h.Hora
+                            hora = h.Hora,
+                            personal = userSkill
                         };
                     });
                 }
@@ -174,9 +150,24 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                                                service = service.ServiceName,
                                                hora = detalle.idHora
                                            }).ToList();
+
+                if(serviciosReservados != null)
+                {
+                    foreach (var element in horas)
+                    {
+                        foreach (var sr in serviciosReservados)
+                        {
+                            if (sr.hora == element.id)
+                            {
+                                element.personal--;
+                            }
+                        }
+                    }
+                }
+
             }
 
-            return Json(userSkill, JsonRequestBehavior.AllowGet);
+            return Json(horas, JsonRequestBehavior.AllowGet);
         }
     }
 }

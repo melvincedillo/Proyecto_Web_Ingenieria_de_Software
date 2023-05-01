@@ -12,7 +12,7 @@
     $(function () {
         $("#fecha").change(function () {
             if ($("#fecha").val() != "") {
-                comprobarFecha('@Url.Action("ComprobarFecha", "Citas")', '@Url.Action("GetHoras", "Citas")');
+                comprobarFecha('@Url.Action("ComprobarFecha", "Citas")');
             }
         });
 
@@ -27,7 +27,7 @@
 
     function mostrarServicio(id) {
         idServicio = id;
-        cargarServicio('@Url.Action("BuscarServicio", "Citas")');
+        cargarServicio('@Url.Action("BuscarServicio", "Citas")', '@Url.Action("GetHoraLibreSkill", "Citas")');
     }
 </script>
 
