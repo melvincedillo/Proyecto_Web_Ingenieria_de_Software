@@ -16,7 +16,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models.AddModels
         public string clientName { get; set; }
 
 
-        List<DetalleFacturaModel> detalleFactura { get; set; }
+        public List<Productos> detalleFactura { get; set; }
 
     }
 

@@ -62,16 +62,16 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 
 
                 oFactura.Time = DateTime.Now;
-                oFactura.Total = (decimal)820.65;
-                oFactura.Tax = 32;
+                oFactura.Total = (decimal)factura.total;
+                oFactura.Tax = (decimal)factura.tax;
                 oFactura.ClientName = factura.clientName;
                 oFactura.SalonID = 1;
                 oFactura.EmployeeID = 2;
 
-                db.Factura.Add(oFactura);
+                var lastSave = db.Factura.Add(oFactura);
                 db.SaveChanges();
 
-                int idFactura = db.Factura.Max(x => x.FacturaNumero);
+                int idFactura = lastSave.FacturaNumero;
 
                 //detallefactura
                 /*FacturaDetalle oDetalle = null;
