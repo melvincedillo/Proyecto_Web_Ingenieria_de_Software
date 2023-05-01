@@ -1,8 +1,9 @@
 ﻿
-var idServicio = 0;
-var idDia = 0;
-var servicios = [];
-var horas = []
+var idServicio = 0; //Guearda el id del servicio seleccionado
+var idDia = 0; //Guarda el id del dia de la semana seleccionado
+var numServicio = 0; //Apoyo para el manejo de la tabla y el arreglo de servicios 
+var servicios = []; //Servicios solicitados por el cliente
+var horas = []; //Horas disponibles segun la fecha elegida.
 
 function CambiarVisibleSeccion() {
     let x = document.getElementById("addServiceSeccion");
@@ -10,11 +11,49 @@ function CambiarVisibleSeccion() {
     idServicio = 0;
 }
 
+function addServicio() {
+    let data = {
+        id: idServicio,
+        name: $("#nombreServicio").val(),
+        descripcion: $("#descripcionServicio").val(),
+        precio: parseFloat($("#precioServicio").val()),
+        hora: $("#horaServicio").val(),
+        numero: numServicio
+    }
+    servicios.push(data);
+    numServicio = numServicio + 1;
+    CambiarVisibleSeccion();
+    addTable(data);
+    console.log(servicios);
+}
+
+function deleteServicio(num) {
+    let aux = [];
+    for (const x of servicios) {
+        if (x.numero != num) {
+            aux.push(x);
+        }
+    }
+    servicios = aux;
+    $("#" + num).remove();
+    console.log(servicios);
+}
+
+function addTable(data) {
+    $("#tableServicios tbody").append(
+        '<tr id = "' + data.numero + '"><td>'
+        + data.name + '</td><td>'
+        + data.descripcion + '</td><td>'
+        + data.precio + '</td><td>'
+        + data.hora + '</td>' +
+        '<td><button class="btn btn-sm btn-danger" type="button" onclick="deleteServicio(' + data.numero + ');">Quitar</button></td></tr>'
+    );
+}
+
 function cargarServicio(url) {
     let data = { id: idServicio }
 
     $.get(url, data).done(function (resp) {
-        console.log(resp);
         $("#nombreServicio").val(resp.name);
         $("#descripcionServicio").val(resp.descripcion);
         $("#precioServicio").val(resp.precio);

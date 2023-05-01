@@ -19,6 +19,10 @@
         $("#btnCancelar").click(function () {
             CambiarVisibleSeccion();
         });
+
+        $("#btnAceptar").click(function () {
+            addServicio();
+        });
     });
 
     function mostrarServicio(id) {
@@ -107,6 +111,7 @@
                         <th scope="col">Servicio</th>
                         <th scope="col">Descripción</th>
                         <th scope="col">Precio</th>
+                        <th scope="col">Hora</th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
