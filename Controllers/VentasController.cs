@@ -66,7 +66,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 oFactura.Tax = (decimal)factura.tax;
                 oFactura.ClientName = factura.clientName;
                 oFactura.SalonID = 1;
-                oFactura.EmployeeID = 2;
+                oFactura.EmployeeID = 7;
 
                 var lastSave = db.Factura.Add(oFactura);
                 db.SaveChanges();
@@ -74,24 +74,19 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 int idFactura = lastSave.FacturaNumero;
 
                 //detallefactura
-                /*FacturaDetalle oDetalle = null;
-                foreach (var i in detalle)
+                FacturaDetalle oDetalle = null;                
+                foreach (var i in factura.detalleFactura)
                 {
-                   oDetalle= new FacturaDetalle();
+                    oDetalle= new FacturaDetalle();
 
-                    oDetalle.FacturaNumero = idFactura;
-                    oDetalle.SalonID = oDetalle.SalonID;
-                    oDetalle.ProductID = oDetalle.ProductID;
-                    oDetalle.ServiceID = oDetalle.ServiceID;
-                    oDetalle.TaxID = oDetalle.TaxID;
-                    oDetalle.Price = oDetalle.Price;
-                    oDetalle.Quantity = oDetalle.Quantity;
-                    oDetalle.Discount = oDetalle.Discount;
-                    oDetalle.SalesTax = oDetalle.SalesTax;
-
+                    oDetalle.FacturaNumero = idFactura;                    
+                    oDetalle.Price = i.precio;
+                    oDetalle.Quantity = (int)i.cantidad;
+                    oDetalle.itemSale = i.Sku;
+                    
                     var detalleFact = db.FacturaDetalle.Add(oDetalle);
                     db.SaveChanges();
-                }*/
+                }
             }
 
             return Json("Servicio agregado con exito", JsonRequestBehavior.AllowGet);

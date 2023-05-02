@@ -185,15 +185,22 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 s = (from d in db.Services where d.ID == codigo select d).FirstOrDefault();
             }
 
+
             if (s != null)
             {
-                Services service = new Services();
-                
+                /*Services service = new Services();
                 service.ID = s.ID;
                 service.ServiceName = s.ServiceName;
-                service.Price = s.Price;
+                service.Price = s.Price;*/
 
-                return Json(service, JsonRequestBehavior.AllowGet);
+                Servicio srv = new Servicio();
+                srv.encontrado = true;
+                srv.codigo = s.ID.ToString();
+                srv.nombre = s.ServiceName;
+                srv.precio = s.Price;
+
+
+                return Json(srv, JsonRequestBehavior.AllowGet);
             }
             else
             {

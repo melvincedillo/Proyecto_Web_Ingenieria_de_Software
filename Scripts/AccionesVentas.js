@@ -7,6 +7,8 @@ calcularTotal();
 $(function () {
     $("#addProducto").click(function () {
         if (id != "" && nombre != "" && precio != "" && cantidad != "") {
+            var elementoVenta = $("#search").val();
+            alert(elementoVenta);
             var id = $("#idProduct").val();
             var nombre = $("#nombreProduct").val();
             var precio = $("#precioProduct").val();
@@ -15,6 +17,7 @@ $(function () {
 
             var data = {
                 id: id,
+                sku: elementoVenta,
                 nombre: nombre,
                 precio: parseFloat(precio),
                 cantidad: parseFloat(cantidad),
@@ -30,6 +33,10 @@ $(function () {
     $("#precioProducto").keyup(function () {
         calcularTotal();
     });
+
+
+
+
 });
 
 function limpiar() {

@@ -13,7 +13,7 @@
 <script>
 
     $(function () {
-        //Botón de búsqueda de producto
+
         $("#searchBnt").click(function () {
             var encontroProducto = false;
 
@@ -37,29 +37,29 @@
                     }
                 });
 
+                if (!encontroProducto) {                    
+                    url = '@Url.Action("buscarServicio", "Servicios")'; //ahora busco servicio
+                    data = { codigo: buscar };
+
+                    alert('antes de ir al controlador de servicio');
+
+                    $.get(url, data).done(function (data) {
+                        if (data.encontrado) {
+                            $("#idProduct").val(data.codigo);
+                            $("#nombreProduct").val(data.nombre);
+                            $("#precioProduct").val(data.precio);
+                        } else {
+                            $("#idProduct").val("");
+                            $("#nombreProduct").val("");
+                            $("#precioProduct").val("");
+                            $("#cantProduct").val("");
+                            alert('No se encontro producto o servicio');
+                        }
+                    });
+                    
+                }
             }
 
-
-            if (!encontroProducto) {
-                url = '@Url.Action("buscarServicio", "Servicios")'; //ahora busco servicio
-                data = { codigo: buscar };
-
-                $.get(url, data).done(function (data) {
-                    if (data.encontrado) {
-                        alert('nulo');
-                        $("#idProduct").val(data.ID);
-                        $("#nombreProduct").val(data.ServiceName);
-                        $("#precioProduct").val(data.Price);
-                    } else {
-                        $("#idProduct").val("");
-                        $("#nombreProduct").val("");
-                        $("#precioProduct").val("");
-                        $("#cantProduct").val("");
-                        alert('No se encontro producto o servicio');
-                    }
-                });
-
-            }
 
         });
 
@@ -69,9 +69,7 @@
             let time = 'time';
             let totalVenta = $("#totalVenta").val();
             let tax = $("#isv").val();
-            let clientName = 'cliente final';
-
-            alert('total: ' + totalVenta + 'isv: ' + tax);
+            let clientName = $('clientName').val();
 
             let data = {
                 Factura: {
@@ -83,7 +81,6 @@
                 }
             };
 
-            alert(productos[0].nombre);
 
             let url = '@Url.Content("~/Ventas/Agregar")';
 
@@ -113,7 +110,7 @@
                 <div class="row mt-3">
                     <div class="col">
                         <label class="form-label">Fecha</label>
-                        @Html.TextBoxFor(model => model.time, new { @Value = @DateTime.Now.ToShortDateString(), @readonly = "readonly" })
+                        @Html.TextBox("clientName", "Cliente Final", new { @Value = @DateTime.Now.ToShortDateString(), @readonly = "readonly" })
                     </div>
                     <div class="col">
                         <label class="form-label">Cliente</label>
