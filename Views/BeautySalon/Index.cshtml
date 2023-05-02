@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "Inicio";
+    List<Proyecto_Web_Ingenieria_de_Software.Models.Services> services = ViewBag.Servicios;
 }
 
 <header class="cabecera">
@@ -29,8 +30,32 @@
 
 <section class="cards contenedor">
     <h2 class="titulo">Nuestros Servicios</h2>
-    espacio del carrusel
+    <div id="carouselExample" class="carousel slide">
+        <div class="carousel-inner">
+            @foreach (var s in services)
+            {
+            <div class="carousel-item active">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">@s.ServiceName</h5>
+                        <p class="card-text">@s.Description</p>
+                        <a href="/BeautySalon/Cita" class="btn btn-primary">Solicitar Ahora</a>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
 </section>
 
 <a href="/BeautySalon/Cita" class="btn-flotante">Agendar Cita</a>
-
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+<script src="~/Scripts/carusel.js"></script>
