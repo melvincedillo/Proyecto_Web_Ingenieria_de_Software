@@ -289,7 +289,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\style1.css" />
+    <Content Include="Content\style2.css" />
     <Content Include="Content\StyleHomeAdmin.css" />
     <Content Include="Content\styleLayoutAdmin.css" />
     <Content Include="Content\styleLogin.css" />
@@ -369,6 +369,7 @@
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.6.4.intellisense.js" />
+    <Content Include="Scripts\carusel.js" />
     <Content Include="Scripts\EditarServicio.js" />
     <Content Include="Scripts\Funciones365.js" />
     <Content Include="Scripts\jquery-3.6.4.js" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Proyecto_Web_Ingenieria_de_Software.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,6 +12,12 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         // GET: BeautySalon
         public ActionResult Index()
         {
+            List<Services> servicios = null;
+            using (var db = new BeautySalonEntities())
+            {
+                servicios = db.Services.ToList();
+            }
+            ViewBag.Servicios = servicios;
             return View();
         }
 
