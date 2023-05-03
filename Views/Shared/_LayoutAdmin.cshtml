@@ -1,4 +1,11 @@
-﻿
+﻿@{
+    Proyecto_Web_Ingenieria_de_Software.Models.Salon salon = null;
+    using (var db = new Proyecto_Web_Ingenieria_de_Software.Models.BeautySalonEntities())
+    {
+        salon = db.Salon.Find(1);
+    }
+}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,19 +68,19 @@
                     <hr class="text-white-50" />
                     <ul class="navbar-nav flex-row flex-wrap text-light">
                         <li class="nav-item col-4 col-md-auto p-1">
-                            <a class="nav-link" href="">
+                            <a class="nav-link" href="https://www.facebook.com/@salon.Facebook">
                                 <i class="fa-brands fa-facebook iconRedes"></i>
                                 <small class="d-md-none ms-2">Facebook</small>
                             </a>
                         </li>
                         <li class="nav-item col-4 col-md-auto p-1">
-                            <a class="nav-link" href="">
+                            <a class="nav-link" href="https://www.instagram.com/@salon.Instagram">
                                 <i class="fa-brands fa-instagram iconRedes"></i>
                                 <small class="d-md-none ms-2">Instagram</small>
                             </a>
                         </li>
                         <li class="nav-item col-4 col-md-auto p-1">
-                            <a class="nav-link" href="">
+                            <a class="nav-link" href="https://wa.me/@salon.WhatsApp">
                                 <i class="fa-brands fa-whatsapp iconRedes"></i>
                                 <small class="d-md-none ms-2">WhatsApp</small>
                             </a>
@@ -97,7 +104,7 @@
             </div>
         </nav>
     </div>
-    
+
 
     <div class="container body-content mt-5">
         @RenderBody()
@@ -108,13 +115,13 @@
                     <span>Conectate con nosotros en las redes sociales:</span>
                 </div>
                 <div>
-                    <a href="https://www.facebook.com/365beauty.hn" class="me-4 text-reset">
+                    <a href="https://www.facebook.com/@salon.Facebook" class="me-4 text-reset">
                         <i class="fa-brands fa-facebook iconRedes"></i>
                     </a>
-                    <a href="https://www.instagram.com/365beauty.hn" class="me-4 text-reset">
+                    <a href="https://www.instagram.com/@salon.Instagram" class="me-4 text-reset">
                         <i class="fa-brands fa-instagram iconRedes"></i>
                     </a>
-                    <a href="https://wa.me/50498083843" class="me-4 text-reset">
+                    <a href="https://wa.me/@salon.WhatsApp" class="me-4 text-reset">
                         <i class="fa-brands fa-whatsapp iconRedes"></i>
                     </a>
                 </div>
@@ -127,18 +134,14 @@
                                 <i class="fa-solid fa-store iconRedes"></i>  365 Beauty Salon
                             </h6>
                             <p>
-                                Nuestra vision es satisfacer las necesidades de belleza
-                                de nuestros clientes mediante servicios de alta calidad.
+                                @salon.Mision
                             </p>
                         </div>
                         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                             <h6 class="text-uppercase fw-bold mb-4">Contacto</h6>
-                            <p><i class="fas fa-home me-3"></i> Colonia las Minitas, avenida Juan Lindo, C. Real de Minas, Tegucigalpa</p>
-                            <p>
-                                <i class="fas fa-envelope me-3"></i>
-                                365beautysalon@gmail.com
-                            </p>
-                            <p><i class="fas fa-phone me-3"></i> +504 9808-3843</p>
+                            <p><i class="fas fa-home me-3"></i>@salon.Address</p>
+                            <p><i class="fas fa-envelope me-3"></i>@salon.Email</p>
+                            <p><i class="fas fa-phone me-3"></i>@salon.PhoneNumber</p>
                         </div>
                     </div>
                 </div>
