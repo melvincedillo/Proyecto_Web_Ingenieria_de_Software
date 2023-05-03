@@ -1,4 +1,5 @@
-﻿using Proyecto_Web_Ingenieria_de_Software.Filters;
+﻿using PagedList;
+using Proyecto_Web_Ingenieria_de_Software.Filters;
 using Proyecto_Web_Ingenieria_de_Software.Models;
 using Proyecto_Web_Ingenieria_de_Software.Models.AddModels;
 using Proyecto_Web_Ingenieria_de_Software.Models.HorarioModel;
@@ -17,18 +18,42 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         // GET: Citas
         //[PermisosModulos(moduloId: 4)]
         [HttpGet]
-        public ActionResult Index(int? numPage)
+        public ActionResult Index(int? numPage, DateTime? fecha, int? estado, string buscar)
         {
-            List<Appointment> citas = null;
-            
+            numPage = (numPage ?? 1);
+            estado = (estado ?? 1);
+            IPagedList<Appointment> citas2 = null;
             using(var db = new BeautySalonEntities())
             {
-                citas = (from d in db.Appointment select d).ToList();
+                if(fecha == null)
+                {
+                    citas2 = (from d in db.Appointment 
+                              where d.AppointmentDate >= DateTime.Today
+                              where d.ClientName.Contains(buscar)
+                              orderby d.AppointmentDate
+                              select d).ToPagedList(numPage.Value, 2);
+                }
+                else
+                {
+                    citas2 = (from d in db.Appointment 
+                              where d.AppointmentDate == fecha
+                              where d.ClientName.Contains(buscar)
+                              orderby d.AppointmentDate 
+                              select d).ToPagedList(numPage.Value, 2);
+                }
             }
 
-            ViewBag.Citas = citas;
+            ViewBag.Estado = estado;
+            if(fecha != null)
+            {
+                ViewBag.Fecha = DateTime.Parse(fecha.ToString()).ToString("yyyy-MM-dd");
+            }
+            else
+            {
+                ViewBag.Fecha = "";
+            }
 
-            return View();
+            return View(citas2);
         }
 
         [HttpGet]

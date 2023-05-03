@@ -1,9 +1,11 @@
 ﻿
+@using PagedList.Mvc
 @{
     ViewBag.Title = "Citas";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-    List<Proyecto_Web_Ingenieria_de_Software.Models.Appointment> citas = (List<Proyecto_Web_Ingenieria_de_Software.Models.Appointment>)ViewBag.Citas;
 }
+
+@model PagedList.IPagedList<Proyecto_Web_Ingenieria_de_Software.Models.Appointment>
 
 <link rel="stylesheet" href="~/Content/styleModuloCitas.css" />
 <script src="~/Scripts/indexCitas.js"></script>
@@ -18,39 +20,43 @@
         </div>
     </div>
     <hr class="text-black-50" />
-    <div class="row mt-2">
-        <div class="col">
-            <div class="d-flex">
-                <input type="search" class="form-control" id="Buscar" placeholder="Buscar por cliente">
-                <button id="btnBuscar" type="button" class="btn btn-success"><i class="fa-solid fa-magnifying-glass"></i></button>
-            </div>
-            <div>
-                <div class="col mt-3">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="fiterStatus" id="todas" value="Todas">
-                        <label class="form-check-label" for="todas">Todas</label>
+        @using (Html.BeginForm("Index", "Citas", FormMethod.Get))
+        {
+            <div class="row mt-2">
+                <div class="col">
+                    <div class="d-flex">
+                        <input type="search" name="buscar" class="form-control" placeholder="Buscar por cliente">
+                        <button id="btnBuscar" type="button" class="btn btn-success"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="fiterStatus" id="pendiente" value="Pendiente">
-                        <label class="form-check-label" for="pendiente">Pendientes</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="fiterStatus" id="cancelada" value="Cancelada">
-                        <label class="form-check-label" for="cancelada">Canceladas</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="fiterStatus" id="completada" value="Completada">
-                        <label class="form-check-label" for="completada">Completadas</label>
+                    <div>
+                        <div class="col mt-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="estado" id="fiterStatus" value="0">
+                                <label class="form-check-label" for="todas">Todas</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="estado" id="fiterStatus" value="1">
+                                <label class="form-check-label" for="pendiente">Pendientes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="estado" id="fiterStatus" value="2">
+                                <label class="form-check-label" for="cancelada">Canceladas</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="estado" id="fiterStatus" value="3">
+                                <label class="form-check-label" for="completada">Completadas</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <div class="col">
+                    <label class="form-label">Filtrar por fecha</label>
+                    <input id="inputDate" name="fecha" type="date" class="form-control" value="@ViewBag.Fecha"/>
+
+                </div>
             </div>
-        </div>
-        <div class="col">
-            <label class="form-label">Filtrar por fecha</label>
-            <input id="inputDate" type="date" class="form-control" />
-            
-        </div>
-    </div>
+            <button class="btn btn-success">Filtrar</button>
+         }
     <hr class="text-black-50" />
     <div class="table-responsive mt-3">
         <table class="table table-hover table-sm">
@@ -64,12 +70,12 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var c in citas)
+                @foreach (var c in Model)
                 {
                     <tr>
                         <td>@c.ClientName</td>
                         <td>@c.PhoneNumber</td>
-                        <td>@c.AppointmentDate.ToString().Split(' ')[0]</td>
+                        <td>@DateTime.Parse(c.AppointmentDate.ToString()).ToString("yyyy-MM-dd")</td>
                         <td>@c.Status</td>
                         <td>
                             <button class="btn btn-sm btn-danger" onclick="cancelarCita('@Url.Content("~/Citas/Cancelar/")' + @c.ID);">Cancelar</button>
@@ -84,6 +90,12 @@
                 }
             </tbody>
         </table>
+        <br />
+        Pagina @( Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+        <br />
+        Total de citas @Model.TotalItemCount
+        <br />
+        @Html.PagedListPager(Model, numPage => Url.Action("Index", "Citas", new { numPage }))
     </div>
 </div>
 
