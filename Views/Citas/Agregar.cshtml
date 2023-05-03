@@ -29,20 +29,28 @@
             if (fechaSeleccionada == null) {
                 comprobarFecha('@Url.Action("ComprobarFecha", "Citas")');
             } else {
-                if (confirm("¿Desea cambiar la fecha? Si lo hace los servicios que haya configurado se eliminaran.")) {
-                    $("#tableServicios tbody").html("");
-                    servicios = [];
-                    if ($("#fecha").val() == "") {
-                        fechaSeleccionada = null;
-                        $("#btnModal").attr('disabled', true);
+                swal({
+                    title: "¿Desea cambiar la fecha?",
+                    text: "Si cambia la fecha los servicios configurados se eliminaran. Esto por motivos de disponibilidad de horarios",
+                    icon: "warning",
+                    buttons: true,
+                    dagerMode: true,
+                }).then((isOkay) => {
+                    if (isOkay != null) {
+                        $("#tableServicios tbody").html("");
+                        servicios = [];
+                        if ($("#fecha").val() == "") {
+                            fechaSeleccionada = null;
+                            $("#btnModal").attr('disabled', true);
+                        } else {
+                            comprobarFecha('@Url.Action("ComprobarFecha", "Citas")');
+                            totalCitas = 0;
+                            mostrarTotal();
+                        }
                     } else {
-                        comprobarFecha('@Url.Action("ComprobarFecha", "Citas")');
-                        totalCitas = 0;
-                        mostrarTotal();
+                        $("#fecha").val(fechaSeleccionada);
                     }
-                } else {
-                    $("#fecha").val(fechaSeleccionada);
-                }
+                });
             }
         });
 
@@ -58,7 +66,11 @@
             if (servicios.length > 0 && $("#phoneCliente").val() != "" && $("#nameCliente").val() != "") {
                 agendarCita('@Url.Content("~/Citas/Agregar")', '@Url.Action("Index", "Citas")');
             } else {
-                alert("Asegurese de brindar un nombre, telefono y configurar al menos un servicio.");
+                swal({
+                    icon: "error",
+                    title: "Fracaso",
+                    text: "Asegurate de brindar tu nombre y telefono. Ademas se requiere al menos un servicio para agendar tu cita.",
+                });
             }
         });
     });

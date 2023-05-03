@@ -35,7 +35,7 @@ function addServicio() {
     numServicio = numServicio + 1;
     CambiarVisibleSeccion();
     addTable(data);
-    totalCitas += parseFloat($("#precioServicio").val());
+    totalCitas = totalCitas + parseFloat($("#precioServicio").val());
     mostrarTotal();
 }
 
@@ -87,7 +87,11 @@ function comprobarFecha(url) {
 
     $.get(url, data).done(function (resp) {
         if (resp.disponible == false) {
-            alert("Lo sentimos la fecha ingresada no es laborable");
+            swal({
+                icon: "error",
+                title: "Fecha no disponible",
+                text: "La fecha ingresada no es laborable. Consulte el horario en nuestras redes.",
+            });
             $("#fecha").val("");
             fechaSeleccionada = null;
             $("#btnModal").attr('disabled', true);
@@ -152,11 +156,16 @@ function agendarCita(url, url2) {
     }
 
     $.post(url, data).done(function (resp) {
-        alert(resp);
-        location.href = url2;
+        swal({
+            icon: "success",
+            title: "Exito",
+            text: "Tu cita fue agendada con exito.",
+        }).then((resp) => location.href = url2);
     });
 }
 
 function mostrarTotal() {
+    console.log(totalCitas);
+    totalCitas = parseFloat(totalCitas.toFixed(2));
     $("#totalCita").html(totalCitas);
 }
