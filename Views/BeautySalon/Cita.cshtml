@@ -28,7 +28,7 @@
     $(function () {
         $("#fecha").change(function () {
             if (fechaSeleccionada == null) {
-                comprobarFecha('@Url.Action("ComprobarFecha", "Citas")');
+                comprobarFecha('@Url.Action("ComprobarFecha", "BeautySalon")');
             } else {
                 if (confirm("¿Desea cambiar la fecha? Si lo hace los servicios que haya configurado se eliminaran.")) {
                     $("#tableServicios tbody").html("");
@@ -37,7 +37,7 @@
                         fechaSeleccionada = null;
                         $("#btnModal").attr('disabled', true);
                     } else {
-                        comprobarFecha('@Url.Action("ComprobarFecha", "Citas")');
+                        comprobarFecha('@Url.Action("ComprobarFecha", "BeautySalon")');
                         totalCitas = 0;
                         mostrarTotal();
                     }
@@ -57,7 +57,7 @@
 
         $("#Agregar").click(function () {
             if (servicios.length > 0 && $("#phoneCliente").val() != "" && $("#nameCliente").val() != "") {
-                agendarCita('@Url.Content("~/Citas/Agregar")', '@Url.Action("Index", "Citas")');
+                agendarCita('@Url.Content("~/BeautySalon/Agregar")', '@Url.Action("Index", "BeautySalon")');
             } else {
                 alert("Asegurese de brindar un nombre, telefono y configurar al menos un servicio.");
             }
@@ -66,7 +66,7 @@
 
     function mostrarServicio(id) {
         idServicio = id;
-        cargarServicio('@Url.Action("BuscarServicio", "Citas")', '@Url.Action("GetHoraLibreSkill", "Citas")');
+        cargarServicio('@Url.Action("BuscarServicio", "BeautySalon")', '@Url.Action("GetHoraLibreSkill", "BeautySalon")');
     }
 </script>
 
