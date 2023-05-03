@@ -17,10 +17,10 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         // GET: Citas
         //[PermisosModulos(moduloId: 4)]
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(int? numPage)
         {
             List<Appointment> citas = null;
-
+            
             using(var db = new BeautySalonEntities())
             {
                 citas = (from d in db.Appointment select d).ToList();
