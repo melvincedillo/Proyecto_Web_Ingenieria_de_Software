@@ -22,6 +22,24 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         {
             numPage = (numPage ?? 1);
             estado = (estado ?? 1);
+            buscar = (buscar ?? "");
+            string strEstado = "";
+
+            string todos = "";
+            string pendiente = "";
+            string completas = "";
+            string canceladas = "";
+
+            if (estado == 1) { strEstado = "Pendiente"; pendiente = "checked"; }
+            else if(estado == 2) { strEstado = "Cancelada"; canceladas = "checked"; }
+            else if(estado == 3) { strEstado = "Completada"; completas = "checked"; }
+            else { todos = "checked"; }
+
+            ViewBag.Todos = todos;
+            ViewBag.Pendiente = pendiente;
+            ViewBag.Completada = completas;
+            ViewBag.Cancelada = canceladas;
+
             IPagedList<Appointment> citas2 = null;
             using(var db = new BeautySalonEntities())
             {
@@ -29,7 +47,8 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 {
                     citas2 = (from d in db.Appointment 
                               where d.AppointmentDate >= DateTime.Today
-                              where d.ClientName.Contains(buscar)
+                              && d.ClientName.Contains(buscar)
+                              && d.Status.Contains(strEstado)
                               orderby d.AppointmentDate
                               select d).ToPagedList(numPage.Value, 2);
                 }
@@ -37,14 +56,17 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                 {
                     citas2 = (from d in db.Appointment 
                               where d.AppointmentDate == fecha
-                              where d.ClientName.Contains(buscar)
+                              && d.ClientName.Contains(buscar)
+                              && d.Status.Contains(strEstado)
                               orderby d.AppointmentDate 
                               select d).ToPagedList(numPage.Value, 2);
                 }
             }
 
             ViewBag.Estado = estado;
-            if(fecha != null)
+            ViewBag.Buscar = buscar;
+
+            if (fecha != null)
             {
                 ViewBag.Fecha = DateTime.Parse(fecha.ToString()).ToString("yyyy-MM-dd");
             }

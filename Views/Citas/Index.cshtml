@@ -25,37 +25,40 @@
             <div class="row mt-2">
                 <div class="col">
                     <div class="d-flex">
-                        <input type="search" name="buscar" class="form-control" placeholder="Buscar por cliente">
-                        <button id="btnBuscar" type="button" class="btn btn-success"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <input type="search" name="buscar" class="form-control" value="@ViewBag.Buscar" placeholder="Buscar por nombre del cliente">
+                        <button id="btnBuscar" type="submit" class="btn btn-success"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group">
+                        <label class="input-group-text">Filtrar por fecha</label>
+                        <input id="inputDate" name="fecha" type="date" class="form-control" value="@ViewBag.Fecha" />
                     </div>
                     <div>
                         <div class="col mt-3">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="estado" id="fiterStatus" value="0">
+                                <input class="form-check-input" @ViewBag.Todos type="radio" name="estado" id="fiterStatus" value="0">
                                 <label class="form-check-label" for="todas">Todas</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="estado" id="fiterStatus" value="1">
+                                <input class="form-check-input" @ViewBag.Pendiente type="radio" name="estado" id="fiterStatus" value="1">
                                 <label class="form-check-label" for="pendiente">Pendientes</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="estado" id="fiterStatus" value="2">
+                                <input class="form-check-input" @ViewBag.Cancelada type="radio" name="estado" id="fiterStatus" value="2">
                                 <label class="form-check-label" for="cancelada">Canceladas</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="estado" id="fiterStatus" value="3">
+                                <input class="form-check-input" @ViewBag.Completada type="radio" name="estado" id="fiterStatus" value="3">
                                 <label class="form-check-label" for="completada">Completadas</label>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col">
-                    <label class="form-label">Filtrar por fecha</label>
-                    <input id="inputDate" name="fecha" type="date" class="form-control" value="@ViewBag.Fecha"/>
-
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-success">Filtrar</button>
+                    </div>
                 </div>
             </div>
-            <button class="btn btn-success">Filtrar</button>
          }
     <hr class="text-black-50" />
     <div class="table-responsive mt-3">
@@ -78,13 +81,19 @@
                         <td>@DateTime.Parse(c.AppointmentDate.ToString()).ToString("yyyy-MM-dd")</td>
                         <td>@c.Status</td>
                         <td>
-                            <button class="btn btn-sm btn-danger" onclick="cancelarCita('@Url.Content("~/Citas/Cancelar/")' + @c.ID);">Cancelar</button>
-                        </td>
-                        <td>
                             <button class="btn btn-sm btn-primary" onclick="document.location.href = '@Url.Content("~/Citas/Detalles/")' + @c.ID">Detalles</button>
                         </td>
                         <td>
-                            <button class="btn btn-sm btn-success" onclick="facturarCita('@Url.Content("~/Citas/Facturar/")' + @c.ID);">Facturar</button>
+                            @if (c.Status == "Pendiente")
+                            {
+                                <button class="btn btn-sm btn-danger" onclick="cancelarCita('@Url.Content("~/Citas/Cancelar/")' + @c.ID);">Cancelar</button>
+                            }
+                        </td>
+                        <td>
+                            @if (c.Status == "Pendiente")
+                            {
+                                <button class="btn btn-sm btn-success" onclick="facturarCita('@Url.Content("~/Citas/Facturar/")' + @c.ID);">Facturar</button>
+                            }
                         </td>
                     </tr>
                 }
@@ -95,7 +104,7 @@
         <br />
         Total de citas @Model.TotalItemCount
         <br />
-        @Html.PagedListPager(Model, numPage => Url.Action("Index", "Citas", new { numPage }))
+        @Html.PagedListPager(Model, numPage => Url.Action("Index", "Citas", new { numPage, fecha = ViewBag.Fecha, estado = ViewBag.Estado, buscar = ViewBag.Buscar }))
     </div>
 </div>
 
