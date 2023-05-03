@@ -6,6 +6,7 @@
 }
 
 <link rel="stylesheet" href="~/Content/styleModuloCitas.css" />
+<script src="~/Scripts/indexCitas.js"></script>
 
 <div class="CitasDiv  mb-5 p-5">
     <div class="row">
@@ -58,6 +59,7 @@
                     <th scope="col">Cliente</th>
                     <th scope="col">Numero</th>
                     <th scope="col">Fecha</th>
+                    <th scope="col">Estado</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -67,9 +69,16 @@
                     <tr>
                         <td>@c.ClientName</td>
                         <td>@c.PhoneNumber</td>
-                        <td>@c.AppointmentDate</td>
+                        <td>@c.AppointmentDate.ToString().Split(' ')[0]</td>
+                        <td>@c.Status</td>
                         <td>
-                            <button class="btn btn-sm btn-primary" onclick="document.location.href = '@Url.Content("~/Citas/Detalle/")' + @c.ID">Detalles</button>
+                            <button class="btn btn-sm btn-danger" onclick="cancelarCita('@Url.Content("~/Citas/Cancelar/")' + @c.ID);">Cancelar</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-primary" onclick="document.location.href = '@Url.Content("~/Citas/Detalles/")' + @c.ID">Detalles</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-success" onclick="facturarCita('@Url.Content("~/Citas/Facturar/")' + @c.ID);">Facturar</button>
                         </td>
                     </tr>
                 }

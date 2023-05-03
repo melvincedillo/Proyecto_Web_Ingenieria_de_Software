@@ -2,6 +2,7 @@
 using Proyecto_Web_Ingenieria_de_Software.Models;
 using Proyecto_Web_Ingenieria_de_Software.Models.AddModels;
 using Proyecto_Web_Ingenieria_de_Software.Models.HorarioModel;
+using Proyecto_Web_Ingenieria_de_Software.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,66 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
             ViewBag.Citas = citas;
 
             return View();
+        }
+
+        [HttpGet]
+        //[PermisosModulos(moduloId: 4)]
+        public ActionResult Detalles(int id)
+        {
+            Appointment cita = null;
+            List <ViewDetalleCita> detalleCita = null;
+            Decimal total = 0;
+
+            using(var db = new BeautySalonEntities())
+            {
+                cita = db.Appointment.Find(id);
+
+                detalleCita = (from detalle in db.AppointmentDetail
+                                    join hora in db.Horas on detalle.idHora equals hora.ID
+                                    join servicio in db.Services on detalle.ServicioID equals servicio.ID
+                                    where detalle.AppointmentID == id
+                                    select new ViewDetalleCita
+                                    {
+                                        nameService = servicio.ServiceName,
+                                        descripcionService = servicio.Description,
+                                        precioService = servicio.PrecioTotal,
+                                        horaService = hora.Hora
+                                    }).ToList();
+            }
+
+            foreach(var x in detalleCita)
+            {
+                total += x.precioService;
+            }
+
+            ViewBag.detalle = detalleCita;
+            ViewBag.total = total;
+
+            if(cita.Status == "Completada")
+            {
+                ViewBag.color = "green";
+            } else if(cita.Status == "Pendiente")
+            {
+                ViewBag.color = "blue";
+            } else
+            {
+                ViewBag.color = "red";
+            }
+
+            return View(cita);
+        }
+
+        public ActionResult Cancelar(int id)
+        {
+            using(var db = new BeautySalonEntities())
+            {
+                Appointment cita = db.Appointment.Find(id);
+                cita.Status = "Cancelada";
+
+                db.Entry(cita).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index", "Citas");
         }
 
         //[PermisosModulos(moduloId: 4)]

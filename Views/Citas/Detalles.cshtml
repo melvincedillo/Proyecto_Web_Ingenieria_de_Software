@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "Detalles";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    List<Proyecto_Web_Ingenieria_de_Software.Models.ViewModels.ViewDetalleCita> detalle = ViewBag.detalle;
+}
+
+@model Proyecto_Web_Ingenieria_de_Software.Models.Appointment
+
+<link rel="stylesheet" href="~/Content/styleModuloCitas.css" />
+<script src="~/Scripts/indexCitas.js"></script>
+
+<div class="CitasDiv  mb-5 p-5">
+    <div class="row">
+        <div class="col-8">
+            <h1 class="t-stroke">Detalles de cita</h1>
+        </div>
+    </div>
+    <hr class="text-black-50" />
+
+    <div class="row mb-2">
+        <div class="col" style="padding-left: 50px; border-right: 1px solid;">
+            <div class="mt-2">
+                <span class="formato1">Nombre:&nbsp;</span><span class="formato2">@Model.ClientName</span>
+            </div>
+            <div class="mt-2">
+                <span class="formato1">Telefono:&nbsp;</span><span class="formato2">@Model.PhoneNumber</span>
+            </div>
+            <div class="mt-2">
+                <span class="formato1">Fecha:&nbsp;</span><span class="formato2">@Model.AppointmentDate.ToString().Split(' ')[0]</span>
+            </div>
+            <div class="mt-2">
+                <span class="formato1">Estado:&nbsp;</span><span class="formato2" style="color: @ViewBag.color;">@Model.Status</span>
+            </div>
+            <div class="mt-5 d-flex justify-content-center align-items-center">
+                <span class="totaText">Total:&nbsp</span>
+                <span id="totalCita" class="totaText totaTextNumber">@ViewBag.total</span>
+                <span class="totaText">&nbspLps</span>
+            </div>
+        </div>
+        <div class="col tableDiv">
+            <div><h3>Servicios</h3></div>
+            <div class="table-responsive mt-3">
+                <table class="table table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Servicio</th>
+                            <th scope="col">Detalle</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Hora</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var d in detalle)
+                        {
+                            <tr>
+                                <td>@d.nameService</td>
+                                <td>@d.descripcionService</td>
+                                <td>@d.precioService</td>
+                                <td>@d.horaService</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <hr class="text-black-50" />
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            <button type="button" onclick="document.location.href = '@Url.Action("Index", "Citas")'" class="btn btn-secondary">Volver</button>
+        </div>
+        @if (Model.Status == "Pendiente")
+        {
+            <div class="col d-flex justify-content-center">
+                <button type="button" onclick="cancelarCita('@Url.Content("~/Citas/Cancelar/")' + @Model.ID);" class="btn btn-danger">Cancelar Cita</button>
+            </div>
+            <div class="col d-flex justify-content-center">
+                <button type="button" onclick="@Url.Content("~/Citas/Facturar/")' + @Model.ID);" class="btn btn-success">Facturar</button>
+            </div>
+        }
+    </div>
+</div>
+
