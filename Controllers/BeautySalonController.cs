@@ -23,6 +23,13 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
 
         public ActionResult Cita()
         {
+            List<Services> servicios = null;
+            using (var db = new BeautySalonEntities())
+            {
+                servicios = db.Services.ToList();
+            }
+
+            ViewBag.Servicios = servicios;
             return View();
         }
     }

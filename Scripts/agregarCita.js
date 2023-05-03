@@ -2,12 +2,14 @@
 var idServicio = 0; //Guearda el id del servicio seleccionado
 
 var idDia = 0; //Guarda el id del dia de la semana seleccionado
-var fechaSeleccionada = null;
-var idSkillService = 0;
+var fechaSeleccionada = null; //Fecha de la cita
+var idSkillService = 0; //skill para la busqueda del horario
 
 var numServicio = 0; //Apoyo para el manejo de la tabla y el arreglo de servicios 
 var servicios = []; //Servicios solicitados por el cliente
 var horas = []; //Horas disponibles segun la fecha elegida.
+
+var totalCitas = 0;
 
 function CambiarVisibleSeccion() {
     let x = document.getElementById("addServiceSeccion");
@@ -33,7 +35,8 @@ function addServicio() {
     numServicio = numServicio + 1;
     CambiarVisibleSeccion();
     addTable(data);
-    console.log(servicios);
+    totalCitas += parseFloat($("#precioServicio").val());
+    mostrarTotal();
 }
 
 function deleteServicio(num) {
@@ -41,8 +44,11 @@ function deleteServicio(num) {
     for (const x of servicios) {
         if (x.numero != num) {
             aux.push(x);
+        } else {
+            totalCitas = totalCitas - x.precio;
         }
     }
+    mostrarTotal();
     servicios = aux;
     $("#" + num).remove();
     console.log(servicios);
@@ -149,4 +155,8 @@ function agendarCita(url, url2) {
         alert(resp);
         location.href = url2;
     });
+}
+
+function mostrarTotal() {
+    $("#totalCita").html(totalCitas);
 }

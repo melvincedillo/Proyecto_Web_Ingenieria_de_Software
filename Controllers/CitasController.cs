@@ -47,7 +47,28 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         [HttpPost]
         public JsonResult Agregar(Cita cita)
         {
+            using(var db = new BeautySalonEntities())
+            {
+                Appointment nCita = new Appointment();
+                nCita.ClientName = cita.name;
+                nCita.PhoneNumber = cita.phone;
+                nCita.Status = "Pendiente";
+                nCita.AppointmentDate = cita.fecha;
 
+                Appointment citaGuardada = db.Appointment.Add(nCita);
+                db.SaveChanges();
+
+                foreach(var dc in cita.servicios)
+                {
+                    AppointmentDetail detalleCita = new AppointmentDetail();
+                    detalleCita.AppointmentID = citaGuardada.ID;
+                    detalleCita.ServicioID = dc.id;
+                    detalleCita.idHora = dc.hora;
+
+                    db.AppointmentDetail.Add(detalleCita);
+                    db.SaveChanges();
+                }
+            }
             return Json("Cita guardada con exito", JsonRequestBehavior.AllowGet);
         }
 

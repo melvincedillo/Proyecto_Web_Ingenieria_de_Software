@@ -7,6 +7,21 @@
 
 <link rel="stylesheet" href="~/Content/styleUsuarios.css" />
 
+<style>
+    .totaText{
+        font-size: 16pt;
+    }
+
+    .totaTextNumber {
+        font-weight: 800;
+    }
+
+    .borderTotal{
+        border: 2px solid;
+        border-radius: 25px;
+    }
+</style>
+
 <script src="~/Scripts/agregarCita.js"></script>
 <script>
     $(function () {
@@ -22,6 +37,8 @@
                         $("#btnModal").attr('disabled', true);
                     } else {
                         comprobarFecha('@Url.Action("ComprobarFecha", "Citas")');
+                        totalCitas = 0;
+                        mostrarTotal();
                     }
                 } else {
                     $("#fecha").val(fechaSeleccionada);
@@ -57,6 +74,11 @@
         <div class="row">
             <div class="col">
                 <h1 class="t-stroke">Agendar Cita</h1>
+            </div>
+            <div class="col-4 d-flex justify-content-center align-items-center borderTotal">
+                <span class="totaText">Total:&nbsp</span>
+                <span id="totalCita" class="totaText totaTextNumber">0.0</span>
+                <span class="totaText">&nbspLps</span>
             </div>
         </div>
         <hr class="text-black-50" />

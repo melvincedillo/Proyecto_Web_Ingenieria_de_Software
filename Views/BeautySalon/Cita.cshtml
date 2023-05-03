@@ -1,85 +1,226 @@
-﻿ 
+﻿
 @{
     ViewBag.Title = "Cita";
+    List<Proyecto_Web_Ingenieria_de_Software.Models.Services> servicios = ViewBag.Servicios;
 }
+
+
+<style>
+    .totaText {
+        font-size: 16pt;
+    }
+
+    .totaTextNumber {
+        font-weight: 800;
+    }
+
+    .divTable{
+        padding-left: 25px;
+        padding-right: 25px;
+        background-color: rgb(255 255 255 / 0.80);
+        border-radius: 25px;
+    }
+</style>
+
+<script src="~/Scripts/agregarCita.js"></script>
+
+<script>
+    $(function () {
+        $("#fecha").change(function () {
+            if (fechaSeleccionada == null) {
+                comprobarFecha('@Url.Action("ComprobarFecha", "Citas")');
+            } else {
+                if (confirm("¿Desea cambiar la fecha? Si lo hace los servicios que haya configurado se eliminaran.")) {
+                    $("#tableServicios tbody").html("");
+                    servicios = [];
+                    if ($("#fecha").val() == "") {
+                        fechaSeleccionada = null;
+                        $("#btnModal").attr('disabled', true);
+                    } else {
+                        comprobarFecha('@Url.Action("ComprobarFecha", "Citas")');
+                        totalCitas = 0;
+                        mostrarTotal();
+                    }
+                } else {
+                    $("#fecha").val(fechaSeleccionada);
+                }
+            }
+        });
+
+        $("#btnCancelar").click(function () {
+            CambiarVisibleSeccion();
+        });
+
+        $("#btnAceptar").click(function () {
+            addServicio();
+        });
+
+        $("#Agregar").click(function () {
+            if (servicios.length > 0 && $("#phoneCliente").val() != "" && $("#nameCliente").val() != "") {
+                agendarCita('@Url.Content("~/Citas/Agregar")', '@Url.Action("Index", "Citas")');
+            } else {
+                alert("Asegurese de brindar un nombre, telefono y configurar al menos un servicio.");
+            }
+        });
+    });
+
+    function mostrarServicio(id) {
+        idServicio = id;
+        cargarServicio('@Url.Action("BuscarServicio", "Citas")', '@Url.Action("GetHoraLibreSkill", "Citas")');
+    }
+</script>
 
 <div class="d-flex justify-content-center backAgendarCita">
     <div class="mt-5 mb-5 formAgendarCita">
-        <form class="mt-3">
-            <div class="row mb-3 text-center">
-                <h2>AGENDA TU CITA</h2>
-            </div>
-
-            <div class="row mb-3">
-                <div class="col-1 col-form-label">
-                    <i class="fa-solid fa-gem iconFormAgendar"></i>
+        <form id="formCitas">
+            <div class="row">
+                <div class="col">
+                    <h1>Agenda tu cita</h1>
                 </div>
-                <label for="inputServicio" class="col-3 col-form-label">Servicio</label>
-                <div class="col-8">
-                    <select class="form-select" name="inputServicio">
-                        <option selected>Seleccione un servicio</option>
-                    </select>
+                <div class="col-4 d-flex justify-content-center align-items-center divTable">
+                    <span class="totaText">Total:&nbsp</span>
+                    <span id="totalCita" class="totaText totaTextNumber">0.0</span>
+                    <span class="totaText">&nbspLps</span>
                 </div>
             </div>
+            <hr class="text-black-50" />
 
-            <div class="row mb-3">
-                <div class="col-1 col-form-label">
-                    <i class="fa-solid fa-user iconFormAgendar"></i>
+            <div class="row mt-3">
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control form-control-sm" id="nameCliente" name="nameCliente" placeholder="Melvin">
+                        <label for="nameCliente">Nombre Completo</label>
+                    </div>
                 </div>
-                <label for="inputName" class="col-3 col-form-label">Nombre</label>
-                <div class="col-8">
-                    <input type="text" class="form-control" name="inputName" placeholder="Nombre" />
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control form-control-sm" id="phoneCliente" name="phoneCliente" placeholder="33223322">
+                        <label for="phoneCliente">Telefono</label>
+                    </div>
                 </div>
-            </div>
-
-            <div class="row mb-3">
-                <div class="col-1 col-form-label">
-                    <i class="fa-solid fa-phone iconFormAgendar"></i>
-                </div>
-                <label for="inputPhone" class="col-3 col-form-label">Telefono</label>
-                <div class="col-8">
-                    <input type="tel" class="form-control" name="inputPhone" placeholder="Telefono" />
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control form-control-sm" id="fecha" name="fecha" min="@DateTime.Today.ToString("yyyy-MM-dd")">
+                        <label for="fecha">Fecha</label>
+                    </div>
                 </div>
             </div>
 
-            <div class="row mb-3">
-                <div class="col-1 col-form-label">
-                    <i class="fa-solid fa-calendar-days iconFormAgendar"></i>
-                </div>
-                <label for="inputFecha" class="col-3 col-form-label">Fecha</label>
-                <div class="col-8">
-                    <input type="date" class="form-control" name="inputFecha" min="@DateTime.Today.ToString("yyyy-MM-dd")" max="2035-12-31"/>
+            <div class="row mt-3">
+                <div>
+                    <button disabled id="btnModal" type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addService">
+                        Agregar servicio
+                    </button>
                 </div>
             </div>
 
-            <div class="row mb-3">
-                <div class="col-1 col-form-label">
-                    <i class="fa-solid fa-clock iconFormAgendar"></i>
+            <section id="addServiceSeccion" class="mt-2 p-3 divTable" style="display:none;">
+                <div class="row">
+                    <div class="col">
+                        <label class="form-label">Servicio</label>
+                        <input type="text" class="form-control" disabled id="nombreServicio" name="nombreServicio" />
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Descripción</label>
+                        <input type="text" class="form-control" disabled id="descripcionServicio" name="descripcionServicio" />
+                    </div>
                 </div>
-                <label for="inputHora" class="col-3 col-form-label">Hora</label>
-                <div class="col-8">
-                    <select class="form-select" name="inputHora">
-                        <option selected>Seleccione una hora</option>
-                    </select>
+                <div class="row mt-2">
+                    <div class="col">
+                        <label class="form-label">Precio</label>
+                        <input type="text" class="form-control" disabled id="precioServicio" name="precioServicio" />
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Hora</label>
+                        <select class="form-select" id="horaServicio">
+                            <option>Seleccione una hora</option>
+                        </select>
+                    </div>
                 </div>
+                <div class="row mt-2">
+                    <div class="col d-flex justify-content-end">
+                        <button type="button" id="btnCancelar" class="btn btn-sm btn-danger">Cancelar</button>
+                    </div>
+                    <div class="col">
+                        <button type="button" id="btnAceptar" class="btn btn-sm btn-success">Aceptar</button>
+                    </div>
+                </div>
+            </section>
+
+            <div class="row mt-3">
+                <label class="form-label">Servicios</label>
             </div>
 
-            <div class="row mb-3">
-                <div class="col-1 col-form-label">
-                    <i class="fa-solid fa-sack-dollar iconFormAgendar"></i>
-                </div>
-                <label for="inputP" class="col-3 col-form-label">Precio</label>
-                <div class="col-8">
-                    <label for="inputPrecio" class="col-form-label-lg">0.00 Lps</label>
-                </div>
+            <div class="row mt-2 divTable">
+                <table id="tableServicios" class="table table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Servicio</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Hora</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
 
-            <div class="row mb-3">
-                <div class="col-12 d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary">Agendar Cita</button>
+            <hr class="text-black-50" />
+
+            <div class="row mt-3">
+                <div class="col-6 d-flex justify-content-center">
+                    <button type="button" class="btn btn-danger" onclick="document.location.href = '@Url.Content("~/BeautySalon")'">Volver</button>
+                </div>
+                <div class="col-6 d-flex justify-content-center">
+                    <button type="button" id="Agregar" class="btn btn-success">Agregar</button>
                 </div>
             </div>
         </form>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="addService" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Servicio</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="p-3">
+                        <table class="table table-hover table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Servicio</th>
+                                    <th scope="col">Precio</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var s in servicios)
+                                {
+                                    <tr>
+                                        <td>@s.ServiceName</td>
+                                        <td>@s.PrecioTotal</td>
+                                        <td>
+                                            <button type="button" onclick="mostrarServicio(@s.ID);" class="btn btn-sm btn-success" data-bs-dismiss="modal">+</button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
     </div>
 </div>
 
