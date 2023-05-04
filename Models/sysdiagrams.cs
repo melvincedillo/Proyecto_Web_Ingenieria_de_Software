@@ -12,18 +12,12 @@ namespace Proyecto_Web_Ingenieria_de_Software.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class FacturaImagen
+    public partial class sysdiagrams
     {
-        public int ID { get; set; }
-        public int SalonID { get; set; }
-        public System.DateTime Time { get; set; }
-        public int FacturaNumero { get; set; }
-        public int EmployeeID { get; set; }
-        public string ClientName { get; set; }
-        public byte[] FacturaImage { get; set; }
-    
-        public virtual Employee Employee { get; set; }
-        public virtual Factura Factura { get; set; }
-        public virtual Salon Salon { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

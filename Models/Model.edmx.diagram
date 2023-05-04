@@ -26,10 +26,6 @@
         <AssociationConnector Association="BeautySalonModel.FK_MedioPago_MedioPagoDetalle" ManuallyRouted="false" />
         <AssociationConnector Association="BeautySalonModel.FK_TaxID_Products" ManuallyRouted="false" />
         <EntityTypeShape EntityType="BeautySalonModel.Horas" Width="1.5" PointX="8.625" PointY="0.75" />
-        <EntityTypeShape EntityType="BeautySalonModel.Salon" Width="1.5" PointX="0.625" PointY="17.375" />
-        <AssociationConnector Association="BeautySalonModel.FK_SalonID_Factura" />
-        <AssociationConnector Association="BeautySalonModel.FK_SalonID_FacturaImagen" />
-        <AssociationConnector Association="BeautySalonModel.FK_SalonID_MedioPagoDetalle" />
         <EntityTypeShape EntityType="BeautySalonModel.Permissions" Width="1.5" PointX="7.75" PointY="18.125" />
         <EntityTypeShape EntityType="BeautySalonModel.Services" Width="1.5" PointX="3" PointY="3.875" />
         <AssociationConnector Association="BeautySalonModel.FK_ModuleID" />
@@ -49,6 +45,11 @@
         <AssociationConnector Association="BeautySalonModel.FK_Appointment_Detail" />
         <EntityTypeShape EntityType="BeautySalonModel.FacturaDetalle" Width="1.5" PointX="5.25" PointY="12.5" />
         <AssociationConnector Association="BeautySalonModel.FK_FacturaNumeroDetalle" />
+        <EntityTypeShape EntityType="BeautySalonModel.Salon" Width="1.5" PointX="0.75" PointY="19.125" />
+        <EntityTypeShape EntityType="BeautySalonModel.sysdiagrams" Width="1.5" PointX="8.375" PointY="3.75" />
+        <AssociationConnector Association="BeautySalonModel.FK_SalonID_Factura" />
+        <AssociationConnector Association="BeautySalonModel.FK_SalonID_FacturaImagen" />
+        <AssociationConnector Association="BeautySalonModel.FK_SalonID_MedioPagoDetalle" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

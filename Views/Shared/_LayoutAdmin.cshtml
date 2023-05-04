@@ -3,7 +3,14 @@
     using (var db = new Proyecto_Web_Ingenieria_de_Software.Models.BeautySalonEntities())
     {
         salon = db.Salon.Find(1);
+
     }
+    string numeroRegistro = salon.WhatsApp;
+
+    string primerosTresDigitos = numeroRegistro.Substring(0, 3);
+
+    string ultimosOchoDigitos = numeroRegistro.Substring(numeroRegistro.Length - 8);
+
 }
 
 <!DOCTYPE html>
@@ -142,7 +149,9 @@
                             <h6 class="text-uppercase fw-bold mb-4">Contacto</h6>
                             <p><i class="fas fa-home me-3"></i>@salon.Address</p>
                             <p><i class="fas fa-envelope me-3"></i>@salon.Email</p>
-                            <p><i class="fas fa-phone me-3"></i>@salon.PhoneNumber</p>
+
+
+                            <p><i class="fas fa-phone me-3"></i>+@primerosTresDigitos-@ultimosOchoDigitos</p>
                         </div>
                     </div>
                 </div>

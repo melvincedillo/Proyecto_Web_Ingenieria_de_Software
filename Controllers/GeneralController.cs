@@ -2,6 +2,7 @@
 using Proyecto_Web_Ingenieria_de_Software.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -55,14 +56,18 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                     var salon = db.Salon.Find(salonUpdate.ID);
                     salon.Address = salonUpdate.Address;
                     salon.Email = salonUpdate.Email;
+                    salon.WhatsApp = salonUpdate.WhatsApp;
                     salon.Facebook = salonUpdate.Facebook;
                     salon.Instagram = salonUpdate.Instagram;
                     salon.Mision = salonUpdate.Mision;
 
                     db.SaveChanges();
+
+                    return RedirectToAction("Index");
+
+
                 }
 
-                return RedirectToAction("Index");
             }
             else
             {
