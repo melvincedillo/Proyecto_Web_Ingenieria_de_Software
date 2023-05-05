@@ -12,11 +12,11 @@ using System.Web.Mvc;
 
 namespace Proyecto_Web_Ingenieria_de_Software.Controllers
 {
-    //[ValideSession]
+    [ValideSession]
     public class CitasController : Controller
     {
         // GET: Citas
-        //[PermisosModulos(moduloId: 4)]
+        [PermisosModulos(moduloId: 4)]
         [HttpGet]
         public ActionResult Index(int? numPage, DateTime? fecha, int? estado, string buscar)
         {
@@ -79,7 +79,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         }
 
         [HttpGet]
-        //[PermisosModulos(moduloId: 4)]
+        [PermisosModulos(moduloId: 4)]
         public ActionResult Detalles(int id)
         {
             Appointment cita = null;
@@ -125,6 +125,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
             return View(cita);
         }
 
+        [PermisosModulos(moduloId: 4)]
         public ActionResult Cancelar(int id)
         {
             using(var db = new BeautySalonEntities())
@@ -138,7 +139,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
             return RedirectToAction("Index", "Citas");
         }
 
-        //[PermisosModulos(moduloId: 4)]
+        [PermisosModulos(moduloId: 4)]
         [HttpGet]
         public ActionResult Agregar()
         {
@@ -153,7 +154,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         }
 
         [HttpPost]
-        //[PermisosModulos(moduloId: 4)]
+        [PermisosModulos(moduloId: 4)]
         public JsonResult Agregar(Cita cita)
         {
             using(var db = new BeautySalonEntities())
