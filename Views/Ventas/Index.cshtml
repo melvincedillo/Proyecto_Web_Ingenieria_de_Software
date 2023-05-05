@@ -1,37 +1,63 @@
 ﻿@{
-    ViewBag.Title = "CrearVenta";
+    ViewBag.Title = "Ventas";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    List<Proyecto_Web_Ingenieria_de_Software.Models.Factura> facturas = ViewBag.facturas;
 }
 
 <h1 class="homeCaption">Men&uacute; de Ventas</h1>
 
-<div class="container backHome">
+<link rel="stylesheet" href="~/Content/styleUsuarios.css" />
 
-    <div class="row" style=" padding-top:5px; padding-bottom: 5px;">
-        <div class="col">
-            <div class="card homeBottons" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Crear Venta</h5>
-                    <p class="card-text">Crear nueva Venta</p>
-                    <a href="/Ventas/CrearVenta" class="btn homeOptions">Nueva Venta</a>
-                </div>
-            </div>
+<script>
+
+    function eliminar(id) {
+        if (confirm('¿Estás seguro de que deseas eliminar este registro?')) {
+            document.location.href = '@Url.Content("~/Productos/Delete/")' + encodeURIComponent(id);
+        }
+    }
+
+</script>
+
+
+<div class="serviciosDiv mb-5 p-5">
+    <div class="row">
+        <div class="col-8">
+            <h1 class="t-stroke">Ventas</h1>
         </div>
-
-        
-
-
+        <div class="col-4 d-flex justify-content-end">
+            <button class="btn btn-success" onclick="document.location.href = '@Url.Content("~/Ventas/CrearVenta")'">Nueva Venta</button>
+        </div>
     </div>
+    <hr class="text-black-50" />
+    <div class="table-responsive">
+        <table class="table table-hover table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Numero Factura</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Tax</th>
+                    <th scope="col">Total</th>
+                    <th scope="col"></th>
 
-    <div class="row" style="padding-top: 5px; padding-bottom: 5px;">
-        <div class="col">
-            <div class="card homeBottons" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Buscar una venta</h5>
-                    <p class="card-text">Ventas</p>
-                    <a href="/Ventas/BuscarVenta" class="btn homeOptions">Buscar venta</a>
-                </div>
-            </div>
-        </div>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var s in facturas)
+                {
+                <tr>
+                    <td>@s.FacturaNumero</td>
+                    <td>@s.Time</td>
+                    <td>@s.ClientName</td>
+                    <td>@s.Tax</td>
+                    <td>@s.Total</td>                    
+                    <td>
+                        <button class="btn btn-sm btn-primary" onclick="document.location.href = '@Url.Content("~/Ventas/Ver/")' + @s.FacturaNumero">Ver</button>
+                    </td>
+
+                </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>

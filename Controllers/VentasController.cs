@@ -19,6 +19,16 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
        // [PermisosModulos(moduloId: 1)]
         public ActionResult Index()
         {
+
+            List<Factura> facturaList = null;
+            using (var db = new BeautySalonEntities())
+            {
+                facturaList = db.Factura.ToList();
+            }
+
+
+            ViewBag.facturas = facturaList;
+
             return View();
         }
 
@@ -39,12 +49,8 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
                        }).ToList();
 
             }
-
-
             ViewBag.listaProductos = lst;
-
-            //ViewBag.listaProductos = new SelectList(lst,"ID", "ProductName");
-
+                        
             return View();
         }
 
