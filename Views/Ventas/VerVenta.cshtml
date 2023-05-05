@@ -1,0 +1,111 @@
+﻿@using Proyecto_Web_Ingenieria_de_Software.Models.VentasModel;
+
+@{
+    ViewBag.Title = "VerVenta";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model Proyecto_Web_Ingenieria_de_Software.Models.Factura
+
+
+<script src="~/Scripts/AccionesVentas.js"></script>
+
+<script>
+
+    $(function () {
+        //Botón volver
+        $("#menuVentas").click(function () {
+            location.href = '@Url.Action("Index", "Ventas")';
+        });
+
+    });
+
+</script>
+
+
+<h2>Ver Venta</h2>
+
+<div class="container">
+
+    <form id="ventas">
+
+        <div class="row">
+
+            <div class="col-6 border-end">
+                <div class="row mt-3">
+                    <div class="col">
+                        <label class="form-label">Fecha</label>
+                        @Html.TextBoxFor(model => model.Time)                        
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Cliente</label>
+                        @Html.TextBoxFor(model => model.ClientName)
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="row">
+                    <div class="col">
+                        <label class="form-label">Sub Total</label>
+                        @Html.TextBox("subTotalVenta", "", new { disabled = "disabled", @class = "form-control" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label class="form-label">ISV</label>
+                        @Html.TextBoxFor(model=>model.Tax)                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label class="form-label">Total</label>
+                        @Html.TextBoxFor(model=>model.Total)
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <hr class="text-black-50" />
+        <div>
+            <h3>Productos</h3>
+        </div>
+
+        <hr class="text-black-50" />
+
+        <div style="display: inline-block; width: 50%;">
+            <div class="container text-center" id="productsAdded">
+                <table class="table table-hover table-sm" id="tblProductos">
+                    <thead>
+                        <tr>
+                            <th>Descripci&oacute;n</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                            <th>Sub Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var detalle in Model.FacturaDetalle)
+                        {
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <hr class="text-black-50" />
+
+        <div>
+            <button type="button" id="menuVentas" class="btn btn-primary">Volver</button>
+        </div>
+
+        <hr class="text-black-50" />
+
+
+    </form>
+
+
+</div>
