@@ -16,7 +16,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
     public class VentasController : Controller
     {
         // GET: Ventas
-       [PermisosModulos(moduloId: 1)]
+       // [PermisosModulos(moduloId: 1)]
         public ActionResult Index()
         {
 
@@ -33,7 +33,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         }
 
         // GET: CrearVenta
-       [PermisosModulos(moduloId: 1)]
+       // [PermisosModulos(moduloId: 1)]
         public ActionResult CrearVenta()
         {
 
@@ -59,7 +59,6 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         //public void Agregar(FacturaViewModel factura, List <FacturaDetalleViewModel> detalle)
       //  [PermisosModulos(moduloId: 1)]
         [HttpPost]
-        [PermisosModulos(moduloId: 1)]
         public JsonResult Agregar(FacturaModel factura)
         {   
 
@@ -100,7 +99,7 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         }
 
 
-        [PermisosModulos(moduloId: 1)]
+
         public ActionResult BuscarVenta()
         {
             List<FacturaViewModel> lst = null;
