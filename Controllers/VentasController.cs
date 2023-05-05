@@ -93,5 +93,28 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
         }
 
 
+
+        public ActionResult BuscarVenta()
+        {
+            List<FacturaViewModel> lst = null;
+            using (Models.BeautySalonEntities db = new Models.BeautySalonEntities())
+            {
+                lst = (from d in db.Factura
+                       select new FacturaViewModel
+                       {
+                           FacturaNumero = d.FacturaNumero,
+                           ClientName = d.ClientName,
+                           Total = (double)d.Total,
+                           
+                       }).ToList();
+
+            }
+
+
+            ViewBag.listaVentas = lst;
+            return View();
+
+        }
+
     }
 }
