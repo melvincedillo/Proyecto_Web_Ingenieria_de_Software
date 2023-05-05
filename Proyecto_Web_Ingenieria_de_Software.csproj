@@ -433,7 +433,7 @@
     <Content Include="Views\General\Editar.cshtml" />
     <Content Include="Views\Citas\Agregar.cshtml" />
     <Content Include="Views\Citas\Detalles.cshtml" />
-    <Content Include="Views\Ventas\BuscarVenta.cshtml" />
+    <Content Include="Views\Ventas\VerVenta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

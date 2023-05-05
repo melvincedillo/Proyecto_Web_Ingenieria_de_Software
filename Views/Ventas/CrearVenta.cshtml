@@ -41,8 +41,6 @@
                     url = '@Url.Action("buscarServicio", "Servicios")'; //ahora busco servicio
                     data = { codigo: buscar };
 
-                    alert('antes de ir al controlador de servicio');
-
                     $.get(url, data).done(function (data) {
                         if (data.encontrado) {
                             $("#idProduct").val(data.codigo);
@@ -71,7 +69,6 @@
             let tax = $("#isv").val();
             let clientName = $('#clientName').val();
 
-            alert(clientName);
 
             let data = {
                 Factura: {

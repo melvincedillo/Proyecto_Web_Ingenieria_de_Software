@@ -98,28 +98,19 @@ namespace Proyecto_Web_Ingenieria_de_Software.Controllers
             return Json("Servicio agregado con exito", JsonRequestBehavior.AllowGet);
         }
 
-
-
-        public ActionResult BuscarVenta()
+        [HttpGet]
+        public ActionResult VerVenta()
         {
-            List<FacturaViewModel> lst = null;
-            using (Models.BeautySalonEntities db = new Models.BeautySalonEntities())
+            int id = 2;
+
+            Factura factura = null;
+            using (var db = new BeautySalonEntities())
             {
-                lst = (from d in db.Factura
-                       select new FacturaViewModel
-                       {
-                           FacturaNumero = d.FacturaNumero,
-                           ClientName = d.ClientName,
-                           Total = (double)d.Total,
-                           
-                       }).ToList();
-
+                factura = db.Factura.Find(id);
             }
+            
 
-
-            ViewBag.listaVentas = lst;
-            return View();
-
+            return View(factura);
         }
 
     }

@@ -8,16 +8,6 @@
 
 <link rel="stylesheet" href="~/Content/styleUsuarios.css" />
 
-<script>
-
-    function eliminar(id) {
-        if (confirm('¿Estás seguro de que deseas eliminar este registro?')) {
-            document.location.href = '@Url.Content("~/Productos/Delete/")' + encodeURIComponent(id);
-        }
-    }
-
-</script>
-
 
 <div class="serviciosDiv mb-5 p-5">
     <div class="row">
@@ -52,7 +42,7 @@
                     <td>@s.Tax</td>
                     <td>@s.Total</td>                    
                     <td>
-                        <button class="btn btn-sm btn-primary" onclick="document.location.href = '@Url.Content("~/Ventas/Ver/")' + @s.FacturaNumero">Ver</button>
+                        <button class="btn btn-sm btn-primary" onclick="document.location.href = '@Url.Content("~/Ventas/VerVenta/")' + @s.FacturaNumero">Ver</button>
                     </td>
 
                 </tr>
